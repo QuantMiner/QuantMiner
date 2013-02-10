@@ -1,0 +1,29 @@
+<HTML><HEAD><TITLE></TITLE></HEAD><BODY>
+
+<p align="center"><big><b>An alternative technique: Simulated Annealing</b></big></p>
+<BR>
+<BR>
+<BR>
+Simulated Annealing (SA) is a meta-heuristic search method,  as Genetic Algorithms (GA).
+However, it is faster but it explores less the search space than its concurrent.<BR>
+It is implemented in QuantMiner for sake of comparison; since SA is fast, it can help conducting preliminary experiments with a large number of attributes.<BR>
+<BR>
+SA works on many rule instantiations at the same time. It modifies the interval bounds w.r.t. a decreasing amplitude with iterations. At each iteration, if the quality of the rule (the same criterion as for GA) increases, it replaces the old rule by the new one.<BR>
+<BR>
+SA own parameters are as follows:
+
+
+<ul>
+<li> the <b>number of attempts to improve the rule</b>, </li>
+<li> the <b>number of association rules to test simultaneously</b>, that is the number of instances on the <u>same</u> rule pattern that are processed independently but simultaneously. </li>
+</ul>
+Computation time depends on these parameters, as well as the quality of the results.
+Note that the default values are large enough to improve quality.<BR>
+
+<BR>
+<BR>
+
+
+</BODY>
+        
+ 

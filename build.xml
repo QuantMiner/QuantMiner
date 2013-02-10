@@ -1,0 +1,34 @@
+<project name="QuantMiner" default="dist" basedir=".">
+  <!-- global properties for this build -->
+  <property name="src" location="src"/>
+  <property name="classes" location="classes"/>
+  <property name="dist"  location="dist"/>
+  <path id="classpath">
+  	 <fileset dir="dist" includes="ostermillerutils_1_07_00.jar"/>
+  </path>  
+
+  <target name="init">
+    <tstamp/>
+    <mkdir dir="${classes}"/>
+  </target>
+
+  <target name="compile" depends="init"
+        description="compile the source " >
+    <javac srcdir="${src}" destdir="${classes}" classpathref="classpath"/>
+  </target>
+
+  <target name="dist" depends="compile"
+        description="generate the distribution" >
+    <jar jarfile="${dist}/QuantMiner-${DSTAMP}.jar" basedir="${classes}">
+	  	<manifest>
+			<attribute name="Main-Class" value="src.QuantMiner"/>
+	  		<attribute name="Class-Path" value="ostermillerutils_1_07_00.jar" />
+		</manifest>
+    </jar>
+  </target>
+
+  <target name="clean"
+        description="clean up" >
+    <delete dir="${classes}"/>
+  </target>
+</project>

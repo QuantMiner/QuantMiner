@@ -1,0 +1,43 @@
+<html>
+<head>
+</head>
+<body>
+<p><b>The different formats for exporting extracted rules</b></p>
+
+<p>QuantMiner can generate many rules, and it may be useful to store them. When exiting QuantMiner, it is possible to export the rules under three different formats:
+<ul>
+<li> text HTML, </li>
+<li> graphics HTML: a variant allowing storing graphics, which represent important statistical information, </li>
+<li> in a format specific to QuantMiner. It is then possible to open the file with QuantMiner and exploit it with tools integrated in the software. </li>
+</ul>
+</p>
+
+<p>The files allow to store the rules that have been selected (taking into account filters and methods for sorting out the rules that were active when saving) as well as all necessary information to study the rules in the context they have been learned.</p>
+
+<p>HTML format has several advantages. First of all, it allows an easy formatting and it is a standard, which makes distributing the results easier. Moreover, QuantMiner has been designed without a print command: exporting the rules into this format is useful for printing results.</p>
+
+
+<p>Let us notice that the rules export panel, which gives you the choice between the different formats allows to add a description of the rules. This is a useful feature, especially when the results are to be used later or by another user. The name of the user and other contextual features are also stored in the file.
+
+<p><b><i>SAVING TO THE TEXT HTML FORMAT:</i></b></p>
+
+<p>This is the most basic format for storing the rules. The report uses the possibilities given by HTML for formatting text and using hypertext links. The file begins by a summary allowing to navigate in the different sections, then it contains information on the way rules have been generated and rules are finally listed.
+
+<p><b><i>SAVING TO THE GRAPHICS HTML FORMAT:</i></b></p>
+
+<p>This is the same format as the Text HTML format, except that graphical statistical information are added at the end of the file. These graphics can be accessed by a simple clic on the corresponding rule in the textual part of the HTML report. Such graphical information can also be seen using the visualization tool in the panel (see <a href="consult_results.htm"><i>Consultation of the results</i></a><i>). </i>
+
+
+<p>Let us notice that such a file cannot be distributed alone: the graphics are extern JPEG files stored in the same directory, their names are built from the name of the report file followed by a number and the .jpg extension. All these files must be distributed.</p>
+
+<p><b><i>SAVING TO THE QUANTMINER FORMAT (*.QMR):</i></b></p>
+
+<p>Only QuantMiner can read such a file. Its content is similar to a HTML file, but information is encoded so that the rules can be used in the software as if they had been generated via the <i>rules extraction assistant</i>. <span class="Apple-converted-space"> </span></p>
+<p>To load such a file, the user must first open the database the rules have been built from and then process the rules extraction assistant until the step for choosing the extraction method. During this step she/he must choose the method for loading a file of rules and open it.</p>
+
+<p>For more information on how to open a file of rules, consult the section <a href="rules_loading.htm"><i>Loading precomputed files</i></a><i>.</i></p>
+
+<p><b>Note: </b>You can also use the <a href="rule_analysis.htm"><i>Tool for analyzing rules</i></a><i> </i>assistant for consulting information without using the <i>rules extraction assistant. </i>For instance, it gives the name of the database used for generating the rules, which is useful for opening the files and visualizing the rules.<span class="Apple-converted-space">   </span></p>
+
+</body>
+</html>

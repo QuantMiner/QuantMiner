@@ -1,0 +1,62 @@
+<HTML><HEAD><TITLE></TITLE></HEAD><BODY>
+
+<p align="center"><big><b>Contribution of the attributes during rules generation.</b></big></p>
+<BR>
+<BR>
+<BR>
+There are two ways of working with a Data Mining tool such as QuantMiner: 
+<ul>
+<li> unsupervised search: providing many attributes, so that the algorithm performs an exhaustive search looking for interesting rules 
+</li>
+<li> supervised search: selecting attributes and values for some attributes, occurring in one or both sides of the rules.
+ 
+</li>
+</ul>
+
+These two search methods are complementary: a global search can be refined by a local search around interesting rules. Nevertheless, the local search has two main advantages: the computation time is lower (all the more when an attribute occurs only in one side of the rule)
+and the user has less rules to cope with. 
+<BR>
+
+The process for mining association rules is an iterative one, defining the rule schemes, computing the association rules, evaluating the results and then restarting, either modifying the parameters or changing the schemes. <BR>
+
+The first step of the assistant consists in loading data from a table "*.dbf".
+The filter panel of the second step of the assistant allows to very precisely specify the form of the rules the user aims at extracting: for each attribute he/she decides whether it must be discarded or whether it may occur in the left-hand side of a rule, in its right-hand side or in both sides. 
+<BR>
+
+
+
+
+<BR>
+<b><i><u> THE COMPONENTS OF THE FILTER PANEL:</u></i></b><BR><BR>
+
+<b><i>Column "Attribute/Modality"</i></b>: the rows of the array are composed of all the elements that can occur in an association rule.<BR> A qualitative attribute can take different values, called the modalities, which can occur in the rules (see Section <a href="association_rules.htm">
+association rules</a>). Each modality is handled individually. By double-clicking on the name of a qualitative attribute, you get the modalities of this attribute and you can then set them in the rules (left-hand side, ...)<BR>
+
+For quantitative attributes, the software must build the intervals of values that are interesting.  <BR>
+
+<b><i>Column "Informations"</i></b>: this column can help you making choices by giving information on the attributes.
+Let us recall that our algorithm relies on the notion of support for pruning rules and therefore modalities with a low support will not appear in the learned rules. <BR>
+
+For quantitative attributes, it gives the domain of this attribute (obtained from the values recorded in the database) and the number of values detected as incorrect (missing or wrong). A numeric attribute with no correct values cannot be used during the extraction.
+
+
+<b>Let us note that the algorithm used by QuantMiner know how to handle incorrect values.</b><BR>
+
+<b><i>Column "Position in the rule"</i></b>: This allows to define the rule schemes by deciding in which part of a rule an attribute/modality occurs.<BR>
+
+Four choices: "<b>nowhere</b>" to discard this element,   "<b> left</b>" to put this element in the condition part of the rules,  "<b>right</b>" to put this element in the right-hand side of the rule, "<b>both</b>" to take it into account whithout specifying its position.<BR>
+
+Let us insist on the fact that the extraction algorithms generate all the possible rules satisfying these schemata (although some pruning methods allow to significantly reduce the number of such rules) and then test whether they satisfy the given criteria. The number of possible rules increases with the number of elements, all the more when they can appear in both sides of a rule.  
+<BR>
+<b><i>Column "Mandatory"</i></b>: The previous column specifies whether an element <b>may</b>  occur in a rule and where it can appear.  In this column, the user specifies that this attribute <b>must</b> occur in the rule. For instance, if we are interested by ore deposits, we define the modality  "<i>presence of gold</i>" as mandatory, which has the effect to discard all the rules that do not contain this element.<BR>
+
+<b>REMARK</b>: Two modalities of a same attribute cannot occur in a same rule. But, it is possible to require that at least a modality from a given set of modalities occur in a rule. For instance, it is possible to check "<i>presence of gold </i>" and "<i>presence of copper</i>" if we are interested only in gold or copper fields.<BR>
+
+<BR>
+<BR>
+
+</BODY>
+        
+ 
+
+

@@ -1,0 +1,11 @@
+src
+src.algorithmeGenetique
+src.apriori
+src.baseDeDonnees
+src.interfaceGraphique
+src.interfaceGraphique.TablesCellulesEvoluees
+src.interfaceGraphique.TreeTable
+src.recuitSimule
+src.solver
+src.utilitaires
+src.utilitaires.structuresDonnees

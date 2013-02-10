@@ -1,0 +1,94 @@
+<HTML><HEAD><TITLE></TITLE></HEAD><BODY>
+
+<p align="center"><big><b>Understanding Association Rules</b></big></p>
+<BR>
+<BR>
+<BR>
+QuantMiner manipulates two main elements: <b>ASSOCIATION RULES</b> and <b> DATA</b>.<BR>
+<BR>
+
+<BR>
+<BR>
+<b><i><u>DATA</u></i></b><BR>
+<BR>
+QuantMiner works on flat tables or spreadsheets where the columns are the attributes and the rows are the examples/records/data points on which the exploration will be done.
+<BR>
+We can distinguish 2 kinds of attributes:<BR>
+<BR>
+- <b>Categorical</b>: its values belong to a predefined set.<BR>
+Example: The attribute Iris_class may have one of the 3 possible values {setosa, versicolor, virginica}<BR>
+<BR>
+
+- <b>Numerical</b>: numbers belonging to a given domain not necessarily countable (e.g. real values).<BR>
+Example: The attribute sepal_length has as domain [4.3, 7.9]<BR>
+<BR>
+Here is an example of a dataset (Iris flower data set - UCI Machine Learning Repository Irvine, CA: University of California, School oh Information and Computer Science, http://www.ics.uci.edu/~mlearn/MLRepository.html):<BR>
+<BR>
+<p align="center"><img src="base_example.jpg"></p><BR>
+<BR>
+<BR>
+<b><i><u>ASSOCIATION RULES</u></i></b><BR>
+<BR> An association rule is an expression C1 -> C2, where C1 and C2 express conditions on the attributes describing data points in the dataset.<BR>
+
+Example: petal_length in [3.5; 4.7] -> Iris_class = versicolor <BR>
+<BR> Meaning that: <BR> 
+"<i>If the petal length is between 3.5 and 4.7 then the iris class is versicolor</i>".<BR>
+For <b> categorical </b> attributes, we try to discover special relationships between values.<BR>
+For <b>quantitative</b> attributes, we try to discover ranges that play an important role.<BR>
+
+<BR>
+A rule comes along with <b>2 quality measures</b>: <b><u>support</u></b> and <b><u>confidence</u></b>.<BR>
+<BR>
+<b><u>The support</u></b> :<BR>
+<BR>
+It is the <b>proportion</b> of examples (data points/records) in the dataset satisfying the rule (both condition and consequence).<BR>
+
+<BR>
+For a rule A -> B, the support is an estimation of p(A et B) = probability of having jointly A and B.<BR>
+<BR>
+In the previous example petal_length in [3.5; 4.7] -> Iris_class = versicolor (support = 41 27%) <BR>
+<BR>
+<BR>
+<b><u>The confidence</u></b>:<BR>
+<BR>
+This measure assesses the strength of the rule.<BR>
+In the dataset, we compute the proportion of examples satisfying the consequence among those satisfying the condition.<BR>
+
+<BR>
+For a rule A -> B, confidence gives an estimation of p(B | A) =  probability of having B knowing that we have A.<BR>
+<BR>
+Example: petal_length in [3.5; 4.7] -> Iris_class = versicolor (confidence = 97%)<BR>
+"<i>Among the examples having a petal length in [3.5; 4.7] , 97% belong to the versicolor iris class</i>".<BR>
+<BR>
+<BR>
+<b><i><u>ASSOCIATION RULE MINING</u></i></b><BR>
+<BR>
+1. The user defines 2 <b>thresholds</b>, minimum support and minumum confidence.<BR>
+
+<BR>
+2. The tool will test all possible rules and keep only the strongest ones.<BR>
+For a rule with ONLY categorical attributes, the idea is to keep only the rules satisfying the minimum support and confidenc thresholds.<BR>
+For a rule with at least one numerical attribute, that is a <i><b>"quantitative association rule"</b></i>, the idea is to find the ideal intervals giving the best rule.<BR>
+<BR>
+3. The number of rules generated can be very large, especially if the minimum support and minimum confidence thresholds chosen are low. Powerful sorting functions exist in QuantMiner to help the user exploring the results.<BR>
+<BR>
+<BR>
+<BR>
+<b><i><u>INTERPRETATION OF THE DIRECTION OF AN ASSOCIATION RULE</u></i></b><BR>
+
+<BR>
+It is important to understand the difference between the rules A -> B and B -> A. It is often when there is no equivalence that the rules are interesting.<BR>
+<BR>
+Consider the 2 following rules extracted from the Iris dataset:<BR>
+<BR>
+support = 47 (31%) , confidence = 92%  :  Iris_class = versicolor   ->   petal_length in [3.3; 4.9]<BR>
+support = 41 (27%) , confidence = 97%  :  petal_length in [3.5; 4.7]   ->   Iris_class = versicolor
+<BR>
+<BR>
+Changing the direction of the rule modifies the intervals of the quantitative attributes along with the support and confidence.<BR>
+<BR>
+<BR>
+</BODY>
+
+        
+ 

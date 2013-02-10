@@ -1,0 +1,51 @@
+<HTML><HEAD><TITLE></TITLE></HEAD><BODY>
+
+<p align="center"><big><b> A genetic algorithm for learning quantitative rules.</b></big></p>
+
+<BR>
+Using a genetic algorithm has allowed us to solve the difficult problem of handling numeric (or quantitative) attributes when extracting association rules. This is an <b> optimization</b> method, inspired from Darwin's evolution theory.<BR>
+<BR>
+First, <b> rule schemes </b> are built, they involve qualitative attributes with fixed modalities and quantitative attributes without values. The best intervals of values for these quantitative attributes, defined in terms of support and confidence of the rules, are learned by the genetic algorithm. At the beginning of the process, an initial population of rules is generated, the endpoints of the intervals for numeric attributes are randomly chosen in the domains of these attributes. Then a fixed number of iterations is performed, generating new populations by applying <b> crossover </b> and <b> mutation </b> operations on the individuals. At the end, only the best rule is kept.
+
+<BR>
+
+Crossover consists in taking two rules and mixing the endpoints of the intervals of quantitative attributes. Mutation is applied on a rule and it randomly modifies the endpoints of one or more intervals.<BR>
+<BR>
+
+The success of a genetic algorithm depends on its <b> evaluation function</b>, which allows to assess the interest of an individual.<BR>
+For each rule, we compute a trade-off, called <b>gain</b>, between confidence and support: it evaluates how support increases once the minimum thresold of confidence is reached.  For each interval occurring in the rule, gain is weighted on one hand, by the ratio of the length of the interval on the length of its domain (if an interval covers all the domain of an attribute, then it is useless), on the other hand by the percentage of tuples in the database covered by this interval. In order to prefer specific intervals, the quality of a rule is all the better than these quantities are low. <BR>
+
+
+<BR>
+Before specifying the parameters needed for running the genetic algorithm, let us recall that two algorithm-independent parameters are needed, namely <b>support</b> and <b>confidence</b>. For details on these parameters see Section <a href="association_rules.htm">Association Rules</a> and  <a href="apriori_english.htm"> Apriori algorithm</a>. Let us insist on the fact that these thresolds have a high influence on the learned rules,
+since the endpoints of the intervals depend on them.
+<BR>
+Specifying the <b>minimum and maximum number of quantitative attributes</b> that can occur in an association rule is important: the higher they are, the higher the number of rules to be optimized. <BR>
+
+<BR>
+The parameters of the genetic algorithm are:  
+<ul>
+<li>  <b>size of the population</b>
+</li>
+<li>  <b>number of generations</b>
+</li>
+<li>  <b>crossover rate</b>
+</li>
+<li>  <b>mutation rate</b>
+
+</li>
+</ul>
+They are editable, but it is advised not to modify them. Computation time is proportional to the two first parameters, but specifying too low values would alter the quality of the results.  Crossover allows diversity whereas mutation allows local search.<BR>
+<BR>
+
+This optimization process is performed for all the possible rules schemes. Therefore, selecting only relevant attributes is important in order to reduce the number of possible rule schemes.<BR>
+
+
+<BR>
+Let us notice that an experimental facility has been added: it is possible to allow <b>disjunctions</b> of intervals, thus getting less classical sets of values. While the confidence and support thresolds are satisfied, the algorithm performs several steps adding new intervals at the right and at the left of the initial interval. Thus it refines a rule <u>around</u> the intervals that have been learned. All the tuples that contributed to the previous interval are discarded, and therefore it is necessary to define an auxiliary support thresold for the intervals that are added, since they occur less often than the initial interval.<BR>
+
+This is still experimental, but sometimes this can lead to interesting results.  
+
+</BODY>
+        
+ 

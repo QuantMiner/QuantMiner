@@ -1,0 +1,42 @@
+<HTML><HEAD><TITLE></TITLE></HEAD><BODY>
+
+<p align="center"><big><b>Profiles</b></big></p>
+
+<BR>
+Data Mining is an iterative process and it is important to be able to retrieve all the context of a session.
+Profiles allow storing information concerning the first three steps of the assistant, i.e.,  those preceding rules computation (Step 4). 
+<BR>
+<BR>
+<BR>
+
+<b><i><u>SAVING A PROFILE:</u></i></b><BR><BR>
+Profiles are flexible: they can store information on all the steps, or on only a given step. 
+Therefore, it is possible to store independently information concerning the three steps:<BR>
+- <a href="pre_loading.htm"> the choice of the attributes to load from the database </a>,<BR>
+
+- <a href="preextraction_english.htm"> the way attributes and their modalities appear in the rule schemes</a>,<BR>
+- <a href="technical_setting.htm"> the choice of the datamining technique and the configuration of its parameters.</a> Let us note that each configuration of techniques can be stored independently from the others.<BR>
+
+Depending on the step in the assistant, the command for saving a profile opens a panel, which offers the choice of the parameters to save through a set of boxes to check.
+All combinations are possible, even incomplete ones. When loading, QuantMiner completes the parameters according to the context. <BR>
+<BR>
+It is important to give the profile files (*.prf) a name expressing their uses (especially the database to which they apply).<BR>
+
+<BR>
+<BR>
+<b><i><u>LOADING A PROFILE:</u></i></b><BR><BR>
+<u>Whatever the first three steps</u> of the assistant the user is concerned, he/she can load a profile storing parameters for this step, or for another (previous or following) one. <BR>
+
+It is possible to combine profiles, for instance using a first profile giving the choice of the attributes to load from the database and another one concerning the parameters of the genetic algorithm. <BR>
+
+REMARK: It is possible to choose the parameters to save in a profile, but it is not possible to choose the parameters to load: all the parameters present in a file are used.
+<BR>
+<BR>
+If the contents of the database has changed or if some parameters are not adapted, QuantMiner does its best to load the profile, taking into account the current situation.
+
+<BR>
+
+
+</BODY>
+        
+ 
