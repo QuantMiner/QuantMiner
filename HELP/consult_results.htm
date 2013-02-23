@@ -1,0 +1,56 @@
+<HTML><HEAD><TITLE></TITLE></HEAD><BODY>
+
+<p align="center"><big><b>Consultation of the results</b></big></p>
+<BR>
+<BR>
+<BR>
+QuantMiner could only write a list of rules with their support and confidence. Nevertheless, given the number of rules that may seem interesting, tools for sorting and filtering the learned rules are necessary. This explains why the last step of the assistant proposes the following tools for navigating in the list of rules. <BR>
+<BR>
+<b><i>Sort methods</i></b>: Generated rules can be interesting from different points of views, depending on the importance given to the criteria: some rules have a high confidence, others have a support higher than the average, ... QuantMiner allows sorting the rules according to three criteria:
+<ul>
+<li> confidence
+</li>
+
+<li> support
+</li>
+<li> complexity: it allows sorting rules according to their degree of complexity in terms of the number of attributes,
+</li>
+</ul> 
+selecting an <b>increasing</b> or <b>decreasing</b> order .<BR>
+
+By default, rules are ordered by decreasing confidence.
+To sort the rules, first choose the criterion, then the order and finally click on the button  "<i>Apply</i>".<BR>
+
+<BR>
+<b><i>Discard rules the support of the consequent is higher than a given percentage</i></b>: Some computed rules are obvious, and therefore not interesting. It is the case when the consequent of a rule is satisfied by almost all the tuples in the database. This happens for instance when the intervals computed for numeric attributes cover a large part of their domains.  For qualitative attributes, this happens when a modality is satisfied by a high percentage of tuples.<BR>
+<BR>
+<b><i>Filter</i></b>: QuantMiner allows using the filter  provided in Step 2 of the assistant, in order to introduce specific criteria on the attributes. When a rule seems interesting, it is then possible to concentrate on the other rules involving the same attributes. <BR>
+
+The most efficient use of filtering consists in clicking on the button <b>filter on selection</b>. QuantMiner then defines a filter that considers the attributes occurring in the selected rule (the one that is printed in the rules visualization panel just below), and permits all the possible refinements with these attributes; the filtered rules are then sorted with an increasing number of attributes. Thus, it will be easier to search for the most informative rule among a set of close rules.
+
+<BR>
+<BR>
+<b><i>Graphic visualization of the selected rule</i></b>: When consulting the results, being interested in a rule rather than another is often linked to a visual intuition. Therefore, printing a rule is structured with graphics, in order to get very quickly its main characteristics .<BR>
+
+QuantMiner is mostly dedicated to learning qualitative rules. Therefore, the proportion of each interval w.r.t. its domain appears. An interval covering a large part of the domain is usually not interesting, all the more when the attribute occurs in the right-hand side of the rule. <BR>
+
+Then important statistical measures are given, allowing to assess the interaction between the two parts of the rules, namely
+<b>Support</b>, <b>Confidence</b> and <b>Equivalence measure</b> (number of tuples satisfying either both sides of the rules or none of them).
+The left-hand part (condition) of a rule is denoted by  "<b>A</b>" whereas the right-hand part (consequent or conclusion) is denoted by "<b>B</b>".<BR>
+
+<BR>
+<b><i>Copy of the selected rules in the clipboard</i></b>: a small but sometimes useful button (at the right of the horizontal scroll bar) allows writing the current association rules in the clipboard. They can then be included in a text editor by means of the classical "copy" command. <BR>
+<BR>
+<b><i>Save in a file</i></b>: QuantMiner generates a report on the learned rules, and allows saving  them for a later use in the software. For more information on the topic, see Section  on the <a href="rules_format.htm">different format for saving rules</a>.<BR>
+<BR>
+<b>REMARK</b>: Filters are active during learning.<BR>
+
+<BR>
+
+<b><i>Visualize the extraction context</i></b>: the learned rules are linked to the parameters set during their generation. Consulting them is possible by clicking on the corresponding button.<BR>
+<BR>
+<BR>
+
+</BODY>
+        
+ 

@@ -1,0 +1,39 @@
+<HTML><HEAD><TITLE></TITLE></HEAD><BODY>
+
+<p align="center"><big><b> Choosing the attributes to load from the dataset </b></big></p>
+<BR>
+<BR>
+<BR>
+This first step of the wizard is a preliminary preparation of the dataset.
+It is important to prepare the table before starting the analysis (see section on <a href="association_rules.htm">association rules</a>). This is to avoid having many variants of the same table for different situations. QuantMiner has a preliminary filter allowing to prune all the attributes that are not relevant for the analysis in given situations. More convenient, each situation can be saved in a <a href="profiles.htm">profile</a>.    
+<BR>
+<BR>
+
+In this first step, the wizard takes the form of a table where the rows are all the attributes present in the dataset. <BR>
+
+The <b>names</b> of the attributes appear in the first column. 
+
+<BR>
+<BR>
+
+In the second column, appear the <b>type</b> of each attribute: qualitative(categorical) or numerical. QuantMiner tries to guess the type of each attribute by looking at the first 200 records in the dataset. If all the values are numerical, the attribute is declared as <b>numerical</b>, otherwise it is declared as a <b>qualitative</b> attribute. 
+You have the possibility to force this assertion if you would like for example to consider a numerical attribute with a few possible values  as a categorical attribute or if the type of an attribute is wrongly guessed by the system.
+
+
+<BR>
+Be aware that this step is important for the remainder of the process; the attribute types should be checked carefully.<BR>
+<BR>
+
+The last column allows to filter the attributes to keep only those that might be used later. This allows not to overload the system with useless attributes such as identifiers, and so on. 
+Note that another more powerful filter is used in the next step.
+
+Keep in mind that QuantMiner works on the dataset loaded in memory. It is then recommended to filter out all the attributes that are not relevant for the analysis. 
+Too large datasets can be too difficult to manipulate by QuantMiner for both memory and computation time constraints. Stay reasonable on the number of attributes and examples to learn from. <BR>
+<BR>
+
+<BR>
+<BR>
+
+
+
+</BODY>
