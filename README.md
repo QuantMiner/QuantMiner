@@ -21,7 +21,7 @@ Here is the BiBTeX citation:
 ```
 Contribution
 ====
-- To file a bug in the software create a github issue.
+- To file bugs found in the software create a github issue.
 - To contribute code for fixing filed issues create a pull request with the issue id.
 - To propose a new feature open a discussion onthe mailing list.
 
