@@ -19,6 +19,16 @@ Here is the BiBTeX citation:
   ee = {http://dli.iiit.ac.in/ijcai/IJCAI-2007/PDF/IJCAI07-167.pdf}
 }
 ```
+Contribution
+====
+- To file a bug in the software create a github issue.
+- To contribute code for fixing filed issues create a pull request with the issue id.
+- To propose a new feature open a discussion onthe mailing list.
+
+Mailing List
+====
+
+
 
 Copyright
 ====
