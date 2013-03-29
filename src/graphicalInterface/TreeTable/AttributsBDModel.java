@@ -19,7 +19,7 @@ import javax.swing.tree.*;
 import javax.swing.table.*;
 import javax.swing.event.*;
 
-import src.graphicalInterface.TablesCellulesEvoluees.*;
+import src.graphicalInterface.TableEvolvedCells.*;
 import src.solver.*;
 
 

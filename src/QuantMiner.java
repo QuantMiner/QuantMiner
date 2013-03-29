@@ -51,7 +51,7 @@ public class QuantMiner {
         
         JSplashWindow splash = new JSplashWindow(2000, ENV.REPERTOIRE_RESSOURCES);
         splash.showSplash();
-        new FenetrePrincipale().show();
+        new MainWindow().show();
         
         //Register file parameters
         ENV.EnregistrerFichierParametrage();

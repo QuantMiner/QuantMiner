@@ -84,7 +84,7 @@ public class ResolutionContext {
     public String m_sNomUtilisateur = null;             //user name
     public String m_sDescriptionRegles = null;          //description
     
-    public FenetrePrincipale m_fenetreProprietaire = null;  // Fenetre conteneur de l'application -- windows containing the application
+    public MainWindow m_fenetreProprietaire = null;  // Fenetre conteneur de l'application -- windows containing the application
     public DatabaseAdmin m_gestionnaireBD = null;  // Acces a la base de donnees en cours -- access the database in use
     public int m_iTechniqueResolution = 0;  // Identifiant de la technique d'extraction des regles quantitatives -- identifier of the extraction technique
     public ArrayList<AssociationRule> m_listeRegles = null;  // Liste des dernieres regles optimales calculees -- list of the last optimal rules calculated
@@ -101,7 +101,7 @@ public class ResolutionContext {
     public AprioriQuantitative m_aprioriCourant = null;  // Derniere instance executee de l'algorithme Apriori -- last excecution instance of apriori
     
     
-    public ResolutionContext(FenetrePrincipale fenetreProprietaire) {
+    public ResolutionContext(MainWindow fenetreProprietaire) {
         
         m_sNomUtilisateur = ENV.NOM_UTILISATEUR;        //user name
         m_sDescriptionRegles = "No description.";       //description

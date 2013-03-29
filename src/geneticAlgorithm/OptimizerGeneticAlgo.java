@@ -137,8 +137,8 @@ public class OptimizerGeneticAlgo extends RuleOptimizer {
         
         
         if (m_bAfficherGrapheQualite) {
-            DialogGrapheQualite fenetreDetailsRegle = null;
-            fenetreDetailsRegle = new DialogGrapheQualite(super.m_contexteResolution.m_fenetreProprietaire, true, super.m_contexteResolution);
+            DialogGraphQuality fenetreDetailsRegle = null;
+            fenetreDetailsRegle = new DialogGraphQuality(super.m_contexteResolution.m_fenetreProprietaire, true, super.m_contexteResolution);
             fenetreDetailsRegle.SpecifierQualitesMoyennes(m_tQualiteMoyenne);
             fenetreDetailsRegle.SpecifierQualitesMax(m_tQualiteMax);
             fenetreDetailsRegle.SpecifierQualitesMin(m_tQualiteMin);
