@@ -15,9 +15,9 @@ package src.solver;
 
 import java.util.*;
 
-import src.algorithmeGenetique.*;
 import src.apriori.*;
 import src.database.*;
+import src.geneticAlgorithm.*;
 
 public class TesteurRegles extends Thread { //test rules
     // Classe permettant l'execution d'un code particulier durant le calcul des regles :

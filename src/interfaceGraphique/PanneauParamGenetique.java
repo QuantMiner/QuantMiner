@@ -15,7 +15,7 @@ package src.interfaceGraphique;
 
 import javax.swing.*;
 
-import src.algorithmeGenetique.*;
+import src.geneticAlgorithm.*;
 import src.solver.*;
 import src.utilitaires.*;
 
@@ -42,7 +42,7 @@ public class PanneauParamGenetique extends PanneauParamBase {//step 3 technique 
         if (m_contexteResolution == null)
             return;
         
-        ParametresAlgoGenetique parametresTechAlgoGenetique = m_contexteResolution.m_parametresTechAlgoGenetique;
+        ParametersGeneticAlgo parametresTechAlgoGenetique = m_contexteResolution.m_parametresTechAlgoGenetique;
         
         // Initialisation du contenu des champs :
         jTextTaillePopulation.setText( String.valueOf( parametresTechAlgoGenetique.m_iTaillePopulation ) );
@@ -150,19 +150,19 @@ public class PanneauParamGenetique extends PanneauParamBase {//step 3 technique 
     }//GEN-END:initComponents
 
     private void jButtonDefautMutationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautMutationActionPerformed
-        jTextTauxMutation.setText( ContexteResolution.EcrirePourcentage(ParametresAlgoGenetique.DEFAUT_COEFMUT, 3, false) );
+        jTextTauxMutation.setText( ContexteResolution.EcrirePourcentage(ParametersGeneticAlgo.DEFAUT_COEFMUT, 3, false) );
     }//GEN-LAST:event_jButtonDefautMutationActionPerformed
 
     private void jButtonDefautCroisementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautCroisementActionPerformed
-        jTextTauxCroisement.setText( ContexteResolution.EcrirePourcentage(ParametresAlgoGenetique.DEFAUT_COEFFCROIS, 3, false) );
+        jTextTauxCroisement.setText( ContexteResolution.EcrirePourcentage(ParametersGeneticAlgo.DEFAUT_COEFFCROIS, 3, false) );
     }//GEN-LAST:event_jButtonDefautCroisementActionPerformed
 
     private void jButtonDefautGenerationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautGenerationsActionPerformed
-        jTextNombreGens.setText( String.valueOf(ParametresAlgoGenetique.DEFAUT_NBGEN) );
+        jTextNombreGens.setText( String.valueOf(ParametersGeneticAlgo.DEFAUT_NBGEN) );
     }//GEN-LAST:event_jButtonDefautGenerationsActionPerformed
 
     private void jButtonDefautPopulationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautPopulationActionPerformed
-        jTextTaillePopulation.setText( String.valueOf(ParametresAlgoGenetique.DEFAUT_TAILLEPOP) );
+        jTextTaillePopulation.setText( String.valueOf(ParametersGeneticAlgo.DEFAUT_TAILLEPOP) );
     }//GEN-LAST:event_jButtonDefautPopulationActionPerformed
     
     
@@ -190,7 +190,7 @@ public class PanneauParamGenetique extends PanneauParamBase {//step 3 technique 
         float fPourcentageMutation = 0.0f;
         int iNombreGenerations = 0;
         
-        ParametresAlgoGenetique parametresTechnique = m_contexteResolution.m_parametresTechAlgoGenetique;
+        ParametersGeneticAlgo parametresTechnique = m_contexteResolution.m_parametresTechAlgoGenetique;
         if (parametresTechnique == null)
             return true;
 

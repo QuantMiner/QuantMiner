@@ -23,8 +23,8 @@ package src;
 import java.sql.*;
 import javax.swing.*;
 
-import src.algorithmeGenetique.*;
 import src.apriori.*;
+import src.geneticAlgorithm.*;
 import src.interfaceGraphique.*;
 import src.utilitaires.*;
 

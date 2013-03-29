@@ -18,9 +18,9 @@ import java.io.*;
 import java.util.*;
 import javax.swing.*;
 
-import src.algorithmeGenetique.*;
 import src.apriori.*;
 import src.database.*;
+import src.geneticAlgorithm.*;
 import src.recuitSimule.*;
 import src.solver.*;
 import src.utilitaires.*;
@@ -235,7 +235,7 @@ public class PanneauTechniqueGenerique extends PanneauBaseAssistant { //step 4
                 break;
                     
             case ContexteResolution.TECHNIQUE_ALGO_GENETIQUE :
-                optimiseur = new OptimiseurAlgoGenetique();
+                optimiseur = new OptimizerGeneticAlgo();
                 break;
                 
             case ContexteResolution.TECHNIQUE_RECUIT_SIMULE :

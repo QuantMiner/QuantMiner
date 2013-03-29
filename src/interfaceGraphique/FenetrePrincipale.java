@@ -16,9 +16,9 @@ package src.interfaceGraphique;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
-import src.algorithmeGenetique.*;
 import src.apriori.*;
 import src.database.*;
+import src.geneticAlgorithm.*;
 import src.solver.*;
 import src.utilitaires.*;
 
