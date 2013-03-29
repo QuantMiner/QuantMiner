@@ -22,9 +22,9 @@ public class AttributQuantitatif {
     String m_sNomAttribut;
     float m_fBorneMin, m_fBorneMax;
     
-    public ColonneDonnees m_colonneDonnees = null; // Colonne correspondant � l'attribut dans la base de donn�es
+    public DataColumn m_colonneDonnees = null; // Colonne correspondant � l'attribut dans la base de donn�es
     
-    public AttributQuantitatif(String sNomAttribut, ColonneDonnees colonneDonnees) {
+    public AttributQuantitatif(String sNomAttribut, DataColumn colonneDonnees) {
         
         m_sNomAttribut = sNomAttribut;
         m_colonneDonnees = colonneDonnees;

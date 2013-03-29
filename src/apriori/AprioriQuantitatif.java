@@ -82,7 +82,7 @@ public class AprioriQuantitatif {
         int iTypePriseEnCompte = 0;
         AttributQualitatif attributQual = null;
         AttributQuantitatif attributQuant = null;
-        ColonneDonnees colonneDonnees = null;
+        DataColumn colonneDonnees = null;
         m_iNombreTransactions = m_gestionnaireBD.ObtenirNombreLignes();  //obtain the number of lines
         
         iNombreColonnes = m_gestionnaireBD.ObtenirNombreColonnesPrisesEnCompte(); //obtain the number of selected columns??

@@ -145,7 +145,7 @@ public class AlgoGenetique extends BaseAlgorithmeEvaluateur {
         int iNombreValeursDomaine = 0;
         int iIndiceValeurDomaineMin, iIndiceValeurDomaineMax = 0;
         int iIndiceIntervalle = 0;
-        ColonneDonnees colonneDonnees = null;
+        DataColumn colonneDonnees = null;
        
         for (iIndiceDimension=0;iIndiceDimension<m_iDimension;iIndiceDimension++) {
             

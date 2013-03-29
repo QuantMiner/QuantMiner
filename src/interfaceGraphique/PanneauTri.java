@@ -175,7 +175,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
         int iIndiceColonne = 0;
         int iTypeNoeud = 0;
         String sNomColonne = null;
-        ColonneDonnees colonneDonnees = null;
+        DataColumn colonneDonnees = null;
         DatabaseAdmin gestionnaireBD = null;        
         String [] tItems = null;
         int iNombreItems = 0;
@@ -290,7 +290,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
         int iIndiceColonne = 0;
         int iTypeNoeud = 0;
         String sNomColonne = null;
-        ColonneDonnees colonneDonnees = null;
+        DataColumn colonneDonnees = null;
         DatabaseAdmin gestionnaireBD = null;        
         String [] tItems = null;
         int iIndiceItem = 0;
@@ -475,7 +475,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
         AttributsBDModel attributsBD = null;
         JTreeTable treeTable = null;
         DatabaseAdmin gestionnaireBD = null;        
-        ColonneDonnees colonneDonnees = null;
+        DataColumn colonneDonnees = null;
         String [] tItems = null;
         int [] tOccurrences = null;
         int iPasseRemplissage = 0;

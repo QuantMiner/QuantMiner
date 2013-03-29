@@ -167,7 +167,7 @@ public class ContexteResolution {
         String sInfoContexte = null;
         int iNombreColonnesPrisesEnCompte = 0;
         int iIndiceColonne = 0;
-        ColonneDonnees colonne = null;
+        DataColumn colonne = null;
         AttributQualitatif attributQual = null;
         AttributQuantitatif attributQuant = null;
         
@@ -503,7 +503,7 @@ public class ContexteResolution {
         String sNomChamp = null;
         int iNombreAttributsPrisEnCompte = 0;
         int iIndiceAttribut = 0;
-        ColonneDonnees colonneDonnees = null;
+        DataColumn colonneDonnees = null;
         String sNomAttribut = null;
         String [] tItems = null;
         int iIndiceItem = 0;

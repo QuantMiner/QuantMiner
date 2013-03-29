@@ -30,13 +30,13 @@ public class AttributQualitatif {
                                                         // index�es par leur identificateur unique.
     public boolean [] m_tTableauPriseEnCompte = null;   // Tableau mettant en relation every value avec un bool�en dont
                                                         // la valeur indique s'il doit �tre pris en compte ou non lors du proc�d� d'extraction de r�gles
-    public ColonneDonnees m_colonneDonnees = null;      // Colonne correspondant � l'attribut dans la base de donn�es
+    public DataColumn m_colonneDonnees = null;      // Colonne correspondant � l'attribut dans la base de donn�es
     
     public ArrayList [] m_LiensItemSets = null;         // Itemsets li�s � une valeur d'attribut, devant �tre incr�ment�s lors de la comptabilisation du nombre d'occurrences de l'item
     
     
     
-    public AttributQualitatif(String sNomAttribut, ColonneDonnees colonneDonnees) {
+    public AttributQualitatif(String sNomAttribut, DataColumn colonneDonnees) {
         
         int iIndiceValeur = 0;
         

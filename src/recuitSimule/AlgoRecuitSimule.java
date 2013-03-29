@@ -70,7 +70,7 @@ public class AlgoRecuitSimule extends BaseAlgorithmeEvaluateur {
         int iIndiceReglePotentielle = 0;
         int iNombreDisjonctions = 0;
         int iIndiceIntervalle = 0;
-        ColonneDonnees colonneDonnees = null;
+        DataColumn colonneDonnees = null;
         ReglePotentielle reglePotentielle = null;
         float fAmplitude = 0.0f;
         

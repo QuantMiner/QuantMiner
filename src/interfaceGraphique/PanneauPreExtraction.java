@@ -139,7 +139,7 @@ public class PanneauPreExtraction extends PanneauBaseAssistant {
         for (iIndiceColonne=0; iIndiceColonne < iNombreColonnes; iIndiceColonne++) {
             
             //Name de l'attribut :
-            ColonneDonnees colonneDonnees = gestionnaireBD.ObtenirColonneBDPriseEnCompte(iIndiceColonne);
+            DataColumn colonneDonnees = gestionnaireBD.ObtenirColonneBDPriseEnCompte(iIndiceColonne);
             if (colonneDonnees != null) {
                 
                 sNomColonne = new String( colonneDonnees.m_sNomColonne );
@@ -179,7 +179,7 @@ public class PanneauPreExtraction extends PanneauBaseAssistant {
         for (iIndiceColonne = 0;iIndiceColonne < iNombreColonnes; iIndiceColonne++) {
             
             // Name de l'attribut :
-            ColonneDonnees colonneDonnees = gestionnaireBD.ObtenirColonneBDPriseEnCompte(iIndiceColonne);
+            DataColumn colonneDonnees = gestionnaireBD.ObtenirColonneBDPriseEnCompte(iIndiceColonne);
             if (colonneDonnees != null) {
                 
                 sNomColonne = new String( colonneDonnees.m_sNomColonne );

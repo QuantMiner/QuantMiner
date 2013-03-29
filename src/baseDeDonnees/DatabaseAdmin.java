@@ -42,7 +42,7 @@ public class DatabaseAdmin {
     public CsvFileParser csvParser = null;
     String [] m_tNomsColonnes = null;
     DescripteurColonnePriseEnCompte [] m_colonnesPrisesEnCompte = null;  // Description de la fa�on de prendre en compte every attribute
-    ColonneDonnees [] m_tDonneesColonnes = null;
+    DataColumn [] m_tDonneesColonnes = null;
     public String m_sNomBaseDeDonnees = null; //basic name of the file, without path
     String m_sNomFichier = null;    // Nom du fichier DBF contenant les donn�es � analyser (si on utilise une telle source)
     String m_sNomFlux = null;   // Nom du flux repr�sentant la source ODBC si c'est par ce biais qu'on r�cup�re les donn�es
@@ -432,7 +432,7 @@ public class DatabaseAdmin {
     
     //Get the column information about the selected column in step 1, i.e the data load step
     //m_tDonneesColonnes contains all the selected columns
-    public ColonneDonnees ObtenirColonneBDPriseEnCompte(int iIndiceColonne) {
+    public DataColumn ObtenirColonneBDPriseEnCompte(int iIndiceColonne) {
         if (m_tDonneesColonnes==null)
             return null;
        
@@ -456,7 +456,7 @@ public class DatabaseAdmin {
         
     // Renvoie le nom de la 'iIndiceColonne'-i�me colonne prise en compte :
     public String ObtenirNomColonneBDPriseEnCompte(int iIndiceColonne) {
-        ColonneDonnees colonnePriseEnCompte = null;
+        DataColumn colonnePriseEnCompte = null;
         
         colonnePriseEnCompte = ObtenirColonneBDPriseEnCompte(iIndiceColonne);
         
@@ -561,7 +561,7 @@ public class DatabaseAdmin {
         iNombreColonnesPrisesEnCompte = ObtenirNombreColonnesPrisesEnCompte();
         
         if (iNombreColonnesPrisesEnCompte > 0) {
-            m_tDonneesColonnes = new ColonneDonnees [ iNombreColonnesPrisesEnCompte ];
+            m_tDonneesColonnes = new DataColumn [ iNombreColonnesPrisesEnCompte ];
             Arrays.fill(m_tDonneesColonnes, null);
         }
         else
@@ -588,7 +588,7 @@ public class DatabaseAdmin {
           int iIndiceLigne = 0;
           int iIndiceColonne = 0;
           DescripteurColonnePriseEnCompte colonnePriseEnCompte = null;
-          ColonneDonnees colonneCourante = null;
+          DataColumn colonneCourante = null;
           String sValeurItem = null;
           String [] tValeursChamps = null;
           int [] tCorrespondanceIndicesChamps = null; // Table de correspondance entre le num�ro d'une colonne et l'indice du champ qu'elle repr�sente dans le fichier
@@ -613,7 +613,7 @@ public class DatabaseAdmin {
               if (colonnePriseEnCompte.m_bPrendreEnCompte) {
             	  tCorrespondanceIndicesChamps[iIndiceColonnePriseEnCompte] = csvParser.ObtenirIndiceChamp(m_tNomsColonnes[iIndiceColonne]);
                   
-            	  m_tDonneesColonnes[iIndiceColonnePriseEnCompte] = new ColonneDonnees(
+            	  m_tDonneesColonnes[iIndiceColonnePriseEnCompte] = new DataColumn(
                       m_tNomsColonnes[iIndiceColonne],
                       colonnePriseEnCompte.m_iTypeColonne,
                       m_iNombreLignes,
@@ -685,7 +685,7 @@ public class DatabaseAdmin {
         int iIndiceLigne = 0;
         int iIndiceColonne = 0;
         DescripteurColonnePriseEnCompte colonnePriseEnCompte = null;
-        ColonneDonnees colonneCourante = null;
+        DataColumn colonneCourante = null;
         String sValeurItem = null;
         String [] tValeursChamps = null;
         int [] tCorrespondanceIndicesChamps = null; // Table de correspondance entre le num�ro d'une colonne et l'indice du champ qu'elle repr�sente dans le fichier
@@ -722,7 +722,7 @@ public class DatabaseAdmin {
             if (colonnePriseEnCompte.m_bPrendreEnCompte) {
             	
             	 tCorrespondanceIndicesChamps[iIndiceColonnePriseEnCompte] = lecteurDBF.ObtenirIndiceChamp(m_tNomsColonnes[iIndiceColonne]);
-                 m_tDonneesColonnes[iIndiceColonnePriseEnCompte] = new ColonneDonnees(
+                 m_tDonneesColonnes[iIndiceColonnePriseEnCompte] = new DataColumn(
                     m_tNomsColonnes[iIndiceColonne],
                     colonnePriseEnCompte.m_iTypeColonne,
                     m_iNombreLignes,

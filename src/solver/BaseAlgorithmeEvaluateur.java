@@ -25,11 +25,11 @@ public abstract class BaseAlgorithmeEvaluateur {
     
     
     protected class RefItemQualitatif {
-        public ColonneDonnees m_colonneDonnees;  // Colonne de la BD o� sont stock�es les valeurs de l'attribut en m�moire 
+        public DataColumn m_colonneDonnees;  // Colonne de la BD o� sont stock�es les valeurs de l'attribut en m�moire 
         public short m_iIndiceValeurAttribut;    // Identifiant de la sous-valeur de l'attribut qui �quivaut � l'item
         public String m_sChaineIdentifiantItem;
         
-        public RefItemQualitatif(ColonneDonnees colonneDonnees, short iIndiceValeurAttribut, String sChaineIdentifiant) {
+        public RefItemQualitatif(DataColumn colonneDonnees, short iIndiceValeurAttribut, String sChaineIdentifiant) {
             m_colonneDonnees = colonneDonnees;
             m_iIndiceValeurAttribut = iIndiceValeurAttribut;
             m_sChaineIdentifiantItem = sChaineIdentifiant;
@@ -38,9 +38,9 @@ public abstract class BaseAlgorithmeEvaluateur {
     
     
     protected class RefItemQuantitatif {
-        public ColonneDonnees m_colonneDonnees = null;
+        public DataColumn m_colonneDonnees = null;
         
-        public RefItemQuantitatif(ColonneDonnees colonneDonnees) {
+        public RefItemQuantitatif(DataColumn colonneDonnees) {
             m_colonneDonnees = colonneDonnees;
         }
     }
@@ -253,7 +253,7 @@ public abstract class BaseAlgorithmeEvaluateur {
 
         
     protected void VerifierEtAffecterBornesReglePotentielle(ReglePotentielle reglePotentielle, int iIndiceDimension, int iIndiceDisjonction, int iIndice1, int iIndice2) {
-        ColonneDonnees colonneDonnees = null;
+        DataColumn colonneDonnees = null;
         int iIndiceTemp = 0;
         int iIndiceMax = 0;
         int iIndiceIntervalle = 0;
@@ -304,7 +304,7 @@ public abstract class BaseAlgorithmeEvaluateur {
         int iNombreValeursDomaine = 0;
         int iNombreDisjonctions = 0;
         int iIndiceValeurDomaineMin, iIndiceValeurDomaineMax = 0;
-        ColonneDonnees colonneDonnees = null;
+        DataColumn colonneDonnees = null;
        
         // Lors des passes suppl�mentaires, on conserve les intervalles d�j� trait�s de la meilleure r�gle :
         if ( (!m_bPrendreEnCompteQuantitatifsGauche) || (!m_bPrendreEnCompteQuantitatifsDroite) )
@@ -832,7 +832,7 @@ public abstract class BaseAlgorithmeEvaluateur {
      */
     public void EvaluerReglesPotentielles() {
         ReglePotentielle reglePotentielle = null;
-        ColonneDonnees colonneDonnees = null;
+        DataColumn colonneDonnees = null;
         int iIndiceLigneDonnees = 0;
         int iIndiceLigne = 0;
         int iIndiceDimension = 0;
@@ -1105,7 +1105,7 @@ public abstract class BaseAlgorithmeEvaluateur {
         int iSupportMax = 0;
         float fTauxCouvertureDomaine1 = 0.0f;
         float fTauxCouvertureDomaine2 = 0.0f;
-        ColonneDonnees colonneDonnees = null;
+        DataColumn colonneDonnees = null;
         
         // 1 �re mesure de qualit� :
         /*            individu.m_fQualite = (float)individu.m_iSupportRegle - m_fMinConf * (float)individu.m_iSupportCond;

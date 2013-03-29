@@ -104,7 +104,7 @@ public class ParametresPositionRegles {
         int iNombreColonnesPrisesEnCompte = 0;
         int iIndiceColonne = 0;
         int iIndiceItem = 0;
-        ColonneDonnees colonne = null;
+        DataColumn colonne = null;
         Hashtable sousTable = null;
         String [] tListeItems = null;
         boolean bEnregistrerParametres = false;
@@ -564,7 +564,7 @@ public class ParametresPositionRegles {
     private void ValiderAttributsQuantitatifs() {
         int iNombreColonnesPrisesEnCompte = 0;
         int iIndiceColonne = 0;
-        ColonneDonnees colonne = null;
+        DataColumn colonne = null;
         String sNomColonne = null;
         
         if (m_contexteResolution.m_gestionnaireBD == null)
@@ -620,7 +620,7 @@ public class ParametresPositionRegles {
     public void DefinirPositionnementPourTous(int iTypePosition, boolean bPresenceObligatoire) {
         int iNombreColonnesPrisesEnCompte = 0;
         int iIndiceColonne = 0;
-        ColonneDonnees colonne = null;
+        DataColumn colonne = null;
         String sNomColonne = null;
      
         
@@ -653,7 +653,7 @@ public class ParametresPositionRegles {
         Hashtable sousTable = null;        
         int iNombreColonnesPrisesEnCompte = 0;
         int iIndiceColonne = 0;
-        ColonneDonnees colonne = null;
+        DataColumn colonne = null;
         String sNomColonne = null;
         int iTypePosition = 0;
         int iNombreAttributsGauche = 0;

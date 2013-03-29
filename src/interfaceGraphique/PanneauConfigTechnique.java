@@ -17,7 +17,7 @@ import javax.swing.*;
 
 import src.apriori.AttributQualitatif;
 import src.apriori.AttributQuantitatif;
-import src.baseDeDonnees.ColonneDonnees;
+import src.baseDeDonnees.DataColumn;
 import src.baseDeDonnees.DatabaseAdmin;
 import src.solver.*;
 import src.utilitaires.*;
@@ -512,7 +512,7 @@ public class PanneauConfigTechnique extends PanneauBaseAssistant { //step 3 para
     }
     
     int getQuantitativeNumber(){
-    	 ColonneDonnees colonneDonnees = null;
+    	 DataColumn colonneDonnees = null;
     	 DatabaseAdmin gestionnaireBD = m_contexteResolution.m_gestionnaireBD;
          int iNombreColonnes = 0;
          int iIndiceColonne = 0;
