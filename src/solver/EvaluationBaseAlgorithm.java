@@ -160,7 +160,7 @@ public abstract class EvaluationBaseAlgorithm {
     
     
     
-    protected RegleAssociation m_schemaRegleOptimale = null;    // R�gle que l'algorithme doit optimiser en trouvant les meilleures bornes pour chaque intervalle    
+    protected AssociationRule m_schemaRegleOptimale = null;    // R�gle que l'algorithme doit optimiser en trouvant les meilleures bornes pour chaque intervalle    
     
     
     // Structures de donn�es pour l'optimisation des calculs :
@@ -394,10 +394,10 @@ public abstract class EvaluationBaseAlgorithm {
 
     
 
-    public void SpecifierSchemaRegle(RegleAssociation regle) {
+    public void SpecifierSchemaRegle(AssociationRule regle) {
         Item item = null;
-        ItemQualitatif itemQual = null;
-        ItemQuantitatif itemQuant = null;
+        ItemQualitative itemQual = null;
+        ItemQuantitative itemQuant = null;
         int iIndiceItem = 0;
         int iNombreItemsGauche = 0;
         int iNombreItemsDroite = 0;
@@ -448,12 +448,12 @@ public abstract class EvaluationBaseAlgorithm {
             item = regle.ObtenirItemGauche(iIndiceItem);
             if (item != null) {
                 if (item.m_iTypeItem == Item.ITEM_TYPE_QUALITATIF) {
-                    itemQual = (ItemQualitatif)item;
+                    itemQual = (ItemQualitative)item;
                     m_tItemsQualCond[iIndiceAjoutQual] = new RefItemQualitatif(itemQual.m_attributQual.m_colonneDonnees, itemQual.m_iIndiceValeur, itemQual.ObtenirNomCompletItem());
                     iIndiceAjoutQual++;
                 }
                 else if (item.m_iTypeItem == Item.ITEM_TYPE_QUANTITATIF) {
-                    itemQuant = (ItemQuantitatif)item;
+                    itemQuant = (ItemQuantitative)item;
                     m_tItemsQuantCond[iIndiceAjoutQuant] = new RefItemQuantitatif(itemQuant.m_attributQuant.m_colonneDonnees);
                     iIndiceAjoutQuant++;
                 }
@@ -469,12 +469,12 @@ public abstract class EvaluationBaseAlgorithm {
             item = regle.ObtenirItemDroite(iIndiceItem);
             if (item != null) {
                 if (item.m_iTypeItem == Item.ITEM_TYPE_QUALITATIF) {
-                    itemQual = (ItemQualitatif)item;
+                    itemQual = (ItemQualitative)item;
                     m_tItemsQualObj[iIndiceAjoutQual] = new RefItemQualitatif(itemQual.m_attributQual.m_colonneDonnees, itemQual.m_iIndiceValeur, itemQual.ObtenirNomCompletItem());
                     iIndiceAjoutQual++;
                 }
                 else if (item.m_iTypeItem == Item.ITEM_TYPE_QUANTITATIF) {
-                    itemQuant = (ItemQuantitatif)item;
+                    itemQuant = (ItemQuantitative)item;
                     m_tItemsQuantObj[iIndiceAjoutQuant] = new RefItemQuantitatif(itemQuant.m_attributQuant.m_colonneDonnees);
                     iIndiceAjoutQuant++;
                 }
@@ -483,7 +483,7 @@ public abstract class EvaluationBaseAlgorithm {
         
         
         // M�morisation du sch�ma de la r�gle :
-        m_schemaRegleOptimale = new RegleAssociation(regle);
+        m_schemaRegleOptimale = new AssociationRule(regle);
         
         
         // M�morisation d'informations sur le sch�ma de la r�gle :
@@ -971,10 +971,10 @@ public abstract class EvaluationBaseAlgorithm {
     }
 
     
-    public RegleAssociation ObtenirMeilleureRegle() {
+    public AssociationRule ObtenirMeilleureRegle() {
         Item item = null;
-        ItemQualitatif itemQual = null;
-        ItemQuantitatif itemQuant = null;
+        ItemQualitative itemQual = null;
+        ItemQuantitative itemQuant = null;
         int iIndiceItem = 0;
         int iIndiceItemQuant = 0;
         float fConfianceRegle = 0.0f;
@@ -992,7 +992,7 @@ public abstract class EvaluationBaseAlgorithm {
             
             item = m_schemaRegleOptimale.ObtenirItemGauche(iIndiceItem);
             if (item.m_iTypeItem == Item.ITEM_TYPE_QUANTITATIF) {
-                itemQuant = (ItemQuantitatif)item;  
+                itemQuant = (ItemQuantitative)item;  
                 for (iIndiceDisjonction = 0; iIndiceDisjonction < m_iNombreDisjonctionsGaucheValides; iIndiceDisjonction++) {
                     itemQuant.m_tBornes[iIndiceDisjonction*2] = m_meilleureReglePotentielle.m_tIntervalleMin[iIndiceIntervalleReglePotentielle];
                     itemQuant.m_tBornes[iIndiceDisjonction*2+1] = m_meilleureReglePotentielle.m_tIntervalleMax[iIndiceIntervalleReglePotentielle];
@@ -1013,7 +1013,7 @@ public abstract class EvaluationBaseAlgorithm {
             
             item = m_schemaRegleOptimale.ObtenirItemDroite(iIndiceItem);
             if (item.m_iTypeItem == Item.ITEM_TYPE_QUANTITATIF) {
-                itemQuant = (ItemQuantitatif)item;  
+                itemQuant = (ItemQuantitative)item;  
                 for (iIndiceDisjonction=0; iIndiceDisjonction<m_iNombreDisjonctionsDroiteValides; iIndiceDisjonction++) {
                     itemQuant.m_tBornes[iIndiceDisjonction*2] = m_meilleureReglePotentielle.m_tIntervalleMin[iIndiceIntervalleReglePotentielle];
                     itemQuant.m_tBornes[iIndiceDisjonction*2+1] = m_meilleureReglePotentielle.m_tIntervalleMax[iIndiceIntervalleReglePotentielle];

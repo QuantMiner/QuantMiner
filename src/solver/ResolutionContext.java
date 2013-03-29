@@ -19,7 +19,7 @@ import java.io.*;
 import src.apriori.*;
 import src.database.*;
 import src.geneticAlgorithm.*;
-import src.interfaceGraphique.*;
+import src.graphicalInterface.*;
 import src.simulatedAnnealing.*;
 import src.tools.*;
 
@@ -38,7 +38,7 @@ public class ResolutionContext {
         
         // Fonction qui cree l'image JPEG de la regle et renvoie le nom du fichier sur le disque :
     	// Function that create a JPEG picture of the rule and send back the name of the file on disc:
-        public String EnregistrerRegle(RegleAssociation regle, int iIndiceRegle);
+        public String EnregistrerRegle(AssociationRule regle, int iIndiceRegle);
     }
     
     
@@ -87,18 +87,18 @@ public class ResolutionContext {
     public FenetrePrincipale m_fenetreProprietaire = null;  // Fenetre conteneur de l'application -- windows containing the application
     public DatabaseAdmin m_gestionnaireBD = null;  // Acces a la base de donnees en cours -- access the database in use
     public int m_iTechniqueResolution = 0;  // Identifiant de la technique d'extraction des regles quantitatives -- identifier of the extraction technique
-    public ArrayList<RegleAssociation> m_listeRegles = null;  // Liste des dernieres regles optimales calculees -- list of the last optimal rules calculated
+    public ArrayList<AssociationRule> m_listeRegles = null;  // Liste des dernieres regles optimales calculees -- list of the last optimal rules calculated
     
     
     // Objects definissant les parametres utilisateur pour chaque technique d'extraction : object defininf user parameter for each extraction technique
-    public ParametresStandards m_parametresRegles = null;    // Criteria  generaux sur les regles a extraire -- general criteria for the rules to extract
-    public ParametresStandardsQuantitatifs m_parametresReglesQuantitatives = null;    // ici avec des indications particulieres relatives aux attributs quantitatifs -- here with indications for quantitative attributes
+    public StandardParameters m_parametresRegles = null;    // Criteria  generaux sur les regles a extraire -- general criteria for the rules to extract
+    public StandardParametersQuantitative m_parametresReglesQuantitatives = null;    // ici avec des indications particulieres relatives aux attributs quantitatifs -- here with indications for quantitative attributes
     public ParametersGeneticAlgo m_parametresTechAlgoGenetique = null;    // Parametres utilisateur relatifs a la technique de l'algorithme genetique  -- user parameter for the genetic algorithm
     public SimulatedAnnealingParameters m_parametresTechRecuitSimule = null;  // Parametres utilisateur relatifs a la technique du recuit simule -- user parameter for the simulated annealing
     public LoadingParameters m_parametresTechChargement = null;  // Parametres utilisateur concernant le chargement d'un fichier de regles -- user parameter for loading the rule file
     // ... Ajouter ici d'autres objets pour chaque nouvelle technique
     
-    public AprioriQuantitatif m_aprioriCourant = null;  // Derniere instance executee de l'algorithme Apriori -- last excecution instance of apriori
+    public AprioriQuantitative m_aprioriCourant = null;  // Derniere instance executee de l'algorithme Apriori -- last excecution instance of apriori
     
     
     public ResolutionContext(FenetrePrincipale fenetreProprietaire) {
@@ -111,8 +111,8 @@ public class ResolutionContext {
         m_iTechniqueResolution = TECHNIQUE_APRIORI_QUAL;
         m_listeRegles = null;
         
-        m_parametresRegles = new ParametresStandards();
-        m_parametresReglesQuantitatives = new ParametresStandardsQuantitatifs();
+        m_parametresRegles = new StandardParameters();
+        m_parametresReglesQuantitatives = new StandardParametersQuantitative();
         m_parametresTechAlgoGenetique = new ParametersGeneticAlgo();
         m_parametresTechRecuitSimule = new SimulatedAnnealingParameters();
         m_parametresTechChargement = new LoadingParameters();
@@ -138,7 +138,7 @@ public class ResolutionContext {
     public void DefinirPositionnementPourTous(int iTypePosition, boolean bPresenceObligatoire) { m_positionnementRegles.DefinirPositionnementPourTous(iTypePosition, bPresenceObligatoire); }
     public boolean EstFiltreCoherent() { return m_positionnementRegles.EstFiltreCoherent(); }
     public boolean EstItemSetValide(ItemSet itemSet) { return m_positionnementRegles.EstItemSetValide(itemSet); }
-    public boolean EstRegleValide(RegleAssociation regle) { return m_positionnementRegles.EstRegleValide(regle); }
+    public boolean EstRegleValide(AssociationRule regle) { return m_positionnementRegles.EstRegleValide(regle); }
     
     
     // Methodes d'acces direct aux parametres de filtrage des attributs dans les regles :
@@ -156,7 +156,7 @@ public class ResolutionContext {
     public void DefinirPositionnementPourTous_Filtrage(int iTypePosition, boolean bPresenceObligatoire) { m_filtrageRegles.DefinirPositionnementPourTous(iTypePosition, bPresenceObligatoire); }
     public boolean EstFiltreCoherent_Filtrage() { return m_filtrageRegles.EstFiltreCoherent(); }
     public boolean EstItemSetValide_Filtrage(ItemSet itemSet) { return m_filtrageRegles.EstItemSetValide(itemSet); }
-    public boolean EstRegleValide_Filtrage(RegleAssociation regle) { return m_filtrageRegles.EstRegleValide(regle); }
+    public boolean EstRegleValide_Filtrage(AssociationRule regle) { return m_filtrageRegles.EstRegleValide(regle); }
     
     // Accesseurs pour les informations de positionnement :
     // Assessors for the positionning information
@@ -168,8 +168,8 @@ public class ResolutionContext {
         int iNombreColonnesPrisesEnCompte = 0;
         int iIndiceColonne = 0;
         DataColumn colonne = null;
-        AttributQualitatif attributQual = null;
-        AttributQuantitatif attributQuant = null;
+        AttributQualitative attributQual = null;
+        AttributQuantitative attributQuant = null;
         
         sInfoContexte = "";
         
@@ -295,12 +295,12 @@ public class ResolutionContext {
         return sChaineInitiale.replaceAll("\n", "<BR>");
     }
     
-    public void SauvegarderReglesCsv(String sCheminFichier, RegleAssociation[] tRegles) {
+    public void SauvegarderReglesCsv(String sCheminFichier, AssociationRule[] tRegles) {
 		    int iNombreRegles = 0;
 	        int iIndiceRegle = 0;
 	        int iNombreLignesBD = 0;
 	        float fValeurConfiance = 0.0f;
-	        RegleAssociation regle = null;
+	        AssociationRule regle = null;
 	        ExcelCSVPrinter csvPrinter = null;
 		    
 	        System.out.println(sCheminFichier);
@@ -368,11 +368,11 @@ public class ResolutionContext {
 	}
     
     //save rules in HTML file (text and graphic)
-    public void SauvegarderReglesHTML(String sCheminFichier, RegleAssociation [] tRegles, boolean bGraphique, EnregistreurGraphiqueRegle enregistreurGraphique) {
+    public void SauvegarderReglesHTML(String sCheminFichier, AssociationRule [] tRegles, boolean bGraphique, EnregistreurGraphiqueRegle enregistreurGraphique) {
         DataOutputStream fluxFichier = null;
         int iNombreRegles = 0;
         int iIndiceRegle = 0;
-        RegleAssociation regle = null;
+        AssociationRule regle = null;
         String [] tNomsFichiersGraphiques = null;
         
         try {
@@ -1006,7 +1006,7 @@ public class ResolutionContext {
     
     
     //save in rules in qmr file
-    public void SauvegarderReglesBinaire(String sCheminFichier, RegleAssociation [] tRegles) {
+    public void SauvegarderReglesBinaire(String sCheminFichier, AssociationRule [] tRegles) {
         DataOutputStream fluxFichier = null;
         int iNombreRegles = 0;
         int iIndiceRegle = 0;
@@ -1016,9 +1016,9 @@ public class ResolutionContext {
         int iIndiceDisjonction = 0;
         int iNombreDisjonctions = 0;
         Item item = null;
-        ItemQualitatif itemQual = null;
-        ItemQuantitatif itemQuant = null;
-        RegleAssociation regle = null;
+        ItemQualitative itemQual = null;
+        ItemQuantitative itemQuant = null;
+        AssociationRule regle = null;
         
         if ( (m_aprioriCourant == null) || (sCheminFichier == null) )
             return;
@@ -1110,11 +1110,11 @@ public class ResolutionContext {
                         // Enregistrement des donnees de l'item suivant son type : recording the data of the item depending on its type
                         
                         if (item.m_iTypeItem == Item.ITEM_TYPE_QUALITATIF) {
-                            itemQual = (ItemQualitatif)item;
+                            itemQual = (ItemQualitative)item;
                             fluxFichier.writeUTF( itemQual.m_attributQual.ObtenirNom() );
                             fluxFichier.writeUTF( itemQual.ObtenirIdentifiantTexteItem() );
                         } else if (item.m_iTypeItem == Item.ITEM_TYPE_QUANTITATIF) {
-                            itemQuant = (ItemQuantitatif)item;
+                            itemQuant = (ItemQuantitative)item;
                             fluxFichier.writeUTF( itemQuant.m_attributQuant.ObtenirNom() );
                             
                             // Ecriture des bornes pour chaque disjonction : writing the bounds of each disjunction
@@ -1291,11 +1291,11 @@ public class ResolutionContext {
         int iTypeItem = 0;
         short iIndiceValeurItemQual = 0;
         Item item = null;
-        ItemQualitatif itemQual = null;
-        ItemQuantitatif itemQuant = null;
-        AttributQualitatif attributQual = null;
-        AttributQuantitatif attributQuant = null;
-        RegleAssociation regle = null;
+        ItemQualitative itemQual = null;
+        ItemQuantitative itemQuant = null;
+        AttributQualitative attributQual = null;
+        AttributQuantitative attributQuant = null;
+        AssociationRule regle = null;
         int iIndiceAjoutItem = 0;
         String sNomAttribut = null;
         String sNomItem = null;
@@ -1307,7 +1307,7 @@ public class ResolutionContext {
             return;
         
         if (m_listeRegles == null)
-            m_listeRegles = new ArrayList<RegleAssociation>();
+            m_listeRegles = new ArrayList<AssociationRule>();
         else
             m_listeRegles.clear();
         
@@ -1355,7 +1355,7 @@ public class ResolutionContext {
         
         
         // Cr�ation d'un Apriori r�pertoriant attributs et items :
-        m_aprioriCourant = new AprioriQuantitatif(this);
+        m_aprioriCourant = new AprioriQuantitative(this);
         m_aprioriCourant.SpecifierSupportMinimal(fSupportMin);
         m_aprioriCourant.ExecuterPretraitement(false);
         
@@ -1371,7 +1371,7 @@ public class ResolutionContext {
                 iNombreDisjonctionsGauche = fluxFichier.readInt();
                 iNombreDisjonctionsDroite = fluxFichier.readInt();
                 
-                regle = new RegleAssociation(iNombreItemsGauche, iNombreItemsDroite, iNombreDisjonctionsGauche, iNombreDisjonctionsDroite);
+                regle = new AssociationRule(iNombreItemsGauche, iNombreItemsDroite, iNombreDisjonctionsGauche, iNombreDisjonctionsDroite);
                 
                 // Informations statistiques sur la r�gle :
                 regle.m_fSupport = fluxFichier.readFloat();
@@ -1428,7 +1428,7 @@ public class ResolutionContext {
                             itemQuant = null;
                             attributQuant = m_aprioriCourant.ObtenirAttributQuantitatifDepuisNom(sNomAttribut);
                             if (attributQuant != null)
-                                itemQuant = new ItemQuantitatif(attributQuant, iNombreDisjonctions);
+                                itemQuant = new ItemQuantitative(attributQuant, iNombreDisjonctions);
                             
                             for (iIndiceDisjonction=0; iIndiceDisjonction<iNombreDisjonctions; iIndiceDisjonction++) {
                                 fBorneMin = fluxFichier.readFloat();

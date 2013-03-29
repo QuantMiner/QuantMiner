@@ -1,5 +1,5 @@
 /*                                             
- *Copyright 2007, 2011 CCLS Columbia University (USA), LIFO University of Orleans (France), BRGM (France)
+ *Copyright 2007, 2011 CCLS Columbia University (USA), LIFO University of Orl��ans (France), BRGM (France)
  *
  *Authors: Cyril Nortet, Xiangrong Kong, Ansaf Salleb-Aouissi, Christel Vrain, Daniel Cassard
  *
@@ -11,20 +11,27 @@
  *
  *You should have received a copy of the GNU General Public License along with QuantMiner.  If not, see <http://www.gnu.org/licenses/>.
  */
-package src.solver;
+package src.graphicalInterface.TreeTable;
 
-import src.apriori.*;
+import javax.swing.tree.*;
+import javax.swing.table.*;
 
 
 
-public abstract class RuleOptimizer {
+public interface TreeTableModel extends TreeModel {
     
-    protected ResolutionContext m_contexteResolution = null;
+    public int getColumnCount();
+
+    public String getColumnName(int column);
+
+    public Class getColumnClass(int column);
+
+    public Object getValueAt(Object node, int column);
+
+    public boolean isCellEditable(Object node, int column);
+
+    public void setValueAt(Object aValue, Object node, int column);
     
-    public void DefinirContexteResolution(ResolutionContext contexteResolution) {
-        m_contexteResolution = contexteResolution;
-    }
-    
-    public abstract boolean OptimiseRegle(AssociationRule regle);
-    
+    public TableCellRenderer getCellRenderer(Object node, int column);
+ 
 }

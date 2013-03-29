@@ -19,7 +19,7 @@ import java.util.*;
 public class ItemSet {
     
     int m_iTaille = 0;
-    ItemQualitatif m_listeItems [] = null;
+    ItemQualitative m_listeItems [] = null;
     int m_iNombreItemsSpecifies = 0;
     public int m_iSupport = 0;
     int m_iNombreItemsComptabilises = 0;
@@ -32,7 +32,7 @@ public class ItemSet {
         m_iTaille = iTaille;
         
         if (m_iTaille>0) { 
-            m_listeItems = new ItemQualitatif [iTaille];
+            m_listeItems = new ItemQualitative [iTaille];
             Arrays.fill(m_listeItems, null);
         }
         
@@ -43,7 +43,7 @@ public class ItemSet {
     }
       
  
-    void SpecifierItem(ItemQualitatif item) {
+    void SpecifierItem(ItemQualitative item) {
         
         if (m_iNombreItemsSpecifies < m_iTaille) {
         
@@ -57,7 +57,7 @@ public class ItemSet {
     
     
     
-    public ItemQualitatif ObtenirItem(int iIndiceItem) {
+    public ItemQualitative ObtenirItem(int iIndiceItem) {
         if ( (iIndiceItem >= 0) && (iIndiceItem < m_iNombreItemsSpecifies) )
             return m_listeItems[iIndiceItem];
         else 
@@ -108,7 +108,7 @@ public class ItemSet {
         String sTexteItemSet = null;
         String sTexteItem = null;
         int iIndiceItem = 0;
-        ItemQualitatif item = null;
+        ItemQualitative item = null;
         
         sTexteItemSet = "{ ";
         

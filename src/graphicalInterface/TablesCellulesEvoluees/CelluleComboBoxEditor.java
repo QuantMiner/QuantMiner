@@ -1,5 +1,5 @@
 /*                                             
- *Copyright 2007, 2011 CCLS Columbia University (USA), LIFO University of Orleans (France), BRGM (France)
+ *Copyright 2007, 2011 CCLS Columbia University (USA), LIFO University of Orl��ans (France), BRGM (France)
  *
  *Authors: Cyril Nortet, Xiangrong Kong, Ansaf Salleb-Aouissi, Christel Vrain, Daniel Cassard
  *
@@ -11,20 +11,21 @@
  *
  *You should have received a copy of the GNU General Public License along with QuantMiner.  If not, see <http://www.gnu.org/licenses/>.
  */
-package src.solver;
+package src.graphicalInterface.TablesCellulesEvoluees;
 
-import src.apriori.*;
+import javax.swing.*;
+import javax.swing.table.*;
+import java.awt.*;
 
 
 
-public abstract class RuleOptimizer {
-    
-    protected ResolutionContext m_contexteResolution = null;
-    
-    public void DefinirContexteResolution(ResolutionContext contexteResolution) {
-        m_contexteResolution = contexteResolution;
+public class CelluleComboBoxEditor extends DefaultCellEditor {
+        
+    public CelluleComboBoxEditor(String[] items) {
+        super (new JComboBox(items));
     }
-    
-    public abstract boolean OptimiseRegle(AssociationRule regle);
-    
-}
+        
+}    
+
+
+

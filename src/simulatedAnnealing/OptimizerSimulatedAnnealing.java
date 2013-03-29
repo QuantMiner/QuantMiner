@@ -15,7 +15,7 @@ package src.simulatedAnnealing;
 
 import src.apriori.*;
 import src.database.*;
-import src.interfaceGraphique.*;
+import src.graphicalInterface.*;
 import src.solver.*;
 
 
@@ -23,7 +23,7 @@ import src.solver.*;
 public class OptimizerSimulatedAnnealing extends RuleOptimizer {
 
     SimulatedAnnealingAlgo m_algoRecuitSimule = null;
-    ParametresStandardsQuantitatifs m_parametresReglesQuantitatives = null;
+    StandardParametersQuantitative m_parametresReglesQuantitatives = null;
     SimulatedAnnealingParameters m_parametresAlgo = null;
     
     
@@ -69,11 +69,11 @@ public class OptimizerSimulatedAnnealing extends RuleOptimizer {
     
     
     
-    public boolean OptimiseRegle(RegleAssociation regle) {
+    public boolean OptimiseRegle(AssociationRule regle) {
         int iNombreItemsQuantitatifs = 0;
         int iIndiceEtape = 0;
         boolean bRegleEstSolide = false;
-        RegleAssociation meilleureRegle = null;
+        AssociationRule meilleureRegle = null;
         
         if ( (m_algoRecuitSimule == null) || (regle == null) )
             return false;

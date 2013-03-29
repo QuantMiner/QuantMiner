@@ -17,14 +17,14 @@ import java.io.*;
 
 import src.apriori.*;
 import src.database.*;
-import src.interfaceGraphique.*;
+import src.graphicalInterface.*;
 import src.solver.*;
 
 
 public class OptimizerGeneticAlgo extends RuleOptimizer {
     
     GeneticAlgo m_algoGenetique = null;
-    ParametresStandardsQuantitatifs m_parametresReglesQuantitatives = null;
+    StandardParametersQuantitative m_parametresReglesQuantitatives = null;
     ParametersGeneticAlgo m_parametresAlgo = null;
     
     // Tableaux r�pertoriant l'�volution de la qualit� d'une r�gle au fur et � mesure de son optimisation :
@@ -79,12 +79,12 @@ public class OptimizerGeneticAlgo extends RuleOptimizer {
     /**Optimize Rule Association
      * @param regle the Association rule
      */
-    public boolean OptimiseRegle(RegleAssociation regle) {
+    public boolean OptimiseRegle(AssociationRule regle) {
         long currentTime=System.currentTimeMillis();
         int iNombreItemsQuantitatifs = 0;
         int iIndiceEvolution = 0;
         boolean bRegleEstSolide = false;
-        RegleAssociation meilleureRegle = null;
+        AssociationRule meilleureRegle = null;
         
         if ( (m_algoGenetique == null) || (regle == null) )
             return false;

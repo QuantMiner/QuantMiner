@@ -734,7 +734,7 @@ public class PositionRuleParameters {
      */
     public boolean EstItemSetValide(ItemSet itemSet) {
         int iIndiceItem = 0;
-        ItemQualitatif item = null;
+        ItemQualitative item = null;
         boolean bItemSetValide = false;
         String sNomAttribut = null;
         String sNomItem = null;
@@ -780,10 +780,10 @@ public class PositionRuleParameters {
      * @param regle
      * @return boolean
      */
-    public boolean EstRegleValide(RegleAssociation regle) {
+    public boolean EstRegleValide(AssociationRule regle) {
         Item item = null;
-        ItemQualitatif itemQual = null;
-        ItemQuantitatif itemQuant = null;
+        ItemQualitative itemQual = null;
+        ItemQuantitative itemQuant = null;
         ParametresItemsQualitatifs parametreItemDefaut = null;
         ParametresAttributsQuantitatifs parametreQuantDefaut = null;
         String sNomAttribut = null;
@@ -832,7 +832,7 @@ public class PositionRuleParameters {
                     iTypePosition = ResolutionContext.PRISE_EN_COMPTE_INDEFINI;
 
                     if (item.m_iTypeItem == Item.ITEM_TYPE_QUANTITATIF) {
-                        itemQuant = (ItemQuantitatif)item;  
+                        itemQuant = (ItemQuantitative)item;  
                         sNomAttribut = itemQuant.m_attributQuant.ObtenirNom();
                         iTypePosition = ObtenirTypePrisEnCompteAttribut(sNomAttribut);
                         if (ObtenirPresenceObligatoireAttribut(sNomAttribut) == 1)
@@ -840,7 +840,7 @@ public class PositionRuleParameters {
                     }
 
                     else if (item.m_iTypeItem == Item.ITEM_TYPE_QUALITATIF) {
-                        itemQual = (ItemQualitatif)item;  
+                        itemQual = (ItemQualitative)item;  
                         sNomAttribut = itemQual.m_attributQual.ObtenirNom();
                         iTypePosition = ObtenirTypePrisEnCompteItem(sNomAttribut, itemQual.ObtenirIdentifiantTexteItem() );
                         if (ObtenirPresenceObligatoireItem(sNomAttribut, itemQual.ObtenirIdentifiantTexteItem() ) )

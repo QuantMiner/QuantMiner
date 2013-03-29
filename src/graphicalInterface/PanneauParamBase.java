@@ -1,5 +1,5 @@
 /*                                             
- *Copyright 2007, 2011 CCLS Columbia University (USA), LIFO University of Orleans (France), BRGM (France)
+ *Copyright 2007, 2011 CCLS Columbia University (USA), LIFO University of Orl��ans (France), BRGM (France)
  *
  *Authors: Cyril Nortet, Xiangrong Kong, Ansaf Salleb-Aouissi, Christel Vrain, Daniel Cassard
  *
@@ -11,20 +11,24 @@
  *
  *You should have received a copy of the GNU General Public License along with QuantMiner.  If not, see <http://www.gnu.org/licenses/>.
  */
-package src.solver;
+package src.graphicalInterface;
 
-import src.apriori.*;
+import src.solver.*;
 
 
 
-public abstract class RuleOptimizer {
+public abstract class PanneauParamBase extends javax.swing.JPanel {
     
     protected ResolutionContext m_contexteResolution = null;
+
     
-    public void DefinirContexteResolution(ResolutionContext contexteResolution) {
+    /** Creates new form PanneauBase */
+    public PanneauParamBase(ResolutionContext contexteResolution) {
         m_contexteResolution = contexteResolution;
     }
     
-    public abstract boolean OptimiseRegle(AssociationRule regle);
+    
+    // Request l'enregistrement des param�tres dans l'objet de context 
+    public abstract boolean EnregistrerParametres();
     
 }

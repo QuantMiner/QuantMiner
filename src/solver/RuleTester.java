@@ -30,7 +30,7 @@ public class RuleTester extends Thread { //test rules
     
     // Definition d'un traitement specifique a inserer au cours de l'execution de l'algorithme Apriori :
     // Definition of a specific treatment to do during the apriori algorithm execution
-    public class TraitementPendantCalculFrequents extends AprioriQuantitatif.TraitementExternePendantCalcul {
+    public class TraitementPendantCalculFrequents extends AprioriQuantitative.TraitementExternePendantCalcul {
         
         public boolean ExecuterTraitementExterne() {
             try {
@@ -48,7 +48,7 @@ public class RuleTester extends Thread { //test rules
     public boolean m_bEnExecution = false;
     private boolean m_bResultatDisponible = false; // Indique qu'un ensemble de regles vient d'etre calcule en totalite 
     											   // Indicate that a set of rule are completely calculated
-    AprioriQuantitatif m_apriori = null;
+    AprioriQuantitative m_apriori = null;
     int m_iNombreTotalAttributsQuant = 0;
     int m_iNombreItemsQuantConsideres = 0;
     private int m_iMinimumItemsQuantConsideres = 0; //minimum # of quantitative attributes in a rule
@@ -128,7 +128,7 @@ public class RuleTester extends Thread { //test rules
         // Mise en place d'une nouvelle execution de l'algorithme Arpriori, repertoriee dans le contexte d'execution :
         // Setting for a new execution of apriori defined in the context of execution:
         m_contexteResolution.m_aprioriCourant = null;
-        m_apriori = new AprioriQuantitatif(m_contexteResolution);
+        m_apriori = new AprioriQuantitative(m_contexteResolution);
         m_contexteResolution.m_aprioriCourant = m_apriori;
         
         m_apriori.SpecifierSupportMinimal( m_fMinSupp );
@@ -157,7 +157,7 @@ public class RuleTester extends Thread { //test rules
         int iTypePriseEnCompte = 0;
         int iIndiceAttributsQuant = 0;
         int iNombreAttributsQuantBase = 0;
-        AttributQuantitatif attributQuant = null;
+        AttributQuantitative attributQuant = null;
         boolean bFinInitApriori = false;
         int iTailleFrequents = 0;
         int iNombreReglesATester = 0;
@@ -324,12 +324,12 @@ public class RuleTester extends Thread { //test rules
     //calculate new rules
     void CalculerNouvelleRegle() {
         ItemSet itemSetFrequent = null;
-        AttributQuantitatif attributQuant = null;
+        AttributQuantitative attributQuant = null;
         int iIndiceItemRegle = 0;
         int iIndiceAttributQuant = 0;
         int iIndiceEvolution = 0;
-        ItemQualitatif itemQual = null;
-        ItemQuantitatif itemQuant = null;
+        ItemQualitative itemQual = null;
+        ItemQuantitative itemQuant = null;
         boolean [] tRepartitionItems = null;                    
         int iIndiceAttributQuantAjoute = 0;
         boolean [] tCombinaisonItemsQuant = null;        
@@ -375,7 +375,7 @@ public class RuleTester extends Thread { //test rules
             
         if (m_iNombreItemsQuantConsideres > 0) {
 
-            tCombinaisonItemsQuant = AprioriQuantitatif.CalculerEnsemblesItems(m_iIndiceCombinaisonItemsQuant, m_iNombreTotalAttributsQuant, m_iNombreItemsQuantConsideres);
+            tCombinaisonItemsQuant = AprioriQuantitative.CalculerEnsemblesItems(m_iIndiceCombinaisonItemsQuant, m_iNombreTotalAttributsQuant, m_iNombreItemsQuantConsideres);
             if (tCombinaisonItemsQuant==null) {
                 if (m_iTailleFrequent == 0) { // Cas ou on testait des regles 100% quantitatives // case where we tested pure quantitative rules
                     m_iTailleFrequent++;
@@ -399,7 +399,7 @@ public class RuleTester extends Thread { //test rules
         // where each index corresponds to an item (the first "iTailleFrequent" are the qualitative items
         // we will place the items having "true" value in their corresponding table cell 
         // in the right side of the ru;e, the rest going to the right side.
-        tRepartitionItems = AprioriQuantitatif.CalculerRepartitionItems(m_iIndiceRepartitionItems, m_iTailleFrequent+m_iNombreItemsQuantConsideres);
+        tRepartitionItems = AprioriQuantitative.CalculerRepartitionItems(m_iIndiceRepartitionItems, m_iTailleFrequent+m_iNombreItemsQuantConsideres);
 
         if (tRepartitionItems == null) {
             if (m_iNombreItemsQuantConsideres==0)
@@ -412,7 +412,7 @@ public class RuleTester extends Thread { //test rules
         else {
 
             // Construction du schema de la rule optimiser :
-            RegleAssociation regle = null;
+            AssociationRule regle = null;
             int iNombreItemsGauche = 0;
             int iNombreItemsDroite = 0;
             int iNombreItems = 0;      // Number of items in the rule, qualitatifs and quantitatifs
@@ -433,7 +433,7 @@ public class RuleTester extends Thread { //test rules
             }
 
             //create a new rule template
-            regle = new RegleAssociation(iNombreItemsGauche, iNombreItemsDroite, m_iNombreDisjonctionsGauche, m_iNombreDisjonctionsDroite);
+            regle = new AssociationRule(iNombreItemsGauche, iNombreItemsDroite, m_iNombreDisjonctionsGauche, m_iNombreDisjonctionsDroite);
 
             iIndiceAjoutGauche = 0;
             iIndiceAjoutDroite = 0;
@@ -465,15 +465,15 @@ public class RuleTester extends Thread { //test rules
 
                     if (tCombinaisonItemsQuant[iIndiceAttributQuant]) {
 
-                        attributQuant = (AttributQuantitatif)(m_listeAttributsQuant.get(iIndiceAttributQuant));
+                        attributQuant = (AttributQuantitative)(m_listeAttributsQuant.get(iIndiceAttributQuant));
 
                         if (tRepartitionItems[m_iTailleFrequent + iIndiceAttributQuantAjoute]) {
-                            itemQuant = new ItemQuantitatif(attributQuant, m_iNombreDisjonctionsGauche);
+                            itemQuant = new ItemQuantitative(attributQuant, m_iNombreDisjonctionsGauche);
                             regle.AssignerItemGauche(itemQuant, iIndiceAjoutGauche);
                             iIndiceAjoutGauche++;
                         }
                         else {
-                            itemQuant = new ItemQuantitatif(attributQuant, m_iNombreDisjonctionsDroite);
+                            itemQuant = new ItemQuantitative(attributQuant, m_iNombreDisjonctionsDroite);
                             regle.AssignerItemDroite(itemQuant, iIndiceAjoutDroite);
                             iIndiceAjoutDroite++;
                         }
@@ -520,11 +520,11 @@ public class RuleTester extends Thread { //test rules
 
 
     
-    public RegleAssociation ObtenirRegleCalculee(int iIndiceRegle) {
+    public AssociationRule ObtenirRegleCalculee(int iIndiceRegle) {
         if (m_listeRegles != null)
         {
             try {
-                return (RegleAssociation)(m_listeRegles.get(iIndiceRegle));
+                return (AssociationRule)(m_listeRegles.get(iIndiceRegle));
             }
             catch (IndexOutOfBoundsException e) {
                 return null;

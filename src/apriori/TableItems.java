@@ -19,8 +19,8 @@ class TableItems {
     
     static long m_lCompteurItem = 0; // ID sur 64 bits (borne � 9 milliards de milliards)
     
-    ItemQualitatif m_premierItem;
-    ItemQualitatif m_dernierItem;
+    ItemQualitative m_premierItem;
+    ItemQualitative m_dernierItem;
      
      
     TableItems() {
@@ -35,9 +35,9 @@ class TableItems {
     }
     
     
-    void DeclarerItemQualitatif(AttributQualitatif attribut, short iIndiceValeur) {
+    void DeclarerItemQualitatif(AttributQualitative attribut, short iIndiceValeur) {
         
-        ItemQualitatif nouvelItem = new ItemQualitatif(attribut, iIndiceValeur);
+        ItemQualitative nouvelItem = new ItemQualitative(attribut, iIndiceValeur);
         
         if ( (m_premierItem==null) || (m_dernierItem==null) )
             m_premierItem = m_dernierItem = nouvelItem;
@@ -48,7 +48,7 @@ class TableItems {
     }
     
 
-    ItemQualitatif ObtenirPremierItem() {
+    ItemQualitative ObtenirPremierItem() {
         return m_premierItem;
     }
     

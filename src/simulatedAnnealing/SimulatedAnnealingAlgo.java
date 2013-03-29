@@ -17,7 +17,7 @@ import java.util.*;
 
 import src.apriori.*;
 import src.database.*;
-import src.interfaceGraphique.*;
+import src.graphicalInterface.*;
 import src.solver.*;
 
 

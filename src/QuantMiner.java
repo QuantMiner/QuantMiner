@@ -25,7 +25,7 @@ import javax.swing.*;
 
 import src.apriori.*;
 import src.geneticAlgorithm.*;
-import src.interfaceGraphique.*;
+import src.graphicalInterface.*;
 import src.tools.*;
 
 import java.util.*;
