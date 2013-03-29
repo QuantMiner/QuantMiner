@@ -15,7 +15,7 @@ package src.interfaceGraphique;
 
 import javax.swing.*;
 
-import src.recuitSimule.*;
+import src.simulatedAnnealing.*;
 import src.solver.*;
 import src.utilitaires.*;
 
@@ -40,7 +40,7 @@ public class PanneauParamRecuitSimule extends PanneauParamBase {//step 3 techniq
         if (m_contexteResolution == null)
             return;
         
-        ParametresRecuitSimule parametresRecuitSimule = m_contexteResolution.m_parametresTechRecuitSimule;
+        SimulatedAnnealingParameters parametresRecuitSimule = m_contexteResolution.m_parametresTechRecuitSimule;
         
         // Initialisation du contenu des champs :
         jTextNombreIterations.setText( String.valueOf( parametresRecuitSimule.m_iNombreIterations ) );
@@ -102,11 +102,11 @@ public class PanneauParamRecuitSimule extends PanneauParamBase {//step 3 techniq
     }//GEN-END:initComponents
 
     private void jButtonDefautReglesParallActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautReglesParallActionPerformed
-        jTextReglesParallelles.setText( String.valueOf(ParametresRecuitSimule.DEFAUT_NBPARALL) );
+        jTextReglesParallelles.setText( String.valueOf(SimulatedAnnealingParameters.DEFAUT_NBPARALL) );
     }//GEN-LAST:event_jButtonDefautReglesParallActionPerformed
 
     private void jButtonDefautIterationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautIterationsActionPerformed
-        jTextNombreIterations.setText( String.valueOf(ParametresRecuitSimule.DEFAUT_NBITER) );
+        jTextNombreIterations.setText( String.valueOf(SimulatedAnnealingParameters.DEFAUT_NBITER) );
     }//GEN-LAST:event_jButtonDefautIterationsActionPerformed
     
     
@@ -126,7 +126,7 @@ public class PanneauParamRecuitSimule extends PanneauParamBase {//step 3 techniq
         int iNombreIterations = 0;
         int iNombreSolutionsParalleles = 0;
         
-        ParametresRecuitSimule parametresTechnique = m_contexteResolution.m_parametresTechRecuitSimule;
+        SimulatedAnnealingParameters parametresTechnique = m_contexteResolution.m_parametresTechRecuitSimule;
         if (parametresTechnique == null)
             return true;
 

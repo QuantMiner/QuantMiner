@@ -20,7 +20,7 @@ import src.apriori.*;
 import src.database.*;
 import src.geneticAlgorithm.*;
 import src.interfaceGraphique.*;
-import src.recuitSimule.*;
+import src.simulatedAnnealing.*;
 import src.utilitaires.*;
 
 
@@ -94,7 +94,7 @@ public class ContexteResolution {
     public ParametresStandards m_parametresRegles = null;    // Criteria  generaux sur les regles a extraire -- general criteria for the rules to extract
     public ParametresStandardsQuantitatifs m_parametresReglesQuantitatives = null;    // ici avec des indications particulieres relatives aux attributs quantitatifs -- here with indications for quantitative attributes
     public ParametersGeneticAlgo m_parametresTechAlgoGenetique = null;    // Parametres utilisateur relatifs a la technique de l'algorithme genetique  -- user parameter for the genetic algorithm
-    public ParametresRecuitSimule m_parametresTechRecuitSimule = null;  // Parametres utilisateur relatifs a la technique du recuit simule -- user parameter for the simulated annealing
+    public SimulatedAnnealingParameters m_parametresTechRecuitSimule = null;  // Parametres utilisateur relatifs a la technique du recuit simule -- user parameter for the simulated annealing
     public ParametresChargement m_parametresTechChargement = null;  // Parametres utilisateur concernant le chargement d'un fichier de regles -- user parameter for loading the rule file
     // ... Ajouter ici d'autres objets pour chaque nouvelle technique
     
@@ -114,7 +114,7 @@ public class ContexteResolution {
         m_parametresRegles = new ParametresStandards();
         m_parametresReglesQuantitatives = new ParametresStandardsQuantitatifs();
         m_parametresTechAlgoGenetique = new ParametersGeneticAlgo();
-        m_parametresTechRecuitSimule = new ParametresRecuitSimule();
+        m_parametresTechRecuitSimule = new SimulatedAnnealingParameters();
         m_parametresTechChargement = new ParametresChargement();
         
         m_positionnementRegles = new ParametresPositionRegles(this, ParametresPositionRegles.PARAMETRES_POSITION_REGLES);
