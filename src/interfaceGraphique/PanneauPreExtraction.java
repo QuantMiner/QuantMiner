@@ -28,7 +28,7 @@ import java.awt.*;
 
 public class PanneauPreExtraction extends PanneauBaseAssistant {
     
-    public PanneauPreExtraction(ContexteResolution contexteResolution) {//step 2
+    public PanneauPreExtraction(ResolutionContext contexteResolution) {//step 2
         super(contexteResolution);
         
         initComponents();
@@ -84,12 +84,12 @@ public class PanneauPreExtraction extends PanneauBaseAssistant {
     }//GEN-END:initComponents
 
     private void jButtonNeRienSelectionnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonNeRienSelectionnerActionPerformed
-        super.m_contexteResolution.DefinirPositionnementPourTous(ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART, false);
+        super.m_contexteResolution.DefinirPositionnementPourTous(ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART, false);
         jScrollPaneAttributs.repaint();
     }//GEN-LAST:event_jButtonNeRienSelectionnerActionPerformed
 
     private void jButtonToutSelectionnerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonToutSelectionnerActionPerformed
-        super.m_contexteResolution.DefinirPositionnementPourTous(ContexteResolution.PRISE_EN_COMPTE_ITEM_2_COTES, false);
+        super.m_contexteResolution.DefinirPositionnementPourTous(ResolutionContext.PRISE_EN_COMPTE_ITEM_2_COTES, false);
         jScrollPaneAttributs.repaint();  //repaint this component
     }//GEN-LAST:event_jButtonToutSelectionnerActionPerformed
     

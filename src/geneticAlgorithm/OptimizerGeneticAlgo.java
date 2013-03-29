@@ -21,7 +21,7 @@ import src.interfaceGraphique.*;
 import src.solver.*;
 
 
-public class OptimizerGeneticAlgo extends OptimiseurRegle {
+public class OptimizerGeneticAlgo extends RuleOptimizer {
     
     GeneticAlgo m_algoGenetique = null;
     ParametresStandardsQuantitatifs m_parametresReglesQuantitatives = null;
@@ -47,7 +47,7 @@ public class OptimizerGeneticAlgo extends OptimiseurRegle {
     
     
     // Outrepassement de la fonction de sp�cification du contexte :
-    public void DefinirContexteResolution(ContexteResolution contexteResolution) {
+    public void DefinirContexteResolution(ResolutionContext contexteResolution) {
         super.DefinirContexteResolution(contexteResolution);
         
         if (super.m_contexteResolution == null) {

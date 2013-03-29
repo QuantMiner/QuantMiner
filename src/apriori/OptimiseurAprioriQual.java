@@ -19,7 +19,7 @@ import src.solver.*;
 
 
 
-public class OptimiseurAprioriQual extends OptimiseurRegle {
+public class OptimiseurAprioriQual extends RuleOptimizer {
 
     ParametresStandards m_parametresRegles = null;
     
@@ -31,7 +31,7 @@ public class OptimiseurAprioriQual extends OptimiseurRegle {
     
     
     // Outrepassement de la fonction de sp�cification du contexte :
-    public void DefinirContexteResolution(ContexteResolution contexteResolution) {
+    public void DefinirContexteResolution(ResolutionContext contexteResolution) {
         super.DefinirContexteResolution(contexteResolution);
         
         if (super.m_contexteResolution == null) {

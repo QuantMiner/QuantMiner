@@ -20,7 +20,7 @@ import src.solver.*;
 
 
 
-public class OptimizerSimulatedAnnealing extends OptimiseurRegle {
+public class OptimizerSimulatedAnnealing extends RuleOptimizer {
 
     SimulatedAnnealingAlgo m_algoRecuitSimule = null;
     ParametresStandardsQuantitatifs m_parametresReglesQuantitatives = null;
@@ -45,7 +45,7 @@ public class OptimizerSimulatedAnnealing extends OptimiseurRegle {
     
     
 
-    public void DefinirContexteResolution(ContexteResolution contexteResolution) {
+    public void DefinirContexteResolution(ResolutionContext contexteResolution) {
         super.DefinirContexteResolution(contexteResolution);
         
         if (super.m_contexteResolution == null) {

@@ -32,7 +32,7 @@ import java.util.*;
 public class PanneauResultats extends PanneauBaseAssistant { //step 5
     
 	//called when saving file in html with graph
-    private class ResultatsEnregistreurGraphiqueRegle implements ContexteResolution.EnregistreurGraphiqueRegle { 
+    private class ResultatsEnregistreurGraphiqueRegle implements ResolutionContext.EnregistreurGraphiqueRegle { 
     	//Enregistrer means record/write down
         private String m_sNomBaseFichier = null;
         
@@ -52,7 +52,7 @@ public class PanneauResultats extends PanneauBaseAssistant { //step 5
     }
     
     /** Creates new form PanneauResultats */
-    public PanneauResultats(ContexteResolution contexteResolution) {
+    public PanneauResultats(ResolutionContext contexteResolution) {
         super(contexteResolution);
 
         int iNombreRegles = 0;
@@ -61,7 +61,7 @@ public class PanneauResultats extends PanneauBaseAssistant { //step 5
         m_tReglesFiltrees = null;
         
         // If les rules sont issues d'un file, on commence by les load :
-        if (super.m_contexteResolution.m_iTechniqueResolution == ContexteResolution.TECHNIQUE_CHARGEMENT) {  //if it load file
+        if (super.m_contexteResolution.m_iTechniqueResolution == ResolutionContext.TECHNIQUE_CHARGEMENT) {  //if it load file
             super.m_contexteResolution.m_sDescriptionRegles = m_contexteResolution.m_parametresTechChargement.m_sDescriptionRegles;
             super.m_contexteResolution.ChargerReglesBinaire(super.m_contexteResolution.m_parametresTechChargement.m_sNomFichier);
         }
@@ -102,7 +102,7 @@ public class PanneauResultats extends PanneauBaseAssistant { //step 5
         if (iNombreRegles > 0) {
             // Calcul des mesures suppl�mentaires permettant d'�valuer plus finement les r�gles :
             // (si les r�gles ont �t� charg�es depuis un fichier, ces calculs sont d�j� faits)
-            if (super.m_contexteResolution.m_iTechniqueResolution != ContexteResolution.TECHNIQUE_CHARGEMENT) {
+            if (super.m_contexteResolution.m_iTechniqueResolution != ResolutionContext.TECHNIQUE_CHARGEMENT) {
                 tRegles = new RegleAssociation [1];
                 tRegles = (RegleAssociation [])(super.m_contexteResolution.m_listeRegles.toArray(tRegles));
                 RegleAssociation.CalculerMesuresDiverses(tRegles, super.m_contexteResolution);
@@ -118,19 +118,19 @@ public class PanneauResultats extends PanneauBaseAssistant { //step 5
         
         switch (m_contexteResolution.m_iTechniqueResolution) {
             
-            case ContexteResolution.TECHNIQUE_APRIORI_QUAL :
+            case ResolutionContext.TECHNIQUE_APRIORI_QUAL :
                 super.DefinirPanneauPrecedent(FenetrePrincipale.PANNEAU_TECH_GENERIQUE);
                 break;
             
-            case ContexteResolution.TECHNIQUE_ALGO_GENETIQUE :
+            case ResolutionContext.TECHNIQUE_ALGO_GENETIQUE :
                 super.DefinirPanneauPrecedent(FenetrePrincipale.PANNEAU_TECH_GENERIQUE);
                 break;
                 
-            case ContexteResolution.TECHNIQUE_RECUIT_SIMULE :
+            case ResolutionContext.TECHNIQUE_RECUIT_SIMULE :
                 super.DefinirPanneauPrecedent(FenetrePrincipale.PANNEAU_TECH_GENERIQUE);
                 break;
                 
-            case ContexteResolution.TECHNIQUE_CHARGEMENT :
+            case ResolutionContext.TECHNIQUE_CHARGEMENT :
                 super.DefinirPanneauPrecedent(FenetrePrincipale.PANNEAU_CONFIG_TECHNIQUE);
                 break;
             

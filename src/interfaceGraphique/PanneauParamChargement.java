@@ -29,7 +29,7 @@ public class PanneauParamChargement extends PanneauParamBase {//step 3 rule para
     
     
     /** Creates new form PanneauParamGenetique */
-    public PanneauParamChargement(ContexteResolution contexteResolution) {
+    public PanneauParamChargement(ResolutionContext contexteResolution) {
         super(contexteResolution);
         
         initComponents();
@@ -37,7 +37,7 @@ public class PanneauParamChargement extends PanneauParamBase {//step 3 rule para
         if (m_contexteResolution == null)
             return;
         
-        ParametresChargement parametresChargement = m_contexteResolution.m_parametresTechChargement;
+        LoadingParameters parametresChargement = m_contexteResolution.m_parametresTechChargement;
         
         // Initialisation du contenu des champs :
         if (parametresChargement.m_sNomFichier == null) {
@@ -46,7 +46,7 @@ public class PanneauParamChargement extends PanneauParamBase {//step 3 rule para
         }
         else {
             jTextFieldNomFichier.setText(parametresChargement.m_sNomFichier);
-            jEditorPaneDescription.setText(ContexteResolution.EcrireDescriptionFichierReglesBinairesHTML(parametresChargement.m_sNomFichier));
+            jEditorPaneDescription.setText(ResolutionContext.EcrireDescriptionFichierReglesBinairesHTML(parametresChargement.m_sNomFichier));
             jEditorPaneDescription.setCaretPosition(0);
         }
 
@@ -114,7 +114,7 @@ public class PanneauParamChargement extends PanneauParamBase {//step 3 rule para
         if ( (sFichierChoisi != null) && (m_contexteResolution != null) ) {
             m_contexteResolution.PreChargerFichierReglesBinaires(sFichierChoisi);
             jTextFieldNomFichier.setText(sFichierChoisi);
-            jEditorPaneDescription.setText(ContexteResolution.EcrireDescriptionFichierReglesBinairesHTML(sFichierChoisi));
+            jEditorPaneDescription.setText(ResolutionContext.EcrireDescriptionFichierReglesBinairesHTML(sFichierChoisi));
             jEditorPaneDescription.setCaretPosition(0);
         }
     }//GEN-LAST:event_jButtonChargerFichierActionPerformed

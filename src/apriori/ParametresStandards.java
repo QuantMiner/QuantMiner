@@ -40,8 +40,8 @@ public class ParametresStandards {
         String sParametres = null;
         
         sParametres = "General parameters selected for rule extraction:" + "\n" + "\n";
-        sParametres += "Minimal Support: " + ContexteResolution.EcrirePourcentage(m_fMinSupp, 3, true) + "\n";
-        sParametres += "Minimal Confidence: " + ContexteResolution.EcrirePourcentage(m_fMinConf, 3, true) + "\n";
+        sParametres += "Minimal Support: " + ResolutionContext.EcrirePourcentage(m_fMinSupp, 3, true) + "\n";
+        sParametres += "Minimal Confidence: " + ResolutionContext.EcrirePourcentage(m_fMinConf, 3, true) + "\n";
        
         return sParametres;
     }

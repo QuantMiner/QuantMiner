@@ -25,7 +25,7 @@ public class PanneauParamRecuitSimule extends PanneauParamBase {//step 3 techniq
     
     
     /** Creates new form PanneauParamGenetique */
-    public PanneauParamRecuitSimule(ContexteResolution contexteResolution) {
+    public PanneauParamRecuitSimule(ResolutionContext contexteResolution) {
         super(contexteResolution);
         
         ImageIcon iconeRetourDefaut = null;

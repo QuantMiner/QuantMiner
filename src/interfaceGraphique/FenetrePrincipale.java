@@ -42,7 +42,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     PanneauBase m_panneauCourant = null;
     int m_iPanneauCourant = 0;
     
-    ContexteResolution m_contexteResolution = null;
+    ResolutionContext m_contexteResolution = null;
     
     public FenetrePrincipale() {
         Dimension dimensionEcran = null;
@@ -359,7 +359,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
                     if (!m_panneauCourant.AnnulerPanneau())
                         return;
                 
-                m_contexteResolution = new ContexteResolution(this);
+                m_contexteResolution = new ResolutionContext(this);
                 m_contexteResolution.m_gestionnaireBD = gestionnaireBD;
                 //In step 1, at the beginning, all columns are selected, and we also get to know column type due to AnalyserTypesChampsBD();
                 m_contexteResolution.m_gestionnaireBD.PrendreEnCompteToutesLesColonnes(); 

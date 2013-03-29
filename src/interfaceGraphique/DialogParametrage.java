@@ -26,11 +26,11 @@ public class DialogParametrage extends javax.swing.JDialog { //set parameter of 
     
 	private static final long serialVersionUID = 1L;
 	int m_iAncienLook = 0;
-    ContexteResolution m_contexteResolution = null;
+    ResolutionContext m_contexteResolution = null;
     
     
     /** Creates new form DialogParametrage */
-    public DialogParametrage(ContexteResolution contexteResolution, java.awt.Frame parent, boolean modal) {
+    public DialogParametrage(ResolutionContext contexteResolution, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
 

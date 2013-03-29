@@ -58,12 +58,12 @@ public class AttributsBDModel extends AbstractTreeTableModel {
         private String m_sNomItem = null;
         private int m_iType = 0;
         private String m_sDescription = null;
-        private ParametresPositionRegles m_parametresPosition = null;
+        private PositionRuleParameters m_parametresPosition = null;
         private boolean m_bParametresConstants = false;  // Si vrai, alors les param�tres de l'attribut/item ne peuvent �tre modifi�s
         
         
         // Construit un descripteur d'attribut :
-        public AttributBDDescription(String sNomAttribut, int iType, String sDescription, ParametresPositionRegles parametresPosition, boolean bParametresConstants) {
+        public AttributBDDescription(String sNomAttribut, int iType, String sDescription, PositionRuleParameters parametresPosition, boolean bParametresConstants) {
             m_sNomAttribut = sNomAttribut;
             m_sNomItem = null;
             m_iType = m_iType;
@@ -74,7 +74,7 @@ public class AttributsBDModel extends AbstractTreeTableModel {
         
         
         // Construit un descriteur d'item (valeur d'un attribut) :
-        public AttributBDDescription(String sNomAttribut, String sNomItem, String sDescription, ParametresPositionRegles parametresPosition, boolean bParametresConstants) {
+        public AttributBDDescription(String sNomAttribut, String sNomItem, String sDescription, PositionRuleParameters parametresPosition, boolean bParametresConstants) {
             m_sNomAttribut = sNomAttribut;
             m_sNomItem = sNomItem;
             m_iType = ELEMENT_MODEL_ITEM;
@@ -112,16 +112,16 @@ public class AttributsBDModel extends AbstractTreeTableModel {
             
             switch (iPositionItem) {
                     
-                case ContexteResolution.PRISE_EN_COMPTE_INDEFINI :
+                case ResolutionContext.PRISE_EN_COMPTE_INDEFINI :
                     return "variable";
  
-                case ContexteResolution.PRISE_EN_COMPTE_ITEM_GAUCHE :
+                case ResolutionContext.PRISE_EN_COMPTE_ITEM_GAUCHE :
                     return "left-hand side (condition)";
                     
-                case ContexteResolution.PRISE_EN_COMPTE_ITEM_DROITE :
+                case ResolutionContext.PRISE_EN_COMPTE_ITEM_DROITE :
                     return "right-hand side (conclusion)";
                     
-                case ContexteResolution.PRISE_EN_COMPTE_ITEM_2_COTES :
+                case ResolutionContext.PRISE_EN_COMPTE_ITEM_2_COTES :
                     return "2 sides";
                     
                 default :
@@ -138,24 +138,24 @@ public class AttributsBDModel extends AbstractTreeTableModel {
                 return;
             
             if (sPositionItem.equals("2 sides"))
-                iPositionItem = ContexteResolution.PRISE_EN_COMPTE_ITEM_2_COTES;
+                iPositionItem = ResolutionContext.PRISE_EN_COMPTE_ITEM_2_COTES;
             
             else if (sPositionItem.equals("left-hand side (condition)"))
-                iPositionItem = ContexteResolution.PRISE_EN_COMPTE_ITEM_GAUCHE;
+                iPositionItem = ResolutionContext.PRISE_EN_COMPTE_ITEM_GAUCHE;
                     
             else if (sPositionItem.equals("right-hand side (conclusion)"))
-                iPositionItem = ContexteResolution.PRISE_EN_COMPTE_ITEM_DROITE;
+                iPositionItem = ResolutionContext.PRISE_EN_COMPTE_ITEM_DROITE;
                     
             else if (sPositionItem.equals("nowhere"))
-                iPositionItem = ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART;
+                iPositionItem = ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART;
             
             if (EstItem()) {
-                if ( !(  (iPositionItem==ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART)
+                if ( !(  (iPositionItem==ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART)
                        &&(m_parametresPosition.ObtenirPresenceObligatoireItem(m_sNomAttribut, m_sNomItem))  )  )
                     m_parametresPosition.DefinirTypePrisEnCompteItem(m_sNomAttribut, m_sNomItem, iPositionItem);
             }
             else {
-                if ( !(  (iPositionItem==ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART)
+                if ( !(  (iPositionItem==ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART)
                        &&(m_parametresPosition.ObtenirPresenceObligatoireAttribut(m_sNomAttribut)!=0)  )  )
                     m_parametresPosition.DefinirTypePrisEnCompteAttribut(m_sNomAttribut, iPositionItem);
             }
@@ -183,11 +183,11 @@ public class AttributsBDModel extends AbstractTreeTableModel {
                 return;
                         
             if (EstItem()) {
-                if (m_parametresPosition.ObtenirTypePrisEnCompteItem(m_sNomAttribut, m_sNomItem) != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART)
+                if (m_parametresPosition.ObtenirTypePrisEnCompteItem(m_sNomAttribut, m_sNomItem) != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART)
                     m_parametresPosition.DefinirPresenceObligatoireItem(m_sNomAttribut, m_sNomItem, bPresenceObligatoire);
             }
             else {
-                if (m_parametresPosition.ObtenirTypePrisEnCompteAttribut(m_sNomAttribut) != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART)
+                if (m_parametresPosition.ObtenirTypePrisEnCompteAttribut(m_sNomAttribut) != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART)
                     m_parametresPosition.DefinirPresenceObligatoireAttribut(m_sNomAttribut, bPresenceObligatoire);
             }
         }

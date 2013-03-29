@@ -49,7 +49,7 @@ public class PanneauConfigTechnique extends PanneauBaseAssistant { //step 3 para
 
 
     /** Creates new form PanneauConfigTechnique */
-    public PanneauConfigTechnique(ContexteResolution contexteResolution) {
+    public PanneauConfigTechnique(ResolutionContext contexteResolution) {
         super(contexteResolution);
         
         m_panneauParamsRegles = null;
@@ -65,24 +65,24 @@ public class PanneauConfigTechnique extends PanneauBaseAssistant { //step 3 para
         
         switch (m_contexteResolution.m_iTechniqueResolution) {
             
-            case ContexteResolution.TECHNIQUE_APRIORI_QUAL :
+            case ResolutionContext.TECHNIQUE_APRIORI_QUAL :
                 jComboTechnique.setSelectedItem("Standard Apriori");
-                ActiverPanneauAssistant(ContexteResolution.TECHNIQUE_APRIORI_QUAL);  
+                ActiverPanneauAssistant(ResolutionContext.TECHNIQUE_APRIORI_QUAL);  
                 break;
             
-            case ContexteResolution.TECHNIQUE_ALGO_GENETIQUE :
+            case ResolutionContext.TECHNIQUE_ALGO_GENETIQUE :
                 jComboTechnique.setSelectedItem("Genetic algorithm");
-                ActiverPanneauAssistant(ContexteResolution.TECHNIQUE_ALGO_GENETIQUE); 
+                ActiverPanneauAssistant(ResolutionContext.TECHNIQUE_ALGO_GENETIQUE); 
                 break;
                 
-            case ContexteResolution.TECHNIQUE_RECUIT_SIMULE :
+            case ResolutionContext.TECHNIQUE_RECUIT_SIMULE :
                 jComboTechnique.setSelectedItem("Simulated annealing");
-                ActiverPanneauAssistant(ContexteResolution.TECHNIQUE_RECUIT_SIMULE); 
+                ActiverPanneauAssistant(ResolutionContext.TECHNIQUE_RECUIT_SIMULE); 
                 break;
                 
-            case ContexteResolution.TECHNIQUE_CHARGEMENT :
+            case ResolutionContext.TECHNIQUE_CHARGEMENT :
                 jComboTechnique.setSelectedItem("Load a set of precomputed rules");
-                ActiverPanneauAssistant(ContexteResolution.TECHNIQUE_CHARGEMENT); 
+                ActiverPanneauAssistant(ResolutionContext.TECHNIQUE_CHARGEMENT); 
                 break;
                 
             default :
@@ -154,22 +154,22 @@ public class PanneauConfigTechnique extends PanneauBaseAssistant { //step 3 para
     
     private void jComboTechniqueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboTechniqueActionPerformed
         String sTechniqueSelectionnee = null;                                 //the name of the selected item
-        int iTechniqueSelectionnee = ContexteResolution.TECHNIQUE_INDEFINIE;  //at the beginning, technique is undefined
+        int iTechniqueSelectionnee = ResolutionContext.TECHNIQUE_INDEFINIE;  //at the beginning, technique is undefined
         boolean bSuiteAutorisee = false;
             
         sTechniqueSelectionnee = (String)((JComboBox)evt.getSource()).getSelectedItem();
         if (sTechniqueSelectionnee != null) {
             if (sTechniqueSelectionnee.equals("Standard Apriori")) 
-                iTechniqueSelectionnee = ContexteResolution.TECHNIQUE_APRIORI_QUAL;
+                iTechniqueSelectionnee = ResolutionContext.TECHNIQUE_APRIORI_QUAL;
             else if (sTechniqueSelectionnee.equals("Genetic algorithm"))
-                iTechniqueSelectionnee = ContexteResolution.TECHNIQUE_ALGO_GENETIQUE;
+                iTechniqueSelectionnee = ResolutionContext.TECHNIQUE_ALGO_GENETIQUE;
             else if (sTechniqueSelectionnee.equals("Simulated annealing"))
-                iTechniqueSelectionnee = ContexteResolution.TECHNIQUE_RECUIT_SIMULE;
+                iTechniqueSelectionnee = ResolutionContext.TECHNIQUE_RECUIT_SIMULE;
             else if (sTechniqueSelectionnee.equals("Load a set of precomputed rules"))//("Chargement d'un fichier de r�gles pr�-calcul�es"))
-                iTechniqueSelectionnee = ContexteResolution.TECHNIQUE_CHARGEMENT;
+                iTechniqueSelectionnee = ResolutionContext.TECHNIQUE_CHARGEMENT;
         }
         
-        if (iTechniqueSelectionnee != ContexteResolution.TECHNIQUE_INDEFINIE) { //user selected an algorithm
+        if (iTechniqueSelectionnee != ResolutionContext.TECHNIQUE_INDEFINIE) { //user selected an algorithm
             bSuiteAutorisee = true;
             
             if (m_panneauParamsRegles != null)
@@ -189,16 +189,16 @@ public class PanneauConfigTechnique extends PanneauBaseAssistant { //step 3 para
         String sNomFichierAide = null;
         
         switch (m_contexteResolution.m_iTechniqueResolution) {
-            case ContexteResolution.TECHNIQUE_APRIORI_QUAL:
+            case ResolutionContext.TECHNIQUE_APRIORI_QUAL:
                 sNomFichierAide = "apriori_english.htm";
                 break;
-            case ContexteResolution.TECHNIQUE_ALGO_GENETIQUE:
+            case ResolutionContext.TECHNIQUE_ALGO_GENETIQUE:
                 sNomFichierAide = "genetic_algorithm.htm";
                 break;
-            case ContexteResolution.TECHNIQUE_RECUIT_SIMULE:
+            case ResolutionContext.TECHNIQUE_RECUIT_SIMULE:
                 sNomFichierAide = "simulated_annealing.htm";
                 break;
-            case ContexteResolution.TECHNIQUE_CHARGEMENT:
+            case ResolutionContext.TECHNIQUE_CHARGEMENT:
                 sNomFichierAide = "rules_loading.htm";
                 break;                
         }        
@@ -225,29 +225,29 @@ public class PanneauConfigTechnique extends PanneauBaseAssistant { //step 3 para
         switch (iTechnique) {
             
             // Technique, the chosen algorithm:
-            case ContexteResolution.TECHNIQUE_ALGO_GENETIQUE :
-                m_contexteResolution.m_iTechniqueResolution = ContexteResolution.TECHNIQUE_ALGO_GENETIQUE;
+            case ResolutionContext.TECHNIQUE_ALGO_GENETIQUE :
+                m_contexteResolution.m_iTechniqueResolution = ResolutionContext.TECHNIQUE_ALGO_GENETIQUE;
                 ActiverPanneauAssistant(CONTENEUR_PARAM_REGLES, PANNEAU_PARAM_REGLES_QUANTITATIVES_STANDARD);
                 ActiverPanneauAssistant(CONTENEUR_PARAM_TECH, PANNEAU_PARAM_TECH_GENETIQUE);
                 break;
                 
             // Technique simulated annealing
-            case ContexteResolution.TECHNIQUE_RECUIT_SIMULE :
-                m_contexteResolution.m_iTechniqueResolution = ContexteResolution.TECHNIQUE_RECUIT_SIMULE;
+            case ResolutionContext.TECHNIQUE_RECUIT_SIMULE :
+                m_contexteResolution.m_iTechniqueResolution = ResolutionContext.TECHNIQUE_RECUIT_SIMULE;
                 ActiverPanneauAssistant(CONTENEUR_PARAM_REGLES, PANNEAU_PARAM_REGLES_QUANTITATIVES_STANDARD);
                 ActiverPanneauAssistant(CONTENEUR_PARAM_TECH, PANNEAU_PARAM_TECH_RECUIT);
                 break;
                 
                 //Load a set of precomputed rules
-            case ContexteResolution.TECHNIQUE_CHARGEMENT :  
-                m_contexteResolution.m_iTechniqueResolution = ContexteResolution.TECHNIQUE_CHARGEMENT;
+            case ResolutionContext.TECHNIQUE_CHARGEMENT :  
+                m_contexteResolution.m_iTechniqueResolution = ResolutionContext.TECHNIQUE_CHARGEMENT;
                 ActiverPanneauAssistant(CONTENEUR_PARAM_REGLES, PANNEAU_PARAM_REGLES_AUCUN);
                 ActiverPanneauAssistant(CONTENEUR_PARAM_TECH, PANNEAU_PARAM_TECH_CHARGEMENT);
                 break;               
             
             // By default, it is Apriori standard(i think it is for itemset, i.e. categorical)(qualitatif uniquement) :
             default:
-                m_contexteResolution.m_iTechniqueResolution = ContexteResolution.TECHNIQUE_APRIORI_QUAL;
+                m_contexteResolution.m_iTechniqueResolution = ResolutionContext.TECHNIQUE_APRIORI_QUAL;
                 ActiverPanneauAssistant(CONTENEUR_PARAM_REGLES, PANNEAU_PARAM_REGLES_STANDARD);
                 ActiverPanneauAssistant(CONTENEUR_PARAM_TECH, PANNEAU_PARAM_TECH_SANS_CONFIGURATION);
         }
@@ -490,19 +490,19 @@ public class PanneauConfigTechnique extends PanneauBaseAssistant { //step 3 para
         		JOptionPane.showMessageDialog(null, "Cannot goto Step 4 with Standard Apriori, as one or more attributes are quantitative", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         	}
-            iTechniqueSelectionnee = ContexteResolution.TECHNIQUE_APRIORI_QUAL;
+            iTechniqueSelectionnee = ResolutionContext.TECHNIQUE_APRIORI_QUAL;
             super.DefinirPanneauSuivant(FenetrePrincipale.PANNEAU_TECH_GENERIQUE);
         }
         else if (sTechniqueSelectionnee.equals("Genetic algorithm")) {
-            iTechniqueSelectionnee = ContexteResolution.TECHNIQUE_ALGO_GENETIQUE;
+            iTechniqueSelectionnee = ResolutionContext.TECHNIQUE_ALGO_GENETIQUE;
             super.DefinirPanneauSuivant(FenetrePrincipale.PANNEAU_TECH_GENERIQUE);
         }
         else if (sTechniqueSelectionnee.equals("Simulated annealing")) {
-            iTechniqueSelectionnee = ContexteResolution.TECHNIQUE_RECUIT_SIMULE;
+            iTechniqueSelectionnee = ResolutionContext.TECHNIQUE_RECUIT_SIMULE;
             super.DefinirPanneauSuivant(FenetrePrincipale.PANNEAU_TECH_GENERIQUE);
         }
         else if (sTechniqueSelectionnee.equals("Load a set of precomputed rules")){//("Chargement d'un fichier de r�gles pr�-calcul�es")) {
-            iTechniqueSelectionnee = ContexteResolution.TECHNIQUE_CHARGEMENT;
+            iTechniqueSelectionnee = ResolutionContext.TECHNIQUE_CHARGEMENT;
             super.DefinirPanneauSuivant(FenetrePrincipale.PANNEAU_RESULTATS); //since you already have rules, just display the result
         }
         else
@@ -525,7 +525,7 @@ public class PanneauConfigTechnique extends PanneauBaseAssistant { //step 3 para
              iTypePriseEnCompte = m_contexteResolution.ObtenirTypePrisEnCompteAttribut(colonneDonnees.m_sNomColonne);
              
              if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL){
-                     if (iTypePriseEnCompte != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) 
+                     if (iTypePriseEnCompte != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) 
                     	 numQuantitave++;
              }
               

@@ -50,8 +50,8 @@ public class ParametresStandardsQuantitatifs {
         String sParametres = null;
         
         sParametres = "Gerneral parameters selected for rule extraction:" + "\n" + "\n";
-        sParametres += "Minimal Support: " + ContexteResolution.EcrirePourcentage(m_fMinSupp, 3, true) + "\n";
-        sParametres += "Minimal Confidence: " + ContexteResolution.EcrirePourcentage(m_fMinConf, 3, true) + "\n";
+        sParametres += "Minimal Support: " + ResolutionContext.EcrirePourcentage(m_fMinSupp, 3, true) + "\n";
+        sParametres += "Minimal Confidence: " + ResolutionContext.EcrirePourcentage(m_fMinConf, 3, true) + "\n";
         sParametres += "Minimum number of numerical attributes in a rule: " + String.valueOf(m_iNombreMinAttributsQuant) + "\n";
         sParametres += "Maximum number of numerical attributes in a rule: " + String.valueOf(m_iNombreMaxAttributsQuant) + "\n";
         sParametres += "Number of disjunctions allowed in the left-hand side: " + String.valueOf(m_iNombreDisjonctionsGauche) + "\n";

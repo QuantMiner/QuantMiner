@@ -25,7 +25,7 @@ public class PanneauParamGenetique extends PanneauParamBase {//step 3 technique 
     
     
     /** Creates new form PanneauParamGenetique */
-    public PanneauParamGenetique(ContexteResolution contexteResolution) {
+    public PanneauParamGenetique(ResolutionContext contexteResolution) {
         super(contexteResolution);
         
         ImageIcon iconeRetourDefaut = null;
@@ -47,8 +47,8 @@ public class PanneauParamGenetique extends PanneauParamBase {//step 3 technique 
         // Initialisation du contenu des champs :
         jTextTaillePopulation.setText( String.valueOf( parametresTechAlgoGenetique.m_iTaillePopulation ) );
         jTextNombreGens.setText( String.valueOf( parametresTechAlgoGenetique.m_iNombreGenerations ) );
-        jTextTauxCroisement.setText( ContexteResolution.EcrirePourcentage( parametresTechAlgoGenetique.m_fPourcentageCroisement, 3, false) );
-        jTextTauxMutation.setText( ContexteResolution.EcrirePourcentage( parametresTechAlgoGenetique.m_fPourcentageMutation, 3, false) );
+        jTextTauxCroisement.setText( ResolutionContext.EcrirePourcentage( parametresTechAlgoGenetique.m_fPourcentageCroisement, 3, false) );
+        jTextTauxMutation.setText( ResolutionContext.EcrirePourcentage( parametresTechAlgoGenetique.m_fPourcentageMutation, 3, false) );
     }
     
     /** This method is called from within the constructor to
@@ -150,11 +150,11 @@ public class PanneauParamGenetique extends PanneauParamBase {//step 3 technique 
     }//GEN-END:initComponents
 
     private void jButtonDefautMutationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautMutationActionPerformed
-        jTextTauxMutation.setText( ContexteResolution.EcrirePourcentage(ParametersGeneticAlgo.DEFAUT_COEFMUT, 3, false) );
+        jTextTauxMutation.setText( ResolutionContext.EcrirePourcentage(ParametersGeneticAlgo.DEFAUT_COEFMUT, 3, false) );
     }//GEN-LAST:event_jButtonDefautMutationActionPerformed
 
     private void jButtonDefautCroisementActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautCroisementActionPerformed
-        jTextTauxCroisement.setText( ContexteResolution.EcrirePourcentage(ParametersGeneticAlgo.DEFAUT_COEFFCROIS, 3, false) );
+        jTextTauxCroisement.setText( ResolutionContext.EcrirePourcentage(ParametersGeneticAlgo.DEFAUT_COEFFCROIS, 3, false) );
     }//GEN-LAST:event_jButtonDefautCroisementActionPerformed
 
     private void jButtonDefautGenerationsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautGenerationsActionPerformed

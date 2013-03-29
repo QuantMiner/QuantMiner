@@ -130,7 +130,7 @@ public class DialogAnalyseFichierRegles extends javax.swing.JDialog { //tools-->
 
         	if (sFichierChoisi != null) {
             jTextFieldChemin.setText(sFichierChoisi);
-            jEditorPaneDescriptif.setText(ContexteResolution.EcrireDescriptionFichierReglesBinairesHTML(sFichierChoisi));
+            jEditorPaneDescriptif.setText(ResolutionContext.EcrireDescriptionFichierReglesBinairesHTML(sFichierChoisi));
             jEditorPaneDescriptif.setCaretPosition(0);
         }
     }//GEN-LAST:event_jButtonSelectionnerActionPerformed

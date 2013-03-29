@@ -62,21 +62,21 @@ public class DialogEnregistrementProfil extends javax.swing.JDialog { //profile-
         switch (m_iPanneauCourant) {
             
             case FenetrePrincipale.PANNEAU_PRE_CHARGEMENT_BD :
-                iMasqueEnregistrement = ContexteResolution.PROFIL_INFO_PRECHARGEMENT;
+                iMasqueEnregistrement = ResolutionContext.PROFIL_INFO_PRECHARGEMENT;
                 break;
                 
             case FenetrePrincipale.PANNEAU_PRE_EXTRACION :
-                iMasqueEnregistrement =   ContexteResolution.PROFIL_INFO_PRECHARGEMENT
-                                        | ContexteResolution.PROFIL_INFO_PREEXTRACTION;
+                iMasqueEnregistrement =   ResolutionContext.PROFIL_INFO_PRECHARGEMENT
+                                        | ResolutionContext.PROFIL_INFO_PREEXTRACTION;
                 break;
                 
             case FenetrePrincipale.PANNEAU_CONFIG_TECHNIQUE :
-                iMasqueEnregistrement =   ContexteResolution.PROFIL_INFO_PRECHARGEMENT
-                                        | ContexteResolution.PROFIL_INFO_PREEXTRACTION
-                                        | ContexteResolution.PROFIL_INFO_ALGO_APRIORI
-                                        | ContexteResolution.PROFIL_INFO_ALGO_GENETIQUE
-                                        | ContexteResolution.PROFIL_INFO_ALGO_RECUIT
-                                        | ContexteResolution.PROFIL_INFO_ALGO_CHARGEMENT;
+                iMasqueEnregistrement =   ResolutionContext.PROFIL_INFO_PRECHARGEMENT
+                                        | ResolutionContext.PROFIL_INFO_PREEXTRACTION
+                                        | ResolutionContext.PROFIL_INFO_ALGO_APRIORI
+                                        | ResolutionContext.PROFIL_INFO_ALGO_GENETIQUE
+                                        | ResolutionContext.PROFIL_INFO_ALGO_RECUIT
+                                        | ResolutionContext.PROFIL_INFO_ALGO_CHARGEMENT;
                 break;   
         }       
         
@@ -87,12 +87,12 @@ public class DialogEnregistrementProfil extends javax.swing.JDialog { //profile-
         jCheckBoxRecuit.setEnabled( iPanneauCourant == FenetrePrincipale.PANNEAU_CONFIG_TECHNIQUE );
         jCheckBoxChargementRegles.setEnabled( iPanneauCourant == FenetrePrincipale.PANNEAU_CONFIG_TECHNIQUE );
 
-        jCheckBoxPreChargement.setSelected( (iMasqueEnregistrement & ContexteResolution.PROFIL_INFO_PRECHARGEMENT) != 0 );
-        jCheckBoxPreExtraction.setSelected( (iMasqueEnregistrement & ContexteResolution.PROFIL_INFO_PREEXTRACTION) != 0 );
-        jCheckBoxApriori.setSelected( (iMasqueEnregistrement & ContexteResolution.PROFIL_INFO_ALGO_APRIORI) != 0 );
-        jCheckBoxGenetique.setSelected( (iMasqueEnregistrement & ContexteResolution.PROFIL_INFO_ALGO_GENETIQUE) != 0 );
-        jCheckBoxRecuit.setSelected( (iMasqueEnregistrement & ContexteResolution.PROFIL_INFO_ALGO_RECUIT) != 0 );
-        jCheckBoxChargementRegles.setSelected( (iMasqueEnregistrement & ContexteResolution.PROFIL_INFO_ALGO_CHARGEMENT) != 0 );
+        jCheckBoxPreChargement.setSelected( (iMasqueEnregistrement & ResolutionContext.PROFIL_INFO_PRECHARGEMENT) != 0 );
+        jCheckBoxPreExtraction.setSelected( (iMasqueEnregistrement & ResolutionContext.PROFIL_INFO_PREEXTRACTION) != 0 );
+        jCheckBoxApriori.setSelected( (iMasqueEnregistrement & ResolutionContext.PROFIL_INFO_ALGO_APRIORI) != 0 );
+        jCheckBoxGenetique.setSelected( (iMasqueEnregistrement & ResolutionContext.PROFIL_INFO_ALGO_GENETIQUE) != 0 );
+        jCheckBoxRecuit.setSelected( (iMasqueEnregistrement & ResolutionContext.PROFIL_INFO_ALGO_RECUIT) != 0 );
+        jCheckBoxChargementRegles.setSelected( (iMasqueEnregistrement & ResolutionContext.PROFIL_INFO_ALGO_CHARGEMENT) != 0 );
        
         setLocationRelativeTo(null);
     }
@@ -111,21 +111,21 @@ public class DialogEnregistrementProfil extends javax.swing.JDialog { //profile-
         switch (m_iPanneauCourant) {
             
             case FenetrePrincipale.PANNEAU_PRE_CHARGEMENT_BD :
-                if (jCheckBoxPreChargement.isSelected())    iMasqueEnregistrement |= ContexteResolution.PROFIL_INFO_PRECHARGEMENT;
+                if (jCheckBoxPreChargement.isSelected())    iMasqueEnregistrement |= ResolutionContext.PROFIL_INFO_PRECHARGEMENT;
                 break;
                 
             case FenetrePrincipale.PANNEAU_PRE_EXTRACION :
-                if (jCheckBoxPreChargement.isSelected())    iMasqueEnregistrement |= ContexteResolution.PROFIL_INFO_PRECHARGEMENT;
-                if (jCheckBoxPreExtraction.isSelected())    iMasqueEnregistrement |= ContexteResolution.PROFIL_INFO_PREEXTRACTION;
+                if (jCheckBoxPreChargement.isSelected())    iMasqueEnregistrement |= ResolutionContext.PROFIL_INFO_PRECHARGEMENT;
+                if (jCheckBoxPreExtraction.isSelected())    iMasqueEnregistrement |= ResolutionContext.PROFIL_INFO_PREEXTRACTION;
                 break;
                 
             case FenetrePrincipale.PANNEAU_CONFIG_TECHNIQUE :
-                if (jCheckBoxPreChargement.isSelected())    iMasqueEnregistrement |= ContexteResolution.PROFIL_INFO_PRECHARGEMENT;
-                if (jCheckBoxPreExtraction.isSelected())    iMasqueEnregistrement |= ContexteResolution.PROFIL_INFO_PREEXTRACTION;
-                if (jCheckBoxApriori.isSelected())          iMasqueEnregistrement |= ContexteResolution.PROFIL_INFO_ALGO_APRIORI;
-                if (jCheckBoxGenetique.isSelected())        iMasqueEnregistrement |= ContexteResolution.PROFIL_INFO_ALGO_GENETIQUE;
-                if (jCheckBoxRecuit.isSelected())           iMasqueEnregistrement |= ContexteResolution.PROFIL_INFO_ALGO_RECUIT;
-                if (jCheckBoxChargementRegles.isSelected()) iMasqueEnregistrement |= ContexteResolution.PROFIL_INFO_ALGO_CHARGEMENT;
+                if (jCheckBoxPreChargement.isSelected())    iMasqueEnregistrement |= ResolutionContext.PROFIL_INFO_PRECHARGEMENT;
+                if (jCheckBoxPreExtraction.isSelected())    iMasqueEnregistrement |= ResolutionContext.PROFIL_INFO_PREEXTRACTION;
+                if (jCheckBoxApriori.isSelected())          iMasqueEnregistrement |= ResolutionContext.PROFIL_INFO_ALGO_APRIORI;
+                if (jCheckBoxGenetique.isSelected())        iMasqueEnregistrement |= ResolutionContext.PROFIL_INFO_ALGO_GENETIQUE;
+                if (jCheckBoxRecuit.isSelected())           iMasqueEnregistrement |= ResolutionContext.PROFIL_INFO_ALGO_RECUIT;
+                if (jCheckBoxChargementRegles.isSelected()) iMasqueEnregistrement |= ResolutionContext.PROFIL_INFO_ALGO_CHARGEMENT;
                 break;   
         }            
         

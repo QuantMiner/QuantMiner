@@ -23,7 +23,7 @@ import java.awt.*;
 
 public class PanneauBaseAssistant extends PanneauBase {//set window background color, next previous button
     
-    protected ContexteResolution m_contexteResolution = null;
+    protected ResolutionContext m_contexteResolution = null;
     private int m_iPanneauPrecedent = FenetrePrincipale.PANNEAU_AUCUN;
     private int m_iPanneauSuivant = FenetrePrincipale.PANNEAU_AUCUN;
     private int m_iNumeroEtape = 0;
@@ -36,7 +36,7 @@ public class PanneauBaseAssistant extends PanneauBase {//set window background c
     
     
     /** Creates new form PanneauBase */
-    public PanneauBaseAssistant(ContexteResolution contexteResolution) {
+    public PanneauBaseAssistant(ResolutionContext contexteResolution) {
         m_contexteResolution = contexteResolution;
         m_iPanneauPrecedent = FenetrePrincipale.PANNEAU_AUCUN;
         m_iPanneauSuivant = FenetrePrincipale.PANNEAU_AUCUN;

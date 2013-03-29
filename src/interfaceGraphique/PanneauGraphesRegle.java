@@ -26,7 +26,7 @@ import java.awt.geom.*;
 
 public class PanneauGraphesRegle extends JPanel {
     
-    private ContexteResolution m_contexteResolution = null;
+    private ResolutionContext m_contexteResolution = null;
     private BufferedImage [] m_graphes = null;
     private RegleAssociation m_regle = null;
     private int m_iLargeurGraphe = 0;
@@ -35,7 +35,7 @@ public class PanneauGraphesRegle extends JPanel {
     
     
 
-    public PanneauGraphesRegle(ContexteResolution contexteResolution, int iIndiceRegle) {
+    public PanneauGraphesRegle(ResolutionContext contexteResolution, int iIndiceRegle) {
         int iNombreTotalItems = 0;
         int iIndiceItem = 0;
         

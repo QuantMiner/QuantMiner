@@ -21,7 +21,7 @@ import src.solver.*;
 
 
 
-public class GeneticAlgo extends BaseAlgorithmeEvaluateur {
+public class GeneticAlgo extends EvaluationBaseAlgorithm {
     
     private float m_fTauxCroisement = 0.0f;  //crossover rate
     private float m_fTauxMutation = 0.0f;    //mutation rate

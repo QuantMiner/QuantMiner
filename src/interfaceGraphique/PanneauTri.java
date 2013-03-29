@@ -34,7 +34,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
     public static final int METHODE_TRI_NOMBRE_ATTRIBUTS = 2;
 
     /** Creates new form PanneauTri */
-    public PanneauTri(PanneauResultats panneauResultats, ContexteResolution contexteResolution) {
+    public PanneauTri(PanneauResultats panneauResultats, ResolutionContext contexteResolution) {
         initComponents();
         
         jTextFieldInteret.setText( m_contexteResolution.EcrirePourcentage(0.75f, 3, false) );
@@ -212,7 +212,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                 
                 sNomColonne = new String( colonneDonnees.m_sNomColonne );
                 //if the position of this column is not no where
-                if (m_contexteResolution.ObtenirTypePrisEnCompteAttribut(sNomColonne) != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
+                if (m_contexteResolution.ObtenirTypePrisEnCompteAttribut(sNomColonne) != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
 
                     // Attributs qualitatifs :
                     if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM) {
@@ -221,15 +221,15 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                         tItems = colonneDonnees.ConstituerTableauValeurs();
                         if (tItems != null)
                             for (iIndiceItem=0; iIndiceItem<tItems.length; iIndiceItem++)
-                                if (m_contexteResolution.ObtenirTypePrisEnCompteItem(sNomColonne, tItems[iIndiceItem]) != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
-                                    m_contexteResolution.DefinirTypePrisEnCompteItem_Filtrage(sNomColonne, tItems[iIndiceItem], ContexteResolution.PRISE_EN_COMPTE_ITEM_2_COTES);
+                                if (m_contexteResolution.ObtenirTypePrisEnCompteItem(sNomColonne, tItems[iIndiceItem]) != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
+                                    m_contexteResolution.DefinirTypePrisEnCompteItem_Filtrage(sNomColonne, tItems[iIndiceItem], ResolutionContext.PRISE_EN_COMPTE_ITEM_2_COTES);
                                     m_contexteResolution.DefinirPresenceObligatoireItem_Filtrage(sNomColonne, tItems[iIndiceItem], false);
                                 }
                         
                     }                
                     // Attributs quantitatifs :
                     else if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL) {
-                        m_contexteResolution.DefinirTypePrisEnCompteAttribut_Filtrage(sNomColonne, ContexteResolution.PRISE_EN_COMPTE_ITEM_2_COTES);
+                        m_contexteResolution.DefinirTypePrisEnCompteAttribut_Filtrage(sNomColonne, ResolutionContext.PRISE_EN_COMPTE_ITEM_2_COTES);
                         m_contexteResolution.DefinirPresenceObligatoireAttribut_Filtrage(sNomColonne, false);
                     }
                 }
@@ -316,7 +316,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                 sNomColonne = new String( colonneDonnees.m_sNomColonne );
                 
                 iTypePriseEnCompte = m_contexteResolution.ObtenirTypePrisEnCompteAttribut(sNomColonne);
-                if (iTypePriseEnCompte != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
+                if (iTypePriseEnCompte != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
                 
                     m_contexteResolution.DefinirTypePrisEnCompteAttribut_Filtrage(sNomColonne, iTypePriseEnCompte);
                     
@@ -329,7 +329,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                             for (iIndiceItem=0; iIndiceItem<tItems.length; iIndiceItem++) {
                             
                                 iTypePriseEnCompte = m_contexteResolution.ObtenirTypePrisEnCompteItem(sNomColonne, tItems[iIndiceItem]);
-                                if (iTypePriseEnCompte != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
+                                if (iTypePriseEnCompte != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
                                     m_contexteResolution.DefinirTypePrisEnCompteItem_Filtrage(sNomColonne, tItems[iIndiceItem], iTypePriseEnCompte);
                                 
                                     bPresenceObligatoire = m_contexteResolution.ObtenirPresenceObligatoireItem(sNomColonne, tItems[iIndiceItem]);
@@ -390,7 +390,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
     // End of variables declaration//GEN-END:variables
     
     private PanneauResultats m_panneauResultats = null;
-    private ContexteResolution m_contexteResolution = null;
+    private ResolutionContext m_contexteResolution = null;
     private boolean m_bPanneauFiltreAffiche = false;
     
 
@@ -548,7 +548,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                 sNomColonne = new String( colonneDonnees.m_sNomColonne );
                 
                 // Il n'est pas utile de prendre en consid�ration les attributs qui ne devaient pas appara�tre dans les r�gles :
-                if (m_contexteResolution.ObtenirTypePrisEnCompteAttribut(sNomColonne) != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
+                if (m_contexteResolution.ObtenirTypePrisEnCompteAttribut(sNomColonne) != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
                     
                     tableOccurrencesAttributs.put(sNomColonne, new NombreOccurrences());
                     
@@ -562,7 +562,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                         tItems = colonneDonnees.ConstituerTableauValeurs();
                         for (iIndiceItem=0; iIndiceItem<tItems.length; iIndiceItem++)
                             if (tItems[iIndiceItem] != null)
-                                if (m_contexteResolution.ObtenirTypePrisEnCompteItem(sNomColonne, tItems[iIndiceItem]) != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART)
+                                if (m_contexteResolution.ObtenirTypePrisEnCompteItem(sNomColonne, tItems[iIndiceItem]) != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART)
                                     tableOccurrencesItems.put(tItems[iIndiceItem], new NombreOccurrences());
 
                     }
@@ -657,7 +657,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                         ||( (iPasseRemplissage==1) && (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL) ) ) {
 
                         sNomColonne = new String( colonneDonnees.m_sNomColonne );
-                        if (m_contexteResolution.ObtenirTypePrisEnCompteAttribut(sNomColonne) != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
+                        if (m_contexteResolution.ObtenirTypePrisEnCompteAttribut(sNomColonne) != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
 
                             // Construction de la phrase de description :
                             nombreOccurrencesAttribut = (NombreOccurrences)tableOccurrencesAttributs.get(sNomColonne);
@@ -692,7 +692,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                                     tItems = UtilitairesTri.CompateurBiTableaux_Chaines_Entiers(tItems, tOccurrences, false);
 
                                     for (iIndiceItem=0; iIndiceItem<tItems.length; iIndiceItem++)
-                                        if (m_contexteResolution.ObtenirTypePrisEnCompteItem(sNomColonne, tItems[iIndiceItem]) != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
+                                        if (m_contexteResolution.ObtenirTypePrisEnCompteItem(sNomColonne, tItems[iIndiceItem]) != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
 
                                             // Construction de la phrase de description :
                                             sDescriptionElement = "Error of comptabilisation !";

@@ -390,7 +390,7 @@ public class RegleAssociation {
     
     
     
-    public void EvaluerSiQualitative(ContexteResolution contexteResolution) {
+    public void EvaluerSiQualitative(ResolutionContext contexteResolution) {
         ItemQualitatif [] itemsGauche = null;
         ItemQualitatif [] itemsTotaux = null;
         int iIndiceItem = 0;
@@ -812,7 +812,7 @@ public class RegleAssociation {
     
     
     
-    public static void CalculerMesuresDiverses(RegleAssociation [] tRegles, ContexteResolution contexte) {
+    public static void CalculerMesuresDiverses(RegleAssociation [] tRegles, ResolutionContext contexte) {
         RegleAssociation regle = null;
         int iNombreRegles = 0;
         int iIndiceRegle = 0;

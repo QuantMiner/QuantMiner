@@ -24,7 +24,7 @@ import src.utilitaires.*;
 public class PanneauParamReglesQuantitatives extends PanneauParamBase {//step 3 rule parameters for generic algorithm
     
     /** Creates new form PanneauParamRegles */
-    public PanneauParamReglesQuantitatives(ContexteResolution contexteResolution) {
+    public PanneauParamReglesQuantitatives(ResolutionContext contexteResolution) {
         super(contexteResolution);
 
         ImageIcon iconeRetourDefaut = null;
@@ -42,8 +42,8 @@ public class PanneauParamReglesQuantitatives extends PanneauParamBase {//step 3 
         
         
         // Initialisation du contenu des champs :
-        jTextFieldSupport.setText( ContexteResolution.EcrirePourcentage(m_contexteResolution.m_parametresReglesQuantitatives.m_fMinSupp, 3, false) );
-        jTextFieldConfiance.setText( ContexteResolution.EcrirePourcentage(m_contexteResolution.m_parametresReglesQuantitatives.m_fMinConf, 3, false) );
+        jTextFieldSupport.setText( ResolutionContext.EcrirePourcentage(m_contexteResolution.m_parametresReglesQuantitatives.m_fMinSupp, 3, false) );
+        jTextFieldConfiance.setText( ResolutionContext.EcrirePourcentage(m_contexteResolution.m_parametresReglesQuantitatives.m_fMinConf, 3, false) );
         
         jTextMiniQuants.setText( String.valueOf( m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreMinAttributsQuant ) );
         jTextMaxiQuants.setText( String.valueOf( m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreMaxAttributsQuant ) );
@@ -60,7 +60,7 @@ public class PanneauParamReglesQuantitatives extends PanneauParamBase {//step 3 
         else
             jComboDisjonctionsDroite.setSelectedIndex(0);
         
-        jTextSupportSupplementaire.setText( ContexteResolution.EcrirePourcentage(m_contexteResolution.m_parametresReglesQuantitatives.m_fMinSuppDisjonctions, 3, false) );
+        jTextSupportSupplementaire.setText( ResolutionContext.EcrirePourcentage(m_contexteResolution.m_parametresReglesQuantitatives.m_fMinSuppDisjonctions, 3, false) );
     }
     
     /** This method is called from within the constructor to
@@ -182,15 +182,15 @@ public class PanneauParamReglesQuantitatives extends PanneauParamBase {//step 3 
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonDefautSupportDisjonctionsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautSupportDisjonctionsActionPerformed
-        jTextSupportSupplementaire.setText( ContexteResolution.EcrirePourcentage(ParametresStandardsQuantitatifs.DEFAUT_MINSUPP_DISJONCTIONS, 3, false) );
+        jTextSupportSupplementaire.setText( ResolutionContext.EcrirePourcentage(ParametresStandardsQuantitatifs.DEFAUT_MINSUPP_DISJONCTIONS, 3, false) );
     }//GEN-LAST:event_jButtonDefautSupportDisjonctionsActionPerformed
 
     private void jButtonDefautSupportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautSupportActionPerformed
-        jTextFieldSupport.setText( ContexteResolution.EcrirePourcentage(ParametresStandardsQuantitatifs.DEFAUT_MINSUPP, 3, false) );
+        jTextFieldSupport.setText( ResolutionContext.EcrirePourcentage(ParametresStandardsQuantitatifs.DEFAUT_MINSUPP, 3, false) );
     }//GEN-LAST:event_jButtonDefautSupportActionPerformed
 
     private void jButtonDefautConfianceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDefautConfianceActionPerformed
-        jTextFieldConfiance.setText( ContexteResolution.EcrirePourcentage(ParametresStandardsQuantitatifs.DEFAUT_MINCONF, 3, false) );
+        jTextFieldConfiance.setText( ResolutionContext.EcrirePourcentage(ParametresStandardsQuantitatifs.DEFAUT_MINCONF, 3, false) );
     }//GEN-LAST:event_jButtonDefautConfianceActionPerformed
     
     

@@ -31,7 +31,7 @@ public class AprioriQuantitatif {
     ArrayList m_listeListeItemSets = null;
 
     public DatabaseAdmin m_gestionnaireBD = null;
-    private ContexteResolution m_contexteResolution = null;
+    private ResolutionContext m_contexteResolution = null;
     
     
     float m_fMinSupp = 0.0f;
@@ -47,7 +47,7 @@ public class AprioriQuantitatif {
     
     
     
-    public AprioriQuantitatif(ContexteResolution contexteResolution) {
+    public AprioriQuantitatif(ResolutionContext contexteResolution) {
         m_listeAttributsQual = new ArrayList();
         m_listeAttributsQuant = new ArrayList();
         m_tableItems = new TableItems();
@@ -94,14 +94,14 @@ public class AprioriQuantitatif {
             
             switch ( colonneDonnees.m_iTypeValeurs) {
                 case DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM : //add categorical attribute to categorical list
-                    if (iTypePriseEnCompte != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
+                    if (iTypePriseEnCompte != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
                         attributQual = new AttributQualitatif( colonneDonnees.m_sNomColonne, colonneDonnees );
                         m_listeAttributsQual.add(attributQual);
                     }
                     break;
                     
                 case DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL : //add quantitative attribute to categorical list
-                    if (iTypePriseEnCompte != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
+                    if (iTypePriseEnCompte != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
                         attributQuant = new AttributQuantitatif( colonneDonnees.m_sNomColonne, colonneDonnees );
                         m_listeAttributsQuant.add(attributQuant);
                     }
@@ -398,7 +398,7 @@ public class AprioriQuantitatif {
             while (item != null) {
                     
                 if (  m_contexteResolution.ObtenirTypePrisEnCompteItem(item.m_attributQual.m_sNomAttribut, item.ObtenirIdentifiantTexteItem())
-                     != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART ) {
+                     != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART ) {
                          
                     itemSet = new ItemSet(1);
                     itemSet.SpecifierItem(item);

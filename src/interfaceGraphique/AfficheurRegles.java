@@ -30,7 +30,7 @@ import com.sun.image.codec.jpeg.*;
 public class AfficheurRegles extends javax.swing.JPanel { //step 5 the third panel
     
   	private static final long serialVersionUID = 1L;
-	private ContexteResolution m_contexteResolution = null;
+	private ResolutionContext m_contexteResolution = null;
     
 	private Font m_fontEnTete = null;
     private Font m_fontItems = null;
@@ -43,7 +43,7 @@ public class AfficheurRegles extends javax.swing.JPanel { //step 5 the third pan
     
     
     
-    public AfficheurRegles(ContexteResolution contexteResolution) {
+    public AfficheurRegles(ResolutionContext contexteResolution) {
         m_tReglesFiltrees = null;
         m_iIndiceRegleAffichee = 0;
         
@@ -150,9 +150,9 @@ public class AfficheurRegles extends javax.swing.JPanel { //step 5 the third pan
         sTexte += "SUPPORT = ";
         sTexte += String.valueOf(regle.m_iOccurrences);
         sTexte += " (";
-        sTexte += ContexteResolution.EcrirePourcentage(regle.m_fSupport, 2, true);
+        sTexte += ResolutionContext.EcrirePourcentage(regle.m_fSupport, 2, true);
         sTexte += ") , CONFIDENCE = ";
-        sTexte += ContexteResolution.EcrirePourcentage(regle.m_fConfiance, 2, true);
+        sTexte += ResolutionContext.EcrirePourcentage(regle.m_fConfiance, 2, true);
         sTexte += "  :  ";
         
         mesuresFont = m_fontEnTete.getLineMetrics(sTexte, frc);
@@ -354,7 +354,7 @@ public class AfficheurRegles extends javax.swing.JPanel { //step 5 the third pan
 
                             g2D.fillRect(130+(int)(fProportionMin*300.0f), iY+(int)fHauteurCumulee, iTailleProportionAffichee, 10);                    
 
-                            sTexte = ContexteResolution.EcrirePourcentage((fProportionMax-fProportionMin), 2, true) + " of [";
+                            sTexte = ResolutionContext.EcrirePourcentage((fProportionMax-fProportionMin), 2, true) + " of [";
                             sTexte += String.valueOf(fBorneMin) + ", " + String.valueOf(fBorneMax) + "]";
                             
                             UtilDessin.PeindreTexteLimite(sTexte, iLargeurZone-460, 450, iY+(int)fHauteurCumulee, g2D);
@@ -424,7 +424,7 @@ public class AfficheurRegles extends javax.swing.JPanel { //step 5 the third pan
         fValeurConfiance = ((float)regle.m_iOccurrences) / ((float)regle.m_iOccurrencesGauche);
         UtilDessin.PeindreTexteLimite("A -> B", 80, iPositionMilieuZone+10, iY+(int)fHauteurCumuleeDroite, g2D);
         g2D.fill3DRect(iPositionMilieuZone+100, iY+(int)fHauteurCumuleeDroite, (int)(120.0f*fValeurConfiance), 10, true);
-        UtilDessin.PeindreTexteLimite(ContexteResolution.EcrirePourcentage(fValeurConfiance, 2, true), 90, iPositionMilieuZone+230, iY+(int)fHauteurCumuleeDroite, g2D);
+        UtilDessin.PeindreTexteLimite(ResolutionContext.EcrirePourcentage(fValeurConfiance, 2, true), 90, iPositionMilieuZone+230, iY+(int)fHauteurCumuleeDroite, g2D);
         fHauteurCumuleeDroite += 15.0f;         
         
         UtilDessin.PeindreTexteLimite("(~A) -> B", 80, iPositionMilieuZone+10, iY+(int)fHauteurCumuleeDroite, g2D);
@@ -433,14 +433,14 @@ public class AfficheurRegles extends javax.swing.JPanel { //step 5 the third pan
         else {
             fValeurConfiance = ((float)regle.m_iOccurrences_NonGauche_Droite) / ((float)(iNombreLignesBD - regle.m_iOccurrencesGauche));
             g2D.fill3DRect(iPositionMilieuZone+100, iY+(int)fHauteurCumuleeDroite, (int)(120.0f*fValeurConfiance), 10, true);
-            UtilDessin.PeindreTexteLimite(ContexteResolution.EcrirePourcentage(fValeurConfiance, 2, true), 90, iPositionMilieuZone+230, iY+(int)fHauteurCumuleeDroite, g2D);
+            UtilDessin.PeindreTexteLimite(ResolutionContext.EcrirePourcentage(fValeurConfiance, 2, true), 90, iPositionMilieuZone+230, iY+(int)fHauteurCumuleeDroite, g2D);
         }
         fHauteurCumuleeDroite += 15.0f;  
         
         fValeurConfiance = ((float)regle.m_iOccurrences) / ((float)regle.m_iOccurrencesDroite);
         UtilDessin.PeindreTexteLimite("B -> A", 80, iPositionMilieuZone+10, iY+(int)fHauteurCumuleeDroite, g2D);
         g2D.fill3DRect(iPositionMilieuZone+100, iY+(int)fHauteurCumuleeDroite, (int)(120.0f*fValeurConfiance), 10, true);
-        UtilDessin.PeindreTexteLimite(ContexteResolution.EcrirePourcentage(fValeurConfiance, 2, true), 90, iPositionMilieuZone+230, iY+(int)fHauteurCumuleeDroite, g2D);
+        UtilDessin.PeindreTexteLimite(ResolutionContext.EcrirePourcentage(fValeurConfiance, 2, true), 90, iPositionMilieuZone+230, iY+(int)fHauteurCumuleeDroite, g2D);
         fHauteurCumuleeDroite += 15.0f; 
         
         UtilDessin.PeindreTexteLimite("(~B) -> A", 80, iPositionMilieuZone+10, iY+(int)fHauteurCumuleeDroite, g2D);
@@ -449,14 +449,14 @@ public class AfficheurRegles extends javax.swing.JPanel { //step 5 the third pan
         else {
             fValeurConfiance = ((float)regle.m_iOccurrences_Gauche_NonDroite) / ((float)(iNombreLignesBD - regle.m_iOccurrencesDroite));
             g2D.fill3DRect(iPositionMilieuZone+100, iY+(int)fHauteurCumuleeDroite, (int)(120.0f*fValeurConfiance), 10, true);
-            UtilDessin.PeindreTexteLimite(ContexteResolution.EcrirePourcentage(fValeurConfiance, 2, true), 90, iPositionMilieuZone+230, iY+(int)fHauteurCumuleeDroite, g2D);
+            UtilDessin.PeindreTexteLimite(ResolutionContext.EcrirePourcentage(fValeurConfiance, 2, true), 90, iPositionMilieuZone+230, iY+(int)fHauteurCumuleeDroite, g2D);
         }
         fHauteurCumuleeDroite += 30.0f;
         
         fValeurConfiance = ((float)(regle.m_iOccurrences + regle.m_iOccurrences_NonGauche_NonDroite)) / ((float)iNombreLignesBD);
         UtilDessin.PeindreTexteLimite("A <-> B", 80, iPositionMilieuZone+10, iY+(int)fHauteurCumuleeDroite, g2D);
         g2D.fill3DRect(iPositionMilieuZone+100, iY+(int)fHauteurCumuleeDroite, (int)(120.0f*fValeurConfiance), 10, true);
-        UtilDessin.PeindreTexteLimite(ContexteResolution.EcrirePourcentage(fValeurConfiance, 2, true), 90, iPositionMilieuZone+230, iY+(int)fHauteurCumuleeDroite, g2D);
+        UtilDessin.PeindreTexteLimite(ResolutionContext.EcrirePourcentage(fValeurConfiance, 2, true), 90, iPositionMilieuZone+230, iY+(int)fHauteurCumuleeDroite, g2D);
         fHauteurCumuleeDroite += 15.0f; 
         
         // Trac� du s�parateur entre infos de support et infos de confiance :

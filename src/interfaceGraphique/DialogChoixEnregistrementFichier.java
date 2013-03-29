@@ -29,7 +29,7 @@ public class DialogChoixEnregistrementFichier extends javax.swing.JDialog { //sa
     public static final int TYPE_ENREGISTREMENT_HTML_GRAPHIQUE = 2;     //save in html graphic
     public static final int TYPE_ENREGISTREMENT_CSV = 3;                //save in csv file
 
-    private ContexteResolution m_contexteResolution = null;
+    private ResolutionContext m_contexteResolution = null;
     
    
     
@@ -50,7 +50,7 @@ public class DialogChoixEnregistrementFichier extends javax.swing.JDialog { //sa
     
     
     /** Creates new form DialogChoixEnregistrementFichier */
-    public DialogChoixEnregistrementFichier(ContexteResolution contexteResolution, java.awt.Frame parent, boolean modal) {
+    public DialogChoixEnregistrementFichier(ResolutionContext contexteResolution, java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
         

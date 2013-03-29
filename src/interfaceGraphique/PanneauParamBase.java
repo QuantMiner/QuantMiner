@@ -19,11 +19,11 @@ import src.solver.*;
 
 public abstract class PanneauParamBase extends javax.swing.JPanel {
     
-    protected ContexteResolution m_contexteResolution = null;
+    protected ResolutionContext m_contexteResolution = null;
 
     
     /** Creates new form PanneauBase */
-    public PanneauParamBase(ContexteResolution contexteResolution) {
+    public PanneauParamBase(ResolutionContext contexteResolution) {
         m_contexteResolution = contexteResolution;
     }
     

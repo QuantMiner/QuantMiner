@@ -31,7 +31,7 @@ public class PanneauPreChargementBD extends PanneauBaseAssistant {//step 1
     DefaultListModel m_modeleColonnesInitiales = null;
     
     
-    public PanneauPreChargementBD(ContexteResolution contexteResolution) {
+    public PanneauPreChargementBD(ResolutionContext contexteResolution) {
         super(contexteResolution);
         
         String sInfosBase = null;

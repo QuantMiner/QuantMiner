@@ -175,7 +175,7 @@ public class DialogGrapheQualite extends javax.swing.JDialog {
     
     
     /** Creates new form DialogGrapheQualite */
-    public DialogGrapheQualite(java.awt.Frame parent, boolean modal, ContexteResolution contexteResolution) {
+    public DialogGrapheQualite(java.awt.Frame parent, boolean modal, ResolutionContext contexteResolution) {
         super(parent, modal);
         initComponents();
         

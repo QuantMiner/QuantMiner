@@ -22,7 +22,7 @@ import src.solver.*;
 
 
 
-public class SimulatedAnnealingAlgo extends BaseAlgorithmeEvaluateur {
+public class SimulatedAnnealingAlgo extends EvaluationBaseAlgorithm {
     
     private ReglePotentielle [] m_tReglesPotentiellesPrecedentes = null;
     private float m_fTemperature = 0.0f;

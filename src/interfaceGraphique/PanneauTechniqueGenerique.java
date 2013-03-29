@@ -32,13 +32,13 @@ public class PanneauTechniqueGenerique extends PanneauBaseAssistant { //step 4
     
    
     
-    private TesteurRegles m_calculateur = null; //A very important member, it derives from thread
+    private RuleTester m_calculateur = null; //A very important member, it derives from thread
     private int m_iMaxReglesTestees = 0;        //max number of testing rule? 
     private int m_iIndiceRegleAffichee = 0;     //Affichee means display--the index of the rule being displayed
     private boolean m_bResultatAffiche = false; // Indicate que la total des r�gles calcul�es ont �t� affich�es
     
     
-    class IndicateurCalculReglesGenerique extends TesteurRegles.IndicateurCalculRegles {
+    class IndicateurCalculReglesGenerique extends RuleTester.IndicateurCalculRegles {
         PanneauTechniqueGenerique m_panneauParent = null;
         
         public IndicateurCalculReglesGenerique(PanneauTechniqueGenerique panneauParent) {
@@ -78,22 +78,22 @@ public class PanneauTechniqueGenerique extends PanneauBaseAssistant { //step 4
     }//END OF CLASS IndicateurCalculReglesGenerique
     
     /** Creates new form PanneauAlgoGenetique */
-    public PanneauTechniqueGenerique(ContexteResolution contexteResolution) {
+    public PanneauTechniqueGenerique(ResolutionContext contexteResolution) {
         super(contexteResolution);
 
         initComponents();
         
         switch (contexteResolution.m_iTechniqueResolution) { //which algorithm to use
             
-            case ContexteResolution.TECHNIQUE_APRIORI_QUAL :
+            case ResolutionContext.TECHNIQUE_APRIORI_QUAL :
                 super.DefinirEtape(4, "Mining rules using Apriori", ENV.REPERTOIRE_AIDE+"computation.htm");
                 break;            
            
-            case ContexteResolution.TECHNIQUE_ALGO_GENETIQUE :
+            case ResolutionContext.TECHNIQUE_ALGO_GENETIQUE :
                 super.DefinirEtape(4, "Mining rules using a genetic algorithm", ENV.REPERTOIRE_AIDE+"computation.htm");
                 break;
                 
-            case ContexteResolution.TECHNIQUE_RECUIT_SIMULE :
+            case ResolutionContext.TECHNIQUE_RECUIT_SIMULE :
                 super.DefinirEtape(4, "Mining rules using a simulated annealing algorithm", ENV.REPERTOIRE_AIDE+"computation.htm");
                 break;
         }        
@@ -218,10 +218,10 @@ public class PanneauTechniqueGenerique extends PanneauBaseAssistant { //step 4
 
     //start calculation
     private void jBoutonDemarrerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBoutonDemarrerActionPerformed
-        OptimiseurRegle optimiseur = null; //optimize rule
+        RuleOptimizer optimiseur = null; //optimize rule
         ArreterCalculateur(false);  //stop calculation
                 
-        m_calculateur = new TesteurRegles( super.m_contexteResolution, new IndicateurCalculReglesGenerique(this) );
+        m_calculateur = new RuleTester( super.m_contexteResolution, new IndicateurCalculReglesGenerique(this) );
         
         m_bResultatAffiche = false;
 
@@ -230,15 +230,15 @@ public class PanneauTechniqueGenerique extends PanneauBaseAssistant { //step 4
         
         //create an optimizer
         switch (super.m_contexteResolution.m_iTechniqueResolution) {
-            case ContexteResolution.TECHNIQUE_APRIORI_QUAL :
+            case ResolutionContext.TECHNIQUE_APRIORI_QUAL :
                 optimiseur = new OptimiseurAprioriQual();
                 break;
                     
-            case ContexteResolution.TECHNIQUE_ALGO_GENETIQUE :
+            case ResolutionContext.TECHNIQUE_ALGO_GENETIQUE :
                 optimiseur = new OptimizerGeneticAlgo();
                 break;
                 
-            case ContexteResolution.TECHNIQUE_RECUIT_SIMULE :
+            case ResolutionContext.TECHNIQUE_RECUIT_SIMULE :
                 optimiseur = new OptimizerSimulatedAnnealing();
                 break;
         }
