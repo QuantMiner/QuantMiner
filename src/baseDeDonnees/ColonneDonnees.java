@@ -60,12 +60,12 @@ public class ColonneDonnees {
         if (iNombreLignes > 0) {
             
             switch (m_iTypeValeurs) {
-                case GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM :
+                case DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM :
                     m_listeValeurs = new ListeMots();
                     m_tIDQualitatif = new short [ iNombreLignes ];
                     break;
                     
-                case GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL :
+                case DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL :
                     m_tValeurReelle = new float [ iNombreLignes ];
                     break;
             }
@@ -134,7 +134,7 @@ public class ColonneDonnees {
      */
     void AssignerValeurReelle(int iIndiceLigne, float fValeur) {
         
-        if (fValeur != GestionnaireBaseDeDonnees.VALEUR_MANQUANTE_FLOAT) {
+        if (fValeur != DatabaseAdmin.VALEUR_MANQUANTE_FLOAT) {
             
             if (m_bBornesReellesDefinies) {
                 if (fValeur < m_fValeurMin) m_fValeurMin = fValeur;
@@ -161,7 +161,7 @@ public class ColonneDonnees {
         int iIdentifiantValeur = 0;
         String [] tTableauValeurs;
         
-        if (m_iTypeValeurs != GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM)
+        if (m_iTypeValeurs != DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM)
             return null;
                 
         iNombreValeurs = m_listeValeurs.ObtenirNombreMots();
@@ -195,14 +195,14 @@ public class ColonneDonnees {
         int iSupportCumule = 0;
         
         
-        if (m_iTypeValeurs != GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL)
+        if (m_iTypeValeurs != DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL)
             return;
         
 
         // On comptabilise le nombre de valeurs num�riques non manquantes :
         m_iNombreValeursReellesCorrectes = 0;
         for (iIndiceValeur = 0; iIndiceValeur < m_iNombreLignes; iIndiceValeur++)
-            if (m_tValeurReelle[iIndiceValeur] != GestionnaireBaseDeDonnees.VALEUR_MANQUANTE_FLOAT)
+            if (m_tValeurReelle[iIndiceValeur] != DatabaseAdmin.VALEUR_MANQUANTE_FLOAT)
                 m_iNombreValeursReellesCorrectes++;
         
         if (m_iNombreValeursReellesCorrectes == 0)
@@ -212,7 +212,7 @@ public class ColonneDonnees {
 
         // On remplit le tableau des valeurs num�riques correctes :
         for (iIndiceValeur = 0; iIndiceValeur < m_iNombreValeursReellesCorrectes; iIndiceValeur++)
-            if (m_tValeurReelle[iIndiceValeur] != GestionnaireBaseDeDonnees.VALEUR_MANQUANTE_FLOAT)
+            if (m_tValeurReelle[iIndiceValeur] != DatabaseAdmin.VALEUR_MANQUANTE_FLOAT)
                 m_tValeursReellesTriees[iIndiceValeur] = m_tValeurReelle[iIndiceValeur];
             
         

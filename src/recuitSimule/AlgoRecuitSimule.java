@@ -30,7 +30,7 @@ public class AlgoRecuitSimule extends BaseAlgorithmeEvaluateur {
     
     
     
-    public AlgoRecuitSimule(GestionnaireBaseDeDonnees gestionBD, int iNombreEtapes, int iNombreReglesParalleles) {
+    public AlgoRecuitSimule(DatabaseAdmin gestionBD, int iNombreEtapes, int iNombreReglesParalleles) {
         super(iNombreReglesParalleles, gestionBD);
         
         m_iNombreEtapes = iNombreEtapes;

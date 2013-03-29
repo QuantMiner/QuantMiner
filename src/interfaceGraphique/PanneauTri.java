@@ -176,7 +176,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
         int iTypeNoeud = 0;
         String sNomColonne = null;
         ColonneDonnees colonneDonnees = null;
-        GestionnaireBaseDeDonnees gestionnaireBD = null;        
+        DatabaseAdmin gestionnaireBD = null;        
         String [] tItems = null;
         int iNombreItems = 0;
         int iIndiceItem = 0;
@@ -215,7 +215,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                 if (m_contexteResolution.ObtenirTypePrisEnCompteAttribut(sNomColonne) != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
 
                     // Attributs qualitatifs :
-                    if (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM) {
+                    if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM) {
 
                         // Items :
                         tItems = colonneDonnees.ConstituerTableauValeurs();
@@ -228,7 +228,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                         
                     }                
                     // Attributs quantitatifs :
-                    else if (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL) {
+                    else if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL) {
                         m_contexteResolution.DefinirTypePrisEnCompteAttribut_Filtrage(sNomColonne, ContexteResolution.PRISE_EN_COMPTE_ITEM_2_COTES);
                         m_contexteResolution.DefinirPresenceObligatoireAttribut_Filtrage(sNomColonne, false);
                     }
@@ -291,7 +291,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
         int iTypeNoeud = 0;
         String sNomColonne = null;
         ColonneDonnees colonneDonnees = null;
-        GestionnaireBaseDeDonnees gestionnaireBD = null;        
+        DatabaseAdmin gestionnaireBD = null;        
         String [] tItems = null;
         int iIndiceItem = 0;
         int iTypePriseEnCompte = 0;
@@ -321,7 +321,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                     m_contexteResolution.DefinirTypePrisEnCompteAttribut_Filtrage(sNomColonne, iTypePriseEnCompte);
                     
                     // Attributs qualitatifs :
-                    if (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM) {
+                    if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM) {
                     
                         // Items :
                         tItems = colonneDonnees.ConstituerTableauValeurs();
@@ -339,7 +339,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                     }                
                 
                     // Attributs quantitatifs :
-                    else if (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL) {
+                    else if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL) {
 
                         bPresenceObligatoire = (m_contexteResolution.ObtenirPresenceObligatoireAttribut(sNomColonne) == 1);
                         m_contexteResolution.DefinirPresenceObligatoireAttribut_Filtrage(sNomColonne, bPresenceObligatoire);
@@ -474,7 +474,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
         String sNomColonne = null;
         AttributsBDModel attributsBD = null;
         JTreeTable treeTable = null;
-        GestionnaireBaseDeDonnees gestionnaireBD = null;        
+        DatabaseAdmin gestionnaireBD = null;        
         ColonneDonnees colonneDonnees = null;
         String [] tItems = null;
         int [] tOccurrences = null;
@@ -553,7 +553,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                     tableOccurrencesAttributs.put(sNomColonne, new NombreOccurrences());
                     
                     // Cas particulier des attributs qualitatifs o� on doit cr�er une structure pour chaque item :
-                    if (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM) {
+                    if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM) {
            
                         // Cr�ation de la sous-table de hachage destin�e � r�pertorier chaque item de l'attribut :
                         tableOccurrencesItems = new Hashtable();
@@ -653,8 +653,8 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
             
                 colonneDonnees = gestionnaireBD.ObtenirColonneBDPriseEnCompte(iIndiceColonne);
                 if (colonneDonnees != null)
-                    if (  ( (iPasseRemplissage==0) && (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM) )
-                        ||( (iPasseRemplissage==1) && (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL) ) ) {
+                    if (  ( (iPasseRemplissage==0) && (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM) )
+                        ||( (iPasseRemplissage==1) && (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL) ) ) {
 
                         sNomColonne = new String( colonneDonnees.m_sNomColonne );
                         if (m_contexteResolution.ObtenirTypePrisEnCompteAttribut(sNomColonne) != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
@@ -670,7 +670,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                                 sDescriptionElement = "Error of comptabilisation !";
 
                             // Attributs qualitatifs :
-                            if (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM) {
+                            if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM) {
 
                                 iTypeNoeud = AttributsBDModel.ELEMENT_MODEL_ATTRIBUT_QUAL;
 
@@ -710,7 +710,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                             }                
 
                             // Attributs quantitatifs :
-                            else if (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL) {
+                            else if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL) {
 
                                 iTypeNoeud = AttributsBDModel.ELEMENT_MODEL_ATTRIBUT_QUANT;
                                 attributsBD.AjouterNoeud(noeudRacine, new AttributsBDModel.AttributBDDescription( sNomColonne, iTypeNoeud, sDescriptionElement, m_contexteResolution.ObtenirInfosPostionnementFiltrage(), false ));

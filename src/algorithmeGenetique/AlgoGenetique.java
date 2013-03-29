@@ -65,7 +65,7 @@ public class AlgoGenetique extends BaseAlgorithmeEvaluateur {
      * @param iNombreIndividus number of individuals
      * @param gestionBD GestionnaireBaseDeDonnees obj
      */
-    public AlgoGenetique(int iNombreIndividus, GestionnaireBaseDeDonnees gestionBD) {
+    public AlgoGenetique(int iNombreIndividus, DatabaseAdmin gestionBD) {
         super(iNombreIndividus, gestionBD);
         
         m_fTauxCroisement = 0.0f;

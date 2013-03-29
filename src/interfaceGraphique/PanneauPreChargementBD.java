@@ -27,7 +27,7 @@ import java.awt.*;
 
 public class PanneauPreChargementBD extends PanneauBaseAssistant {//step 1 
     
-    GestionnaireBaseDeDonnees m_gestionnaireBD = null;
+    DatabaseAdmin m_gestionnaireBD = null;
     DefaultListModel m_modeleColonnesInitiales = null;
     
     
@@ -197,7 +197,7 @@ public class PanneauPreChargementBD extends PanneauBaseAssistant {//step 1
             ligneDonnees[0] = new String(sNomColonne);
             
             //Attribute type
-            if (m_gestionnaireBD.ObtenirTypeColonne(sNomColonne) == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL) //Set column type
+            if (m_gestionnaireBD.ObtenirTypeColonne(sNomColonne) == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL) //Set column type
                 ligneDonnees[1] = "Numerical";  //column type is numerical
             else
                 ligneDonnees[1] = "Categorical"; //column type is categorical
@@ -247,14 +247,14 @@ public class PanneauPreChargementBD extends PanneauBaseAssistant {//step 1
                 priseEnCompteColonne = (Boolean)elementsLigneVector.elementAt(2);
                 
                 bPrendreEnCompte = false;
-                iTypeColonneDonnees = GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ERREUR;
+                iTypeColonneDonnees = DatabaseAdmin.TYPE_VALEURS_COLONNE_ERREUR;
                 
                 if (sTypeDonnees.equals("Categorical"))
-                    iTypeColonneDonnees = GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM;
+                    iTypeColonneDonnees = DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM;
                 else if (sTypeDonnees.equals("Numerical"))
-                    iTypeColonneDonnees = GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL;
+                    iTypeColonneDonnees = DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL;
                 
-                bPrendreEnCompte = priseEnCompteColonne.booleanValue() && (iTypeColonneDonnees != GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ERREUR);
+                bPrendreEnCompte = priseEnCompteColonne.booleanValue() && (iTypeColonneDonnees != DatabaseAdmin.TYPE_VALEURS_COLONNE_ERREUR);
                 
                 // On indique au gestionnaire de la BD si on prend en compte l'attribut lors
                 // de l'extraction des r�gles, et si tel est le cas on pr�cise son type :

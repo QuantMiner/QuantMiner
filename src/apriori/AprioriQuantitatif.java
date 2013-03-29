@@ -30,7 +30,7 @@ public class AprioriQuantitatif {
     TableItems m_tableItems = null;
     ArrayList m_listeListeItemSets = null;
 
-    public GestionnaireBaseDeDonnees m_gestionnaireBD = null;
+    public DatabaseAdmin m_gestionnaireBD = null;
     private ContexteResolution m_contexteResolution = null;
     
     
@@ -93,14 +93,14 @@ public class AprioriQuantitatif {
             iTypePriseEnCompte = m_contexteResolution.ObtenirTypePrisEnCompteAttribut(colonneDonnees.m_sNomColonne);
             
             switch ( colonneDonnees.m_iTypeValeurs) {
-                case GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM : //add categorical attribute to categorical list
+                case DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM : //add categorical attribute to categorical list
                     if (iTypePriseEnCompte != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
                         attributQual = new AttributQualitatif( colonneDonnees.m_sNomColonne, colonneDonnees );
                         m_listeAttributsQual.add(attributQual);
                     }
                     break;
                     
-                case GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL : //add quantitative attribute to categorical list
+                case DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL : //add quantitative attribute to categorical list
                     if (iTypePriseEnCompte != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
                         attributQuant = new AttributQuantitatif( colonneDonnees.m_sNomColonne, colonneDonnees );
                         m_listeAttributsQuant.add(attributQuant);

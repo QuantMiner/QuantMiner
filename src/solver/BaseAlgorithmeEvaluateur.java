@@ -137,7 +137,7 @@ public abstract class BaseAlgorithmeEvaluateur {
     protected ReglePotentielle [] m_tReglesPotentielles = null;        //potential rules
     protected ReglePotentielle m_meilleureReglePotentielle = null;     //best potential rule (only one, maybe change it to an array)
     protected ReglePotentielle m_derniereReglePotentielleValide = null; //last valid potential rule
-    protected GestionnaireBaseDeDonnees m_gestionBD = null;
+    protected DatabaseAdmin m_gestionBD = null;
 
     protected float m_fMinSupp = 0.0f;
     protected float m_fMinConf = 0.0f;
@@ -193,7 +193,7 @@ public abstract class BaseAlgorithmeEvaluateur {
     
     
     
-    public BaseAlgorithmeEvaluateur(int iNombreReglesPotentielles, GestionnaireBaseDeDonnees gestionBD) {
+    public BaseAlgorithmeEvaluateur(int iNombreReglesPotentielles, DatabaseAdmin gestionBD) {
         
         m_iNombreReglesPotentielles = iNombreReglesPotentielles;
         m_gestionBD = gestionBD;
@@ -523,7 +523,7 @@ public abstract class BaseAlgorithmeEvaluateur {
             if (bItemsCouverts) {
                 iIndiceItem=0;
                 while ( bItemsCouverts && (iIndiceItem<m_iNombreItemsQuantCond) ) {
-                    bItemsCouverts = (m_tItemsQuantCond[iIndiceItem].m_colonneDonnees.m_tValeurReelle[iIndiceLigneDonnees] != GestionnaireBaseDeDonnees.VALEUR_MANQUANTE_FLOAT );
+                    bItemsCouverts = (m_tItemsQuantCond[iIndiceItem].m_colonneDonnees.m_tValeurReelle[iIndiceLigneDonnees] != DatabaseAdmin.VALEUR_MANQUANTE_FLOAT );
                     iIndiceItem++;
                 }
             }
@@ -550,7 +550,7 @@ public abstract class BaseAlgorithmeEvaluateur {
             if (bItemsCouverts) {
                 iIndiceItem=0;
                 while ( bItemsCouverts && (iIndiceItem<m_iNombreItemsQuantObj) ) {
-                    bItemsCouverts = (m_tItemsQuantObj[iIndiceItem].m_colonneDonnees.m_tValeurReelle[iIndiceLigneDonnees] != GestionnaireBaseDeDonnees.VALEUR_MANQUANTE_FLOAT );
+                    bItemsCouverts = (m_tItemsQuantObj[iIndiceItem].m_colonneDonnees.m_tValeurReelle[iIndiceLigneDonnees] != DatabaseAdmin.VALEUR_MANQUANTE_FLOAT );
                     iIndiceItem++;
                 }
             }

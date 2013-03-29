@@ -332,7 +332,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
     /**Open File menu item clicked */
     private void ouvrirMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ouvrirMenuItemActionPerformed
         String sFichierChoisi = null;  //absolute path of the file
-        GestionnaireBaseDeDonnees gestionnaireBD = null;
+        DatabaseAdmin gestionnaireBD = null;
         
         ArrayList<String> description = new ArrayList<String>();
         description.add("File DBase 4");
@@ -349,7 +349,7 @@ public class FenetrePrincipale extends javax.swing.JFrame {
        		if (index < 0)
        			return;
         	String extension = sFichierChoisi.substring(index + 1, sFichierChoisi.length()).toLowerCase();
-        	gestionnaireBD = new GestionnaireBaseDeDonnees(sFichierChoisi, extension);
+        	gestionnaireBD = new DatabaseAdmin(sFichierChoisi, extension);
             setTitle("QuantMiner " +  gestionnaireBD.m_sNomBaseDeDonnees);
 
             if (gestionnaireBD.EstBaseDeDonneesValide()) { // the data file(i.e.without path) is valid

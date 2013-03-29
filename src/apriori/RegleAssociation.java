@@ -870,7 +870,7 @@ public class RegleAssociation {
                     else {
                         itemQuant = (ItemQuantitatif)item;
                         fValeurReelle = itemQuant.m_attributQuant.m_colonneDonnees.m_tValeurReelle[iIndiceLigne];
-                        bGaucheCouvert = (fValeurReelle != GestionnaireBaseDeDonnees.VALEUR_MANQUANTE_FLOAT);
+                        bGaucheCouvert = (fValeurReelle != DatabaseAdmin.VALEUR_MANQUANTE_FLOAT);
                     }     
                     iIndiceItem++;
                 }                
@@ -910,7 +910,7 @@ public class RegleAssociation {
                     else {
                         itemQuant = (ItemQuantitatif)item;
                         fValeurReelle = itemQuant.m_attributQuant.m_colonneDonnees.m_tValeurReelle[iIndiceLigne];
-                        bDroiteCouvert = (fValeurReelle != GestionnaireBaseDeDonnees.VALEUR_MANQUANTE_FLOAT );
+                        bDroiteCouvert = (fValeurReelle != DatabaseAdmin.VALEUR_MANQUANTE_FLOAT );
                     }     
                     iIndiceItem++;
                 }                

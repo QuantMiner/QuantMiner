@@ -131,7 +131,7 @@ public class ParametresPositionRegles {
                 
                 // ATTRIBUTS QUALITATIFS :
                 
-                if (colonne.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM) {
+                if (colonne.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM) {
                 
                     // Table des items qualitatifs :
                     
@@ -181,7 +181,7 @@ public class ParametresPositionRegles {
                 
                 // ATTRIBUTS QUANTITATIFS :
                 
-                else if (colonne.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL) {
+                else if (colonne.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL) {
                     
                     // Table des items qualitatifs :
                     
@@ -576,7 +576,7 @@ public class ParametresPositionRegles {
             colonne = m_contexteResolution.m_gestionnaireBD.ObtenirColonneBDPriseEnCompte(iIndiceColonne);
             sNomColonne = colonne.m_sNomColonne;
             if (sNomColonne != null)
-                if (colonne.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL)
+                if (colonne.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL)
                     if (m_tablePresenceObligatoire.containsKey(sNomColonne))
                         m_tablePresenceObligatoire.put(sNomColonne, Boolean.TRUE);  
             
@@ -679,7 +679,7 @@ public class ParametresPositionRegles {
             if (sNomColonne != null)
             {
                 // Attributs quantitatifs :
-                if (colonne.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL) {
+                if (colonne.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL) {
                     
                     iTypePosition = ObtenirTypePrisEnCompteAttribut(sNomColonne);
                     if ( (iTypePosition==ContexteResolution.PRISE_EN_COMPTE_ITEM_GAUCHE) || (iTypePosition==ContexteResolution.PRISE_EN_COMPTE_ITEM_2_COTES) ) 
@@ -692,7 +692,7 @@ public class ParametresPositionRegles {
                 }                    
                 
                 // Attributs qualitatifs :
-                else if (colonne.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM) {
+                else if (colonne.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM) {
         
                     sousTable = (Hashtable)(m_tableParametresItemsQualitatifs.get(sNomColonne));
                     if (sousTable != null) {

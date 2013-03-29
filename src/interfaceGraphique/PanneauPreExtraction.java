@@ -107,7 +107,7 @@ public class PanneauPreExtraction extends PanneauBaseAssistant {
         String sNomColonne = null;
         AttributsBDModel attributsBD = null; //AttributsBDModel extends AbstractTreeTableModel 
         JTreeTable treeTable = null;         //JTreeTable extends JTable
-        GestionnaireBaseDeDonnees gestionnaireBD = null;        
+        DatabaseAdmin gestionnaireBD = null;        
         String [] tItems = null;
         int [] tOccurrences = null;
         int iIndiceItem = 0;
@@ -143,7 +143,7 @@ public class PanneauPreExtraction extends PanneauBaseAssistant {
             if (colonneDonnees != null) {
                 
                 sNomColonne = new String( colonneDonnees.m_sNomColonne );
-                if (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM) {
+                if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM) {
                     sDescriptionElement = 
                           String.valueOf( colonneDonnees.ObtenirNombreValeursDifferentes() ) //where did you get this distinct value
                         + " distinct values";
@@ -183,7 +183,7 @@ public class PanneauPreExtraction extends PanneauBaseAssistant {
             if (colonneDonnees != null) {
                 
                 sNomColonne = new String( colonneDonnees.m_sNomColonne );
-                if (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL) {
+                if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL) {
                     
                     sDescriptionElement =
                         "[ " + String.valueOf( colonneDonnees.ObtenirBorneMin() )

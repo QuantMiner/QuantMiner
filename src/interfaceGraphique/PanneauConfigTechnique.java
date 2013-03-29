@@ -18,7 +18,7 @@ import javax.swing.*;
 import src.apriori.AttributQualitatif;
 import src.apriori.AttributQuantitatif;
 import src.baseDeDonnees.ColonneDonnees;
-import src.baseDeDonnees.GestionnaireBaseDeDonnees;
+import src.baseDeDonnees.DatabaseAdmin;
 import src.solver.*;
 import src.utilitaires.*;
 
@@ -513,7 +513,7 @@ public class PanneauConfigTechnique extends PanneauBaseAssistant { //step 3 para
     
     int getQuantitativeNumber(){
     	 ColonneDonnees colonneDonnees = null;
-    	 GestionnaireBaseDeDonnees gestionnaireBD = m_contexteResolution.m_gestionnaireBD;
+    	 DatabaseAdmin gestionnaireBD = m_contexteResolution.m_gestionnaireBD;
          int iNombreColonnes = 0;
          int iIndiceColonne = 0;
          int iTypePriseEnCompte = 0;
@@ -524,7 +524,7 @@ public class PanneauConfigTechnique extends PanneauBaseAssistant { //step 3 para
              colonneDonnees = gestionnaireBD.ObtenirColonneBDPriseEnCompte(iIndiceColonne);
              iTypePriseEnCompte = m_contexteResolution.ObtenirTypePrisEnCompteAttribut(colonneDonnees.m_sNomColonne);
              
-             if (colonneDonnees.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL){
+             if (colonneDonnees.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL){
                      if (iTypePriseEnCompte != ContexteResolution.PRISE_EN_COMPTE_ITEM_NULLE_PART) 
                     	 numQuantitave++;
              }

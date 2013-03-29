@@ -85,7 +85,7 @@ public class ContexteResolution {
     public String m_sDescriptionRegles = null;          //description
     
     public FenetrePrincipale m_fenetreProprietaire = null;  // Fenetre conteneur de l'application -- windows containing the application
-    public GestionnaireBaseDeDonnees m_gestionnaireBD = null;  // Acces a la base de donnees en cours -- access the database in use
+    public DatabaseAdmin m_gestionnaireBD = null;  // Acces a la base de donnees en cours -- access the database in use
     public int m_iTechniqueResolution = 0;  // Identifiant de la technique d'extraction des regles quantitatives -- identifier of the extraction technique
     public ArrayList<RegleAssociation> m_listeRegles = null;  // Liste des dernieres regles optimales calculees -- list of the last optimal rules calculated
     
@@ -234,7 +234,7 @@ public class ContexteResolution {
         for (iIndiceColonne=0; iIndiceColonne<iNombreColonnesPrisesEnCompte; iIndiceColonne++) {
             colonne = m_gestionnaireBD.ObtenirColonneBDPriseEnCompte(iIndiceColonne);
             if (colonne != null)
-                if ( (colonne.m_sNomColonne != null) && (colonne.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM) ) {
+                if ( (colonne.m_sNomColonne != null) && (colonne.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM) ) {
                 if (m_positionnementRegles.ObtenirTypePrisEnCompteAttribut(colonne.m_sNomColonne) != PRISE_EN_COMPTE_ITEM_NULLE_PART) {
                     attributQual = m_aprioriCourant.ObtenirAttributQualitatifDepuisNom(colonne.m_sNomColonne);
                     if (attributQual != null)
@@ -255,7 +255,7 @@ public class ContexteResolution {
             for (iIndiceColonne=0; iIndiceColonne<iNombreColonnesPrisesEnCompte; iIndiceColonne++) {
                 colonne = m_gestionnaireBD.ObtenirColonneBDPriseEnCompte(iIndiceColonne);
                 if (colonne != null)
-                    if ( (colonne.m_sNomColonne != null) && (colonne.m_iTypeValeurs == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL) ) {
+                    if ( (colonne.m_sNomColonne != null) && (colonne.m_iTypeValeurs == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL) ) {
                     if (m_positionnementRegles.ObtenirTypePrisEnCompteAttribut(colonne.m_sNomColonne) != PRISE_EN_COMPTE_ITEM_NULLE_PART) {
                         attributQuant = m_aprioriCourant.ObtenirAttributQuantitatifDepuisNom(colonne.m_sNomColonne);
                         if (attributQuant != null)
@@ -552,7 +552,7 @@ public class ContexteResolution {
                         fluxFichier.writeUTF(sNomChamp);                                   //name of the columns in that data file!!!
                         
                         // Write the type of that column:
-                        if (m_gestionnaireBD.ObtenirTypeColonne(sNomChamp) == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL)
+                        if (m_gestionnaireBD.ObtenirTypeColonne(sNomChamp) == DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL)
                             fluxFichier.writeByte(FICHIER_PROFIL_CHAMP_TYPE_QUANT);       //column type!!!
                         else
                             fluxFichier.writeByte(FICHIER_PROFIL_CHAMP_TYPE_QUAL);        //column type!!!
@@ -596,7 +596,7 @@ public class ContexteResolution {
                         fluxFichier.writeUTF(sNomAttribut); 
                         
                         // Write in the profile if the column type is categorical
-                        if (m_gestionnaireBD.ObtenirTypeColonne(sNomAttribut) == GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM) {
+                        if (m_gestionnaireBD.ObtenirTypeColonne(sNomAttribut) == DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM) {
                             fluxFichier.writeByte(1); // Indicate que l'attribut est pas qualitatif, et so qu'il faut prendre en compte le positionnement de ses items -- indicate that the attribute id qualitative
                             
                             tItems = colonneDonnees.ConstituerTableauValeurs();
@@ -819,9 +819,9 @@ public class ContexteResolution {
                         
                         // Lecture du type du champ : reading the type of the field
                         if ( fluxFichier.readByte() == FICHIER_PROFIL_CHAMP_TYPE_QUANT )
-                            iTypeChamp = GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_REEL;
+                            iTypeChamp = DatabaseAdmin.TYPE_VALEURS_COLONNE_REEL;
                         else
-                            iTypeChamp = GestionnaireBaseDeDonnees.TYPE_VALEURS_COLONNE_ITEM;
+                            iTypeChamp = DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM;
                         
                         // Lecture de la valeur (0 ou 1) indiquant si on prend ou non en compte le champ : reading the value of 0 or 1 indicating whether to take into consideration the field
                         bPrendreEnCompteChamp = fluxFichier.readByte() == 1;
