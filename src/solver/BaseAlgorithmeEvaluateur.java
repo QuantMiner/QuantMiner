@@ -17,7 +17,7 @@ package src.solver;
 import java.util.*;
 
 import src.apriori.*;
-import src.baseDeDonnees.*;
+import src.database.*;
 
 
 

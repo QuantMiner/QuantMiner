@@ -19,7 +19,7 @@ import javax.swing.*;
 import javax.swing.tree.*;
 import javax.swing.table.*;
 
-import src.baseDeDonnees.*;
+import src.database.*;
 import src.interfaceGraphique.TreeTable.*;
 import src.solver.*;
 import src.utilitaires.*;

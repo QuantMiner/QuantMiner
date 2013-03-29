@@ -17,7 +17,7 @@ package src.interfaceGraphique;
 import javax.swing.*;
 
 import src.apriori.*;
-import src.baseDeDonnees.CsvFileParser;
+import src.database.CsvFileParser;
 import src.solver.*;
 import src.utilitaires.*;
 

@@ -18,7 +18,7 @@ import java.io.*;
 
 import src.algorithmeGenetique.*;
 import src.apriori.*;
-import src.baseDeDonnees.*;
+import src.database.*;
 import src.interfaceGraphique.*;
 import src.recuitSimule.*;
 import src.utilitaires.*;

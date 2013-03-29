@@ -20,7 +20,7 @@ import javax.swing.*;
 
 import src.algorithmeGenetique.*;
 import src.apriori.*;
-import src.baseDeDonnees.*;
+import src.database.*;
 import src.recuitSimule.*;
 import src.solver.*;
 import src.utilitaires.*;

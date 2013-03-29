@@ -17,8 +17,8 @@ import javax.swing.*;
 
 import src.apriori.AttributQualitatif;
 import src.apriori.AttributQuantitatif;
-import src.baseDeDonnees.DataColumn;
-import src.baseDeDonnees.DatabaseAdmin;
+import src.database.DataColumn;
+import src.database.DatabaseAdmin;
 import src.solver.*;
 import src.utilitaires.*;
 

@@ -16,7 +16,7 @@ package src.apriori;
 
 import java.util.*;
 
-import src.baseDeDonnees.*;
+import src.database.*;
 import src.utilitaires.structuresDonnees.*;
 
 

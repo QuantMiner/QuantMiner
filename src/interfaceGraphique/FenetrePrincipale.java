@@ -18,7 +18,7 @@ import javax.swing.filechooser.*;
 
 import src.algorithmeGenetique.*;
 import src.apriori.*;
-import src.baseDeDonnees.*;
+import src.database.*;
 import src.solver.*;
 import src.utilitaires.*;
 

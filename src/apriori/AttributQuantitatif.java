@@ -13,7 +13,7 @@
  */
 package src.apriori;
 
-import src.baseDeDonnees.*;
+import src.database.*;
 
 
 

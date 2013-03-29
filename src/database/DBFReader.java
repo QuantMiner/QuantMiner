@@ -11,7 +11,7 @@
  *
  *You should have received a copy of the GNU General Public License along with QuantMiner.  If not, see <http://www.gnu.org/licenses/>.
  */
-package src.baseDeDonnees;
+package src.database;
 
 import java.io.*;
 import java.util.*;

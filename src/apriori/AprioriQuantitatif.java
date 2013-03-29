@@ -18,7 +18,7 @@ import java.sql.*;
 import java.util.*;
 import java.util.*;
 
-import src.baseDeDonnees.*;
+import src.database.*;
 import src.solver.*;
 
 
