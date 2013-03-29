@@ -17,7 +17,7 @@ package src.apriori;
 import java.util.*;
 
 import src.database.*;
-import src.utilitaires.structuresDonnees.*;
+import src.tools.dataStructures.*;
 
 
 
@@ -170,7 +170,7 @@ public class AttributQualitatif {
      */
     int ObtenirSupportItem(int iIndiceValeur) {
         
-        ListeMots.InfosMot infosMot = null;
+        WordList.InfosMot infosMot = null;
         
         if ( (iIndiceValeur>=0) && ((int)iIndiceValeur < m_iNombreValeurs) ) {
             infosMot = m_colonneDonnees.m_listeValeurs.ChercherInfosMot( m_tTableauValeurs[iIndiceValeur] );

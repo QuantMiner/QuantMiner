@@ -20,7 +20,7 @@ import javax.print.DocFlavor.STRING;
 import javax.swing.*;
 
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 
 

@@ -17,7 +17,7 @@ import javax.swing.*;
 
 import src.geneticAlgorithm.*;
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 
 

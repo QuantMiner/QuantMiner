@@ -15,7 +15,7 @@ package src.database;
 
 import java.util.*;
 
-import src.utilitaires.structuresDonnees.*;
+import src.tools.dataStructures.*;
 
 
 public class DataColumn {
@@ -28,7 +28,7 @@ public class DataColumn {
     
     // Member about unique les column de value categorical :
     public short [] m_tIDQualitatif = null; // table d'entiers using 16 bits identification every item (categorical)
-    public ListeMots m_listeValeurs = null;
+    public WordList m_listeValeurs = null;
     
     // Member about unique les column that value quantitative :
     public float [] m_tValeurReelle = null;
@@ -61,7 +61,7 @@ public class DataColumn {
             
             switch (m_iTypeValeurs) {
                 case DatabaseAdmin.TYPE_VALEURS_COLONNE_ITEM :
-                    m_listeValeurs = new ListeMots();
+                    m_listeValeurs = new WordList();
                     m_tIDQualitatif = new short [ iNombreLignes ];
                     break;
                     
@@ -89,7 +89,7 @@ public class DataColumn {
      * @return short
      */
     public short ObtenirNumeroCorrespondance(String sValeur) {
-        ListeMots.InfosMot infosMot = null;
+        WordList.InfosMot infosMot = null;
         
         infosMot = m_listeValeurs.ChercherInfosMot(sValeur);
         if (infosMot!=null)
@@ -105,7 +105,7 @@ public class DataColumn {
      * @return number of occurrences
      */
     public int ObtenirNombreOccurrencesItem(String sValeur) {
-        ListeMots.InfosMot infosMot = null;
+        WordList.InfosMot infosMot = null;
         
         infosMot = m_listeValeurs.ChercherInfosMot(sValeur);
         if (infosMot == null)

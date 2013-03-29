@@ -21,7 +21,7 @@ import javax.swing.table.*;
 import src.database.*;
 import src.interfaceGraphique.TablesCellulesEvoluees.*;
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 import java.awt.*;
 

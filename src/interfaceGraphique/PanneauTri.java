@@ -22,7 +22,7 @@ import src.apriori.*;
 import src.database.*;
 import src.interfaceGraphique.TreeTable.*;
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 import java.awt.*;
 import java.util.*;
@@ -689,7 +689,7 @@ public class PanneauTri extends javax.swing.JPanel { //step 5 the second/middle 
                                         tOccurrences[iIndiceItem] = colonneDonnees.ObtenirNombreOccurrencesItem(tItems[iIndiceItem]);
 
                                     // Tri des items par occurrences :
-                                    tItems = UtilitairesTri.CompateurBiTableaux_Chaines_Entiers(tItems, tOccurrences, false);
+                                    tItems = SortingTools.CompateurBiTableaux_Chaines_Entiers(tItems, tOccurrences, false);
 
                                     for (iIndiceItem=0; iIndiceItem<tItems.length; iIndiceItem++)
                                         if (m_contexteResolution.ObtenirTypePrisEnCompteItem(sNomColonne, tItems[iIndiceItem]) != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {

@@ -22,7 +22,7 @@ import javax.swing.table.*;
 import src.database.*;
 import src.interfaceGraphique.TreeTable.*;
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 import java.awt.*;
 
@@ -161,7 +161,7 @@ public class PanneauPreExtraction extends PanneauBaseAssistant {
                                 tOccurrences[iIndiceItem] = colonneDonnees.ObtenirNombreOccurrencesItem(tItems[iIndiceItem]);
 
                             // Tri des items par occurrences :
-                            tItems = UtilitairesTri.CompateurBiTableaux_Chaines_Entiers(tItems, tOccurrences, false);
+                            tItems = SortingTools.CompateurBiTableaux_Chaines_Entiers(tItems, tOccurrences, false);
 
                             for (iIndiceItem = 0; iIndiceItem < tItems.length; iIndiceItem++) {
                                 sDescriptionElement = 

@@ -21,7 +21,7 @@ import java.awt.*;
 
 import javax.sound.sampled.*;
 
-import src.utilitaires.*;
+import src.tools.*;
 
 public class UtilitairesInterface {
     
@@ -52,7 +52,7 @@ public class UtilitairesInterface {
                 sFichierChoisi = fichierChoisi.getAbsolutePath();
                 
                 // Correction de l'extension si besoin :
-                sFichierChoisi = UtilitairesFichiers.AssurerBonneExtension(sFichierChoisi, sExtension);
+                sFichierChoisi = FileTools.AssurerBonneExtension(sFichierChoisi, sExtension);
                 fichierChoisi = new File(sFichierChoisi);
                 
                 if ( fichierChoisi.exists() )

@@ -19,7 +19,7 @@ import javax.swing.*;
 import src.apriori.*;
 import src.database.CsvFileParser;
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 import com.Ostermiller.util.ExcelCSVPrinter;
 
@@ -301,7 +301,7 @@ public class PanneauResultats extends PanneauBaseAssistant { //step 5
                     super.m_contexteResolution.SauvegarderReglesHTML(sFichierChoisi, m_tReglesFiltrees, false, null);
                     break;
                 case DialogChoixEnregistrementFichier.TYPE_ENREGISTREMENT_HTML_GRAPHIQUE :
-                    enregistreurGraphique = new ResultatsEnregistreurGraphiqueRegle( UtilitairesFichiers.ObtenirCheminSansExtension(sFichierChoisi) );
+                    enregistreurGraphique = new ResultatsEnregistreurGraphiqueRegle( FileTools.ObtenirCheminSansExtension(sFichierChoisi) );
                     super.m_contexteResolution.SauvegarderReglesHTML(sFichierChoisi, m_tReglesFiltrees, true, enregistreurGraphique);
                     break;
                 case DialogChoixEnregistrementFichier.TYPE_ENREGISTREMENT_BINAIRE :

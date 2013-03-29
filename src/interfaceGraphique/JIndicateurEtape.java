@@ -16,7 +16,7 @@ package src.interfaceGraphique;
 import javax.swing.*;
 import javax.swing.border.*;
 
-import src.utilitaires.*;
+import src.tools.*;
 
 import java.awt.*;
 import java.io.*;

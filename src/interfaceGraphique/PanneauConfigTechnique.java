@@ -20,7 +20,7 @@ import src.apriori.AttributQuantitatif;
 import src.database.DataColumn;
 import src.database.DatabaseAdmin;
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 import java.awt.*;
 

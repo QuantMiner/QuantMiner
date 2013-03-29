@@ -21,7 +21,7 @@ import src.database.*;
 import src.geneticAlgorithm.*;
 import src.interfaceGraphique.*;
 import src.simulatedAnnealing.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 
 import com.Ostermiller.util.CSVPrinter;

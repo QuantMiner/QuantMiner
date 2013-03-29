@@ -16,7 +16,7 @@ package src.interfaceGraphique;
 import javax.swing.*;
 
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 
 

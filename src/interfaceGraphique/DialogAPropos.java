@@ -15,7 +15,7 @@ package src.interfaceGraphique;
 
 import java.awt.Font;
 
-import src.utilitaires.*;
+import src.tools.*;
 
 
 

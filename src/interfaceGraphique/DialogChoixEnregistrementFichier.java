@@ -16,7 +16,7 @@ package src.interfaceGraphique;
 import java.awt.event.ActionEvent;
 
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 
 

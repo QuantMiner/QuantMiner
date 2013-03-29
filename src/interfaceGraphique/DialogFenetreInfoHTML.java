@@ -19,7 +19,7 @@ import javax.swing.text.html.*;
 import java.awt.*;
 import javax.swing.event.*;
 
-import src.utilitaires.*;
+import src.tools.*;
 
 import java.net.URL;
 

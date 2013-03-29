@@ -13,7 +13,7 @@
  */
 package src.interfaceGraphique;
 
-import src.utilitaires.*;
+import src.tools.*;
 
 
 public class PanneauDefaut extends PanneauBase { //main window picture QuantMiner.png

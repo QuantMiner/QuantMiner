@@ -17,7 +17,7 @@ import javax.swing.filechooser.*;
 import javax.swing.*;
 
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 import java.io.*;
 import java.util.ArrayList;

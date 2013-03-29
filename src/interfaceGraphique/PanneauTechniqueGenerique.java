@@ -23,7 +23,7 @@ import src.database.*;
 import src.geneticAlgorithm.*;
 import src.simulatedAnnealing.*;
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 import java.awt.event.*;
 

@@ -17,7 +17,7 @@ import javax.swing.*;
 
 import src.simulatedAnnealing.*;
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 
 

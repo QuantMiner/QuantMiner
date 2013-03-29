@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 
 import src.solver.*;
-import src.utilitaires.*;
+import src.tools.*;
 
 
 

@@ -13,7 +13,7 @@
  */
 package src.apriori;
 
-import src.utilitaires.structuresDonnees.*;
+import src.tools.dataStructures.*;
 
 
 

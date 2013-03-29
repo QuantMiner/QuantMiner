@@ -15,7 +15,7 @@ package src.interfaceGraphique;
 
 import javax.swing.*;
 
-import src.utilitaires.*;
+import src.tools.*;
 
 import java.awt.*;
 import java.awt.font.*;
