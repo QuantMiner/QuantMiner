@@ -1,0 +1,11 @@
+src
+src.apriori
+src.database
+src.geneticAlgorithm
+src.graphicalInterface
+src.graphicalInterface.TableEvolvedCells
+src.graphicalInterface.TreeTable
+src.simulatedAnnealing
+src.solver
+src.tools
+src.tools.dataStructures
