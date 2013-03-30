@@ -25,10 +25,10 @@ Contribution
 - To contribute code for fixing filed issues create a pull request with the issue id.
 - To propose a new feature open a discussion onthe mailing list.
 
-Mailing List
+Build
 ====
-
-
+The project depends on sun JRE 6. To build use the ant build file with "dist" as target.
+To build javadocs for the project use the ant build file with "doc" as target
 
 Copyright
 ====
