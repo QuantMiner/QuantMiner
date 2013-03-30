@@ -3,6 +3,7 @@
   <property name="src" location="src"/>
   <property name="classes" location="classes"/>
   <property name="dist"  location="dist"/>
+  <property name="docs"  location="docs"/>
   <path id="classpath">
   	 <fileset dir="dist" includes="ostermillerutils_1_07_00.jar"/>
   </path>  
@@ -11,6 +12,11 @@
     <tstamp/>
     <mkdir dir="${classes}"/>
   </target>
+
+  <target name="docsdir">
+    <tstamp/>
+	<mkdir dir="${docs}"/>
+  </target>  
 
   <target name="compile" depends="init"
         description="compile the source " >
@@ -25,6 +31,13 @@
 	  		<attribute name="Class-Path" value="ostermillerutils_1_07_00.jar" />
 		</manifest>
     </jar>
+  </target>
+  
+    <!-- Generate javadocs for current project into ${doc.dir} -->
+  <target name="doc" depends="docsdir" description="generate documentation">
+    <javadoc destdir="${docs}">
+		<fileset dir="${src}/" includes="**/*.java" />
+	</javadoc>
   </target>
 
   <target name="clean"
