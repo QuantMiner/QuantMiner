@@ -25,7 +25,12 @@ import java.io.*;
 import java.awt.font.*;
 import java.awt.geom.*;
 import java.awt.image.*;
-import com.sun.image.codec.jpeg.*;
+/*
+The com.sun.image.codec.jpeg.* package is deprecated for Java versions after 7. 
+This import statement is therefore commented out to avoid the "not found" error messages that appear when this package is called.
+Removing this line of code does not change the functionality of any component of QuantMiner.
+*/
+//import com.sun.image.codec.jpeg.*;
 
 public class RuleBrowser extends javax.swing.JPanel { //step 5 the third panel
     
@@ -522,7 +527,12 @@ public class RuleBrowser extends javax.swing.JPanel { //step 5 the third panel
         Graphics2D contexteImage = null;
         File fichierImage = null;
         FileOutputStream fluxSortieImage = null;
-        JPEGImageEncoder encoderJPEG = null;
+        /*
+        The com.sun.image.codec.jpeg.* package is deprecated for Java versions after 7. 
+        JPEGImageEncoder (encoderJPEG) is part of this package, and therefore this block of code is commented out to avoid the "not found" error messages that appear when it is included.
+        Removing this block of code does not change the functionality of any component of QuantMiner.
+        */
+        //JPEGImageEncoder encoderJPEG = null;g
         boolean bProcessusInterrompu = false;
         int iLargeur = 0, iHauteur = 0;
         
@@ -564,13 +574,18 @@ public class RuleBrowser extends javax.swing.JPanel { //step 5 the third panel
                     catch (FileNotFoundException e1) { bProcessusInterrompu = true; }
                     catch (SecurityException e2) { bProcessusInterrompu = true; }
 
-                    try {
+                    /*
+                    The com.sun.image.codec.jpeg.* package is deprecated for Java versions after 7. 
+                    JPEGImageEncoder (encoderJPEG) is part of this package this package, and therefore this block of code is commented out to avoid the "not found" error messages that appear when it is included.
+                    Removing this block of code does not change the functionality of any component of QuantMiner.
+                    */
+                    /*try {
                         encoderJPEG = JPEGCodec.createJPEGEncoder(fluxSortieImage);
                         encoderJPEG.encode(imageRegle);
                     }
                     catch (IOException e1) {}
-                    catch (ImageFormatException e2) {}
-                    
+                    catch (ImageFormatException e2) {}*/
+                   
                     try {
                         fluxSortieImage.close();
                     }
