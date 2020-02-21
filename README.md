@@ -5,9 +5,9 @@ QuantMiner is a Data Mining tool for mining Quantitative Association Rules that 
 
 If you publish material based on QuantMiner, then, please note the use of QuantMiner and its url. This will help others to obtain the system and replicate your experiments. We suggest the following reference format for referring to this software:
 
-Salleb-Aouissi, A. Vrain, C. Nortet, C. (2007). QuantMiner: A Genetic Algorithm for Mining Quantitative Association Rules. In the Proceedings of the 20th International Conference on Artificial Intelligence IJCAI 2007, pp. 1035-1040. Hyberadad, India. [http://www1.ccls.columbia.edu/~ansaf/QuantMiner]
+Salleb-Aouissi, A. Vrain, C. Nortet, C. (2007). QuantMiner: A Genetic Algorithm for Mining Quantitative Association Rules. In the Proceedings of the 20th International Conference on Artificial Intelligence IJCAI 2007, pp. 1035-1040. Hyberadad, India. 
 
-Here is the BiBTeX citation:
+Here are the BiBTeX citations:
 
 ```
 @inproceedings{SallebVrainNortet2007,
@@ -19,11 +19,23 @@ Here is the BiBTeX citation:
   ee = {http://dli.iiit.ac.in/ijcai/IJCAI-2007/PDF/IJCAI07-167.pdf}
 }
 ```
+```
+@article{JMLR:v14:salleb-aouissi13a,
+  author  = {Ansaf Salleb-Aouissi and Christel Vrain and Cyril Nortet and Xiangrong Kong and Vivek Rathod and Daniel Cassard},
+  title   = {QuantMiner for Mining Quantitative Association Rules},
+  journal = {Journal of Machine Learning Research},
+  year    = {2013},
+  volume  = {14},
+  pages   = {3153-3157},
+  url     = {http://jmlr.org/papers/v14/salleb-aouissi13a.html}
+}
+```
+
 Contribution
 ====
 - To file bugs found in the software create a github issue.
 - To contribute code for fixing filed issues create a pull request with the issue id.
-- To propose a new feature open a discussion onthe mailing list.
+- To propose a new feature open a discussion on the mailing list.
 
 Build
 ====
