@@ -22,7 +22,8 @@ Here are the BiBTeX citations:
 ```
 ```
 @article{JMLR:v14:salleb-aouissi13a,
-  author  = {Ansaf Salleb-Aouissi and Christel Vrain and Cyril Nortet and Xiangrong Kong and Vivek Rathod and Daniel Cassard},
+  author  = {Ansaf Salleb-Aouissi and Christel Vrain and Cyril Nortet and Xiangrong Kong and 
+             Vivek Rathod and Daniel Cassard},
   title   = {QuantMiner for Mining Quantitative Association Rules},
   journal = {Journal of Machine Learning Research},
   year    = {2013},
