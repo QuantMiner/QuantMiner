@@ -13,7 +13,8 @@ Here are the BiBTeX citations:
 @inproceedings{SallebVrainNortet2007,
   author = {Ansaf Salleb-Aouissi and
   Christel Vrain and Cyril Nortet},
-  title = {QuantMiner: A Genetic Algorithm for Mining Quantitative Association Rules}, booktitle = {IJCAI},
+  title = {QuantMiner: A Genetic Algorithm for Mining Quantitative Association Rules}, 
+  booktitle = {IJCAI},
   year = {2007},
   pages = {1035-1040},
   ee = {http://dli.iiit.ac.in/ijcai/IJCAI-2007/PDF/IJCAI07-167.pdf}
