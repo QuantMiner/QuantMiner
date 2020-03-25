@@ -8,13 +8,15 @@ import src.geneticAlgorithm.*;
 public class KMeansClusterer {
 
     //parametrized constructor
-    public KMeansClusterer(ArrayList assocRules){
+    public KMeansClusterer(ArrayList assocRules, StandardParametersQuantitative input_parametresReglesQuantitatives){
 
         kMeansAssocRules = new ArrayList();
         listOfCentroids = new ArrayList<Centroid>();
         //check that HashMap is the best choice - be able to justify this design decision
-        centroidClusters = new HashMap<Centroid, ArrayList>();
+        centroidClusters = new HashMap<Centroid, ArrayList<AssociationRule>>();
         roundedCentroids = new ArrayList();
+
+        m_parametresReglesQuantitatives = input_parametresReglesQuantitatives;
 
         for(Object a : assocRules) {
             kMeansAssocRules.add(a);
@@ -22,7 +24,7 @@ public class KMeansClusterer {
 
     }
 
-    public double testRuleProximities(){
+    /*public double testRuleProximities(){
 
         double avgOfAvgDists = 0;
 
@@ -55,10 +57,14 @@ public class KMeansClusterer {
                         
                         double distance = Math.sqrt(floatDistance);
 
+                        //add up all this distances
                         avgDist += distance;
                     }
                     
-                    avgDist /= listOfIntervalsA.size();
+                    //avgDist /= listOfIntervalsA.size();
+                    //-1 because don't find dist with self
+                    avgDist /= (kMeansAssocRules.size() - 1);
+
                     avgOfAvgDists += avgDist;
 
                 }
@@ -72,9 +78,57 @@ public class KMeansClusterer {
 
         return avgOfAvgDists;
 
+    }*/
+
+    public double testRuleProximities(){
+
+        double avgDistance = 0.0;
+
+        int sizeOfARList = kMeansAssocRules.size();
+
+        for(int i=0; i<sizeOfARList; i++){
+            AssociationRule ruleConsidered1 = (AssociationRule)kMeansAssocRules.get(i);
+
+            ArrayList listOfIntervalsA = getQuantIntervals(ruleConsidered1);
+
+            for(int j=i+1; j<sizeOfARList; j++){
+
+                AssociationRule ruleConsidered2 = (AssociationRule)kMeansAssocRules.get(j);
+                ArrayList listOfIntervalsB = getQuantIntervals(ruleConsidered2);
+
+                float floatDistance = 0;
+                //list of intervals has intervals ([, ], [, ], [, ]) etc in assocation rule from left to right
+                for(int a = 0; a < listOfIntervalsA.size(); a++){
+                    float[] intervalA = (float[])listOfIntervalsA.get(a);
+                    float[] intervalB = (float[])listOfIntervalsB.get(a);
+
+                    for(int b = 0; b<intervalB.length; b++){
+
+                        float coordinate = Math.abs(intervalA[b] - intervalB[b]);
+                        float coordSquared = coordinate*coordinate;
+                        floatDistance += coordSquared;
+                    
+                    }
+                    
+                }
+
+                double distance = Math.sqrt(floatDistance);
+
+                //add up all this distances
+                avgDistance += distance;
+                
+            }
+
+        }
+
+        //sum of nums from 1 to n is 0.5(n)(n-1)
+        avgDistance /= ((sizeOfARList)*(sizeOfARList - 1) * 0.5);
+
+        return avgDistance;
+
     }
 
-    private ArrayList getQuantIntervals(AssociationRule ruleConsidered){
+    public ArrayList<float []> getQuantIntervals(AssociationRule ruleConsidered){
         Item item = null;
         ItemQualitative itemQual = null;
         ItemQuantitative itemQuant = null;
@@ -132,8 +186,12 @@ public class KMeansClusterer {
         return applyKMeansAlgo(NUM_K_CLUSTERS);
     }
 
-    //parametrized k means algo, so that we can call this repeatedly in g means
     public ArrayList applyKMeansAlgo(int numForK){
+    /*    return applyKMeansAlgo(numForK, null);
+    }
+
+    //parametrized k means algo, so that we can call this repeatedly in g means
+    public ArrayList applyKMeansAlgo(int numForK, ArrayList<Centroid> centroidsInput){*/
 
         boolean leftIsQuantitative = false;
         boolean rightIsQuantitative = false;
@@ -241,9 +299,24 @@ public class KMeansClusterer {
 
         //Generating random centroids
 
-        for(int i=0; i< NUM_K_CLUSTERS; i++){
-            listOfCentroids.add(generateRandomCentroid(intervals));
-        }
+        //for(int i=0; i< NUM_K_CLUSTERS; i++){
+
+        //if(centroidsInput == null || centroidsInput.size() == 0){
+            for(int i=0; i< numForK; i++){
+                listOfCentroids.add(generateRandomCentroid(intervals));
+            }
+      /*  }else{
+            if(numForK == centroidsInput.size()){
+                for(int i=0; i<centroidsInput.size(); i++){
+                    listOfCentroids.add(centroidsInput.get(i));
+                }
+            }else{
+                // THROW THIS AS AN ERROR IN THE FUTURE! OR ADD RANDOM CENTROIDS? IDK.
+                System.out.println("ERROR: numForK != centroidsInput.size()");
+            }
+
+        }*/
+ 
 
 
         ArrayList listOfCentroidsPrev = new ArrayList();
@@ -257,6 +330,9 @@ public class KMeansClusterer {
             //try to make into 1 for loop for more efficiency? but also before and after generate random centroid... so I'm not sure if it's possible... but check.
             //find nearest centroid for each rule
 
+            //clear centroidClusters
+            centroidClusters.clear();
+
             for(int i=0; i<kMeansAssocRules.size(); i++){
 
                 //maybe initialize outside of the for loop, b/c that would be less expensive.
@@ -269,7 +345,7 @@ public class KMeansClusterer {
                 Centroid nearestCentroid = findNearestCentroid(itemsQuant);
 
                 if(!centroidClusters.containsKey(nearestCentroid)){
-                    ArrayList rulesForCentroid = new ArrayList();
+                    ArrayList<AssociationRule> rulesForCentroid = new ArrayList<AssociationRule>();
                     centroidClusters.put(nearestCentroid, rulesForCentroid);
                 }
                 
@@ -295,41 +371,118 @@ public class KMeansClusterer {
 
                 //reset centroid clusters
                 // if(s!=NUM_GENERATIONS - 1){
-                centroidClusters = new HashMap<Centroid, ArrayList>();
+                //centroidClusters = new HashMap<Centroid, ArrayList>();
             }
 
-            System.out.println("roundedCentroids: " + roundedCentroids);
             System.out.println("listOfCentroidsPrev: " + listOfCentroidsPrev);
+            System.out.println("new - roundedCentroids: " + roundedCentroids);
+            System.out.println("listOfCentroids: " + listOfCentroids);
 
             numIterations++;
             
+        } // end of while loop
+
+        int totalNumPoints = 0;
+        for(int i=0; i<listOfCentroids.size(); i++){
+            //null pointer error in centroidCluster.get??
+            if(centroidClusters.get(listOfCentroids.get(i)) != null){
+                totalNumPoints += centroidClusters.get(listOfCentroids.get(i)).size();
+            }
+
+            System.out.println("totalNumPts: " + totalNumPoints);
         }
 
         System.out.println("FINAL ASSOCIATION RULES: ");
 
         for(int i=0; i<listOfCentroids.size(); i++){
 
-            if(centroidClusters.get(listOfCentroids.get(i)) == null || centroidClusters.get(listOfCentroids.get(i)).size() == 0){
-                listOfCentroids.remove(i);
-                i--;
-            }
-
-        }
-
-        int totalNumPoints = 0;
-        for(int i=0; i<listOfCentroids.size(); i++){
-            totalNumPoints += centroidClusters.get(listOfCentroids.get(i)).size();
-        }
-
-        for(int i=0; i<listOfCentroids.size(); i++){
-
             String centroidRule = "";
 
             Centroid thisCentroid = (Centroid)listOfCentroids.get(i);
+            
+            //set centroid's number of occcurrences
+            if(centroidClusters.get(thisCentroid) == null){
+                thisCentroid.setNumOccurrences(0);
+            }else{
+                thisCentroid.setNumOccurrences(centroidClusters.get(thisCentroid).size());
+            }
+
+            //set centroid's support
+            if(totalNumPoints > 0){
+                thisCentroid.setSupport(((100*thisCentroid.getNumOccurrences())/totalNumPoints));
+            }else{
+                thisCentroid.setSupport(0);
+            }
+
+            //set centroid's confidence
+
+            int support = thisCentroid.getSupport();
+           
+            if(support > 0){
+                thisCentroid.setConfidence(((100*thisCentroid.getNumOccurrences())/support));
+            }else{
+                thisCentroid.setConfidence(0);
+            }
 
             centroidRule = constructCentroidRule(thisCentroid, totalNumPoints);
 
             thisCentroid.setCentroidRule(centroidRule);
+
+        }
+        
+        System.out.println("ruleProximity: " + testRuleProximities());
+
+        double ruleProximity = testRuleProximities();
+        System.out.println("(double)(ruleProximity / 50): " + (double)(ruleProximity / 50));
+
+        for(int i=0; i<listOfCentroids.size(); i++){
+
+            Centroid centroidConsidered = listOfCentroids.get(i);
+
+            //if(centroidClusters.get(centroidConsidered) == null || centroidClusters.get(centroidConsidered).size() == 0){
+                
+                //remove from centroidClusters too?
+                //centroidClusters.remove(centroidConsidered);
+
+                //listOfCentroids.remove(i);
+                //i--;
+            //}
+
+            //these are the decimal representations... need to put to percentage.
+            System.out.println("m_parametresReglesQuantitatives.m_fMinSupp: " + m_parametresReglesQuantitatives.m_fMinSupp);
+            System.out.println("m_parametresReglesQuantitatives.m_fMinConf: " + m_parametresReglesQuantitatives.m_fMinConf);
+
+            //fix supp and conf for centroid before applying this!
+           /* if(centroidConsidered.getSupport() < m_parametresReglesQuantitatives.m_fMinSupp || centroidConsidered.getConfidence() < m_parametresReglesQuantitatives.m_fMinConf ){
+                listOfCentroids.remove(i);
+                continue;
+            }*/
+
+            for(int j=0; j<listOfCentroids.size(); j++){
+
+                Centroid centroidInComparison = listOfCentroids.get(j);
+
+                double distanceBtwnCentroids = calculateEuclideanDistance(centroidConsidered.getCoordinates(), centroidInComparison.getCoordinates());
+                if(j != i){
+                    System.out.println(distanceBtwnCentroids);
+
+                    //use euclidean distance to remove 'similar' rules. need to base on average euclidean dist? IOW, how to find how far to consider 'distinct'?
+                    if(distanceBtwnCentroids < (double)(ruleProximity / 50)){
+                        //question: remove centroids with numOcc == 0 first?
+                        centroidConsidered.setNumOccurrences(centroidConsidered.getNumOccurrences() + centroidInComparison.getNumOccurrences());
+
+                        centroidConsidered.setSupport(centroidConsidered.getSupport() + centroidInComparison.getSupport());
+
+                        centroidConsidered.setConfidence(centroidConsidered.getConfidence() + centroidInComparison.getConfidence());
+
+                        listOfCentroids.remove(j);
+                        j--;
+                    }
+                    //continue;
+                }
+              
+
+            }
 
         }
 
@@ -337,14 +490,40 @@ public class KMeansClusterer {
         return listOfCentroids;
     }
 
+    public Map<Centroid, ArrayList<AssociationRule>> getCentroidClusters(){
+
+        return centroidClusters;
+
+    }
+
     private String constructCentroidRule(Centroid thisCentroid, int totalNumPoints){
 
+        System.out.println("in constructCentroidRule");
         String centroidRule = "";
         
-        int numOccurrences = centroidClusters.get(thisCentroid).size();
+        if(centroidClusters.get(thisCentroid) == null){
+            return centroidRule;
+        }
 
-        int support = ((100*numOccurrences)/totalNumPoints);
-        int confidence = ((100*numOccurrences)/support);
+        //int numOccurrences = centroidClusters.get(thisCentroid).size();
+        int numOccurrences = thisCentroid.getNumOccurrences();
+
+        System.out.println(totalNumPoints);
+
+        /*int support = 0;
+        int confidence = 0;
+
+        if(totalNumPoints > 0){
+            support = ((100*numOccurrences)/totalNumPoints);
+        }
+
+        if(support > 0){
+            confidence = ((100*numOccurrences)/support);
+        }*/
+
+        int support = thisCentroid.getSupport();
+        int confidence = thisCentroid.getConfidence();
+        
         centroidRule += ("support = " + numOccurrences + " (" + support + "%) , ");
 
         centroidRule += ("confidence = " + confidence + " %  :  ");
@@ -602,7 +781,7 @@ public class KMeansClusterer {
 
     }
 
-    public ArrayList<Centroid> relocateCentroids(Map<Centroid, ArrayList> centroidClusters){
+    public ArrayList<Centroid> relocateCentroids(Map<Centroid, ArrayList<AssociationRule>> centroidClusters){
         ArrayList<Centroid> relocatedCentroids = new ArrayList<Centroid>();
 
         for(int i=0; i<listOfCentroids.size(); i++){
@@ -656,15 +835,20 @@ public class KMeansClusterer {
 
     }
 
+    public StandardParametersQuantitative getParametresReglesQuantitives(){
+        return m_parametresReglesQuantitatives;
+    }
+
     //hard-coded for now
     //we need to use g-means, learn num_k_clusterss
     private int NUM_K_CLUSTERS = 3;
     private int NUM_GENERATIONS = 1000;
     private ArrayList kMeansAssocRules; 
     private ArrayList<Centroid> listOfCentroids = new ArrayList<Centroid>();
-    private Map<Centroid, ArrayList> centroidClusters = new HashMap<Centroid, ArrayList>();
+    private Map<Centroid, ArrayList<AssociationRule>> centroidClusters = new HashMap<Centroid, ArrayList<AssociationRule>>();
     //list of rounded centroids, given a list of centroids
     private ArrayList roundedCentroids = new ArrayList();
+    StandardParametersQuantitative m_parametresReglesQuantitatives = null;
 
 
 
