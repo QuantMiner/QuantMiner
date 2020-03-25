@@ -8,6 +8,8 @@ public class Centroid {
             coordinates = new ArrayList();
             roundedCoordinates = new ArrayList();
             hasBeenPrinted = false;
+
+            initSuppConf();
         }
 
         public Centroid(float [] myCoordinates){
@@ -19,6 +21,9 @@ public class Centroid {
                 coordinates.add(myCoordinates[i]);
             }
             setRoundedCoordinates(coordinates);
+
+            initSuppConf();
+
 
         }
 
@@ -32,6 +37,14 @@ public class Centroid {
 
             hasBeenPrinted = false;
 
+            initSuppConf();
+
+        }
+
+        public void initSuppConf(){
+            numOccurrences = 0;
+            support = 0;
+            confidence = 0;
         }
 
         public ArrayList getCoordinates(){
@@ -104,6 +117,30 @@ public class Centroid {
             return hasBeenPrinted;
         }
 
+        public void setNumOccurrences(int amount){
+            numOccurrences = amount;
+        }
+
+        public void setSupport(int mySupport){
+            support = mySupport;
+        }
+
+        public void setConfidence(int myConfidence){
+            confidence = myConfidence;
+        }
+
+        public int getNumOccurrences(){
+            return numOccurrences;
+        }
+
+        public int getSupport(){
+            return support;
+        }
+
+        public int getConfidence(){
+            return confidence;
+        }
+
         //coordinates have elements = each i, i+1 pair (i even) is min and max of interval (i.e. x, y coordinate pair)
         //coordinates has float values, for precision for Euclidean Algorithm calculations
         private ArrayList coordinates = new ArrayList();
@@ -111,6 +148,11 @@ public class Centroid {
         private ArrayList roundedCoordinates = new ArrayList();
         private String centroidRule = "";
         private boolean hasBeenPrinted = false;
+
+        private int numOccurrences;
+        private int support;
+        private int confidence;
+    
 
 
     }
