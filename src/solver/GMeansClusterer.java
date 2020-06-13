@@ -12,9 +12,10 @@ public class GMeansClusterer {
     //parametrized constructor
     public GMeansClusterer(ArrayList assocRules, StandardParametersQuantitative input_parametresReglesQuantitatives){
 
-        TesterClustering.printOutRules(assocRules);
+        // For testing clustering, uncomment
+       /* TesterClustering.printOutRules(assocRules);
         TesterClustering.printOutLHVals(assocRules);
-        TesterClustering.printOutRHVals(assocRules);
+        TesterClustering.printOutRHVals(assocRules);*/
 
         rules = assocRules;
 
