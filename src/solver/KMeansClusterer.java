@@ -324,7 +324,6 @@ public class KMeansClusterer {
 
                 double distanceBtwnCentroids = calculateEuclideanDistance(centroidConsidered.getCoordinates(), centroidInComparison.getCoordinates());
                 if(j != i){
-                    System.out.println(distanceBtwnCentroids);
 
                     // Use euclidean distance to remove 'similar' rules. TODO: consider how to find how far to consider 'distinct'
                     if(distanceBtwnCentroids < (double)(ruleProximity)){
@@ -545,8 +544,6 @@ public class KMeansClusterer {
         }
 
         Centroid randomCentroid = new Centroid(randomCoords);
-
-        System.out.println("randomCentroid: " + randomCentroid);
 
         return randomCentroid;
         
