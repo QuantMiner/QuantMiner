@@ -173,8 +173,8 @@ public class SimulatedAnnealingAlgo extends EvaluationBaseAlgorithm {
             if (reglePotentielle.m_fQualite >= m_tReglesPotentiellesPrecedentes[iIndiceReglePotentielle].m_fQualite)
                 m_tReglesPotentiellesPrecedentes[iIndiceReglePotentielle].Copier(reglePotentielle);
 
-            if (reglePotentielle.m_fQualite >= m_meilleureReglePotentielle.m_fQualite)
-                m_meilleureReglePotentielle.Copier(reglePotentielle);
+            if (reglePotentielle.m_fQualite >= m_meilleureReglePotentielle[0].m_fQualite)
+                m_meilleureReglePotentielle[0].Copier(reglePotentielle);
             
         }
         
