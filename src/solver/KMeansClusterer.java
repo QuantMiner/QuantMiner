@@ -307,9 +307,8 @@ public class KMeansClusterer {
 
         }
         
-        // Uncomment to test rule proximities
-       // double ruleProximity = testRuleProximities();
-       // System.out.println("(double)(ruleProximity / 5): " + (double)(ruleProximity / 5));
+        // Rule proximity to use
+        double ruleProximity = testRuleProximities();
 
         for(int i=0; i<listOfCentroids.size(); i++){
 
