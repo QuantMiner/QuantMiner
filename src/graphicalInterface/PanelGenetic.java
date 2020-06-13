@@ -263,7 +263,7 @@ public class PanelGenetic extends DatabasePanelAssistant { //step 4
     
     //stop calculation
     private void ArreterCalculateur(boolean bEnregistrerRegles) {
-        
+    
         if (m_calculateur != null) {
                 
             m_calculateur.AutoriserIndicationFinCalcul(false);
@@ -286,7 +286,7 @@ public class PanelGenetic extends DatabasePanelAssistant { //step 4
     }
 
     
-    //append more rules to the rule text being displayed
+    //append more rules to the rule text being displayed (Step 4/5)
     private void AjouterRegle(String sNouvelleRegle) {
         jZoneTexteRegles.append(sNouvelleRegle);
     }
@@ -302,6 +302,8 @@ public class PanelGenetic extends DatabasePanelAssistant { //step 4
     private void RafraichirControles() {
         String sIndicateur = null;
         AssociationRule regle = null;
+        Centroid centroid = null;
+        ArrayList centroidList = null;
         boolean bResultatDisponible = false;
         
         if (m_calculateur != null)
@@ -318,22 +320,45 @@ public class PanelGenetic extends DatabasePanelAssistant { //step 4
                     else {
                         jProgressResolution.setValue( m_calculateur.m_iNombreReglesTestees );
                         sIndicateur =
-                              String.valueOf( m_calculateur.m_iNombreReglesTestees )
+                              String.valueOf( m_calculateur.m_iNombreReglesTestees * m_calculateur.getNumAssocationRules())
                             + " tested rules /  "
-                            + String.valueOf( m_iMaxReglesTestees );
+                            + String.valueOf( m_iMaxReglesTestees *  m_calculateur.getNumAssocationRules());
                         jProgressResolution.setString(sIndicateur);
                         jProgressResolution.repaint();
                     }
             
                     // Display the progress of the rules being calculated:
                     do {
-                        regle = m_calculateur.ObtenirRegleCalculee(m_iIndiceRegleAffichee);
-                        if (regle != null) {
-                            AjouterRegle( String.valueOf(m_iIndiceRegleAffichee + 1) + ".  " );
-                            AjouterRegle( regle.toString() );
-                            AjouterRegle("\n");
-                            m_iIndiceRegleAffichee++;
-                        }
+                       
+                       //not k-means
+                       if(m_calculateur.m_applyKMeans < 1){
+                           regle = m_calculateur.ObtenirRegleCalculee(m_iIndiceRegleAffichee);
+                            //regle is the rule obtained
+                            if (regle != null) {
+                                AjouterRegle( String.valueOf(m_iIndiceRegleAffichee + 1) + ".  " );
+                                AjouterRegle( regle.toString() );
+                                AjouterRegle("\n");
+                                m_iIndiceRegleAffichee++;
+                            }
+                       }else{
+                           
+                           centroidList = m_calculateur.ObtenirListOfCentroids();
+
+                           for(int a=0; a< centroidList.size(); a++){
+                               centroid = (Centroid)centroidList.get(a);
+                               String centroidRule = centroid.getCentroidRule();
+                               //PRINTING DOUBLE ETC SOMETIMES - TEMPORARY 'HASBEENPRINTED'
+                                if (centroid != null && !centroid.getHasBeenPrinted() && !centroidRule.equals("")) {
+                                    AjouterRegle( String.valueOf(m_iIndiceRegleAffichee + 1) + ".  " );
+                                    AjouterRegle( centroidRule );
+                                    AjouterRegle("\n");
+                                    m_iIndiceRegleAffichee++;
+                                    centroid.setHasBeenPrinted(true);
+                                }
+                           }
+
+                       }
+                        
                     }
                     while (regle != null);
                 }
