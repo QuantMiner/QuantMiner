@@ -74,7 +74,6 @@ public class Centroid {
         
 
         public void setCoordinates(float[] newCoordinates){
-            //or, if len 1, set x?? or not well-defined?
             if(newCoordinates.length >= coordinates.size()){
                 for(int i=0; i<newCoordinates.length; i++){
                     coordinates.set(i, coordinates);
