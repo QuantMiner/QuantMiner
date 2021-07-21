@@ -658,9 +658,9 @@ public class DatabaseAdmin {
                   }
                   
               }
-
+              
               iIndiceLigne++;
-              if (iIndiceLigne == m_iNombreLignes - 1) break;
+              if (iIndiceLigne == m_iNombreLignes) break;
               tValeursChamps = csvParser.m_data[iIndiceLigne];
           }
 
