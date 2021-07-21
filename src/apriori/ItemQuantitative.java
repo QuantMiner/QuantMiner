@@ -18,9 +18,7 @@ public class ItemQuantitative extends Item {
     
     public AttributQuantitative m_attributQuant = null;   // Attribut de la BD dont est issu l'item
     public int m_iNombreDisjonctions = 0;
-    public float [] m_tBornes = null; /* Les bornes min et max, stock�es successivement 2 � 2 (chaque paire correspond � un intervalle afin de pouvoir autoriser les unions)
-        The min and max limits, stored successively 2 e 2 (each pair corresponds to an interval in order to be able to authorize unions)
-    */
+    public float [] m_tBornes = null; // Les bornes min et max, stock�es successivement 2 � 2 (chaque paire correspond � un intervalle afin de pouvoir autoriser les unions)
      
     
     /**

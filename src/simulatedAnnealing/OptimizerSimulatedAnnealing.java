@@ -68,8 +68,8 @@ public class OptimizerSimulatedAnnealing extends RuleOptimizer {
     }
     
     
-    //int i not used but needed in abstract class for OptimizerGeneticAlgorithm
-    public boolean OptimiseRegle(AssociationRule regle, int i) {
+    
+    public boolean OptimiseRegle(AssociationRule regle) {
         int iNombreItemsQuantitatifs = 0;
         int iIndiceEtape = 0;
         boolean bRegleEstSolide = false;
@@ -115,8 +115,8 @@ public class OptimizerSimulatedAnnealing extends RuleOptimizer {
         }
         while ( m_algoRecuitSimule.InitierNouvellePasse() );
 
-        //change to index 0 for first best rule (changes made in EvaluationBaseAlgorithm.java to display top n rules per association for genetic algorithm)
-        meilleureRegle = m_algoRecuitSimule.ObtenirMeilleureRegle(0);
+        
+        meilleureRegle = m_algoRecuitSimule.ObtenirMeilleureRegle();
 
         if (meilleureRegle != null) {
             bRegleEstSolide = (  (meilleureRegle.m_fSupport >= m_parametresReglesQuantitatives.m_fMinSupp)

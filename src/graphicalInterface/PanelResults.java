@@ -521,7 +521,6 @@ public class PanelResults extends DatabasePanelAssistant { //step 5
     
 
     // Met � jour la liste des r�gles en appliquant les param�tres de tri et de filtrage :
-    // Updates the list of rules by applying the sorting and filtering parameters:
     public void MettreAJourListeRegles() {
         ArrayList listeTempRegles = null;
         int iIndiceRegle = 0;
@@ -557,7 +556,6 @@ public class PanelResults extends DatabasePanelAssistant { //step 5
         }
         
         // Copie d�finitive dans le tableau des r�gles filtr�es :
-        //Final copy in the table of filtered rules:
         m_tReglesFiltrees = null;
         if (m_iNombreReglesRetenues > 0) {
             m_tReglesFiltrees = new AssociationRule[1];
@@ -581,7 +579,6 @@ public class PanelResults extends DatabasePanelAssistant { //step 5
         
         
         // On d�clare le nouveau tableau des r�gles filtr�es et tri�es :
-        // We declare the new table of filtered and sorted rules:
         m_afficheurRegles.DefinirListeRegles(m_tReglesFiltrees);
         if (m_iNombreReglesRetenues > 0)
             jScrollBarRegles.setMaximum(m_iNombreReglesRetenues-1);
@@ -596,7 +593,6 @@ public class PanelResults extends DatabasePanelAssistant { //step 5
     
     
     //the index of the rule --middle part
-    //This is in the "Results" part (part 5/5) QuantMiner progression
     public void IndiquerRegleCourante(int iIndiceRegleCourante) {
         String sTexteNumeroRegleCourante = null;
         

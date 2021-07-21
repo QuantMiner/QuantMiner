@@ -25,7 +25,6 @@ public abstract class RuleOptimizer {
         m_contexteResolution = contexteResolution;
     }
     
-    //public abstract boolean OptimiseRegle(AssociationRule regle);
-    public abstract boolean OptimiseRegle(AssociationRule regle, int i);
+    public abstract boolean OptimiseRegle(AssociationRule regle);
     
 }

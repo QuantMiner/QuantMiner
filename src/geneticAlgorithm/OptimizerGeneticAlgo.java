@@ -23,7 +23,6 @@ import src.solver.*;
 
 public class OptimizerGeneticAlgo extends RuleOptimizer {
     
-    //GeneticAlgo extends EvaluationBaseAlgorithm
     GeneticAlgo m_algoGenetique = null;
     StandardParametersQuantitative m_parametresReglesQuantitatives = null;
     ParametersGeneticAlgo m_parametresAlgo = null;
@@ -79,14 +78,13 @@ public class OptimizerGeneticAlgo extends RuleOptimizer {
     
     /**Optimize Rule Association
      * @param regle the Association rule
-     * @param index the index of the n association rules
      */
-    public boolean OptimiseRegle(AssociationRule regle, int i) {
+    public boolean OptimiseRegle(AssociationRule regle) {
         long currentTime=System.currentTimeMillis();
         int iNombreItemsQuantitatifs = 0;
         int iIndiceEvolution = 0;
         boolean bRegleEstSolide = false;
-        AssociationRule [] meilleureRegle = new AssociationRule[m_parametresAlgo.m_iNombreGenerations];
+        AssociationRule meilleureRegle = null;
         
         if ( (m_algoGenetique == null) || (regle == null) )
             return false;
@@ -94,7 +92,7 @@ public class OptimizerGeneticAlgo extends RuleOptimizer {
         iNombreItemsQuantitatifs =    regle.CompterItemsGaucheSelonType(Item.ITEM_TYPE_QUANTITATIF)
         + regle.CompterItemsDroiteSelonType(Item.ITEM_TYPE_QUANTITATIF);
         
-        // If the rule has uniquely qualitative, no need to optimize:
+        // if the rule has uniquely qualitative, no need to optimize:
         if (iNombreItemsQuantitatifs <= 0) {
             
             regle.EvaluerSiQualitative(super.m_contexteResolution);
@@ -124,32 +122,30 @@ public class OptimizerGeneticAlgo extends RuleOptimizer {
         }
         while ( m_algoGenetique.InitierNouvellePasse() );
         
-            //obtain the best rule
-       
-            meilleureRegle[i] = m_algoGenetique.ObtenirMeilleureRegle(i);
+        //obtain the best rule
+        meilleureRegle = m_algoGenetique.ObtenirMeilleureRegle();
 
-            //if the rule is not null and have enough support and confidence, copy it to rule
-            if (meilleureRegle[i] != null) {
-                bRegleEstSolide = ((meilleureRegle[i].m_fSupport >= m_parametresReglesQuantitatives.m_fMinSupp)
-                &&(meilleureRegle[i].m_fConfiance >= m_parametresReglesQuantitatives.m_fMinConf)  );
-                if (bRegleEstSolide)
-                    regle.CopierRegleAssociation(meilleureRegle[i]);
-            }
-            else
-                bRegleEstSolide = false;
-            
-            
-            if (m_bAfficherGrapheQualite) {
-                DialogGraphQuality fenetreDetailsRegle = null;
-                fenetreDetailsRegle = new DialogGraphQuality(super.m_contexteResolution.m_fenetreProprietaire, true, super.m_contexteResolution);
-                fenetreDetailsRegle.SpecifierQualitesMoyennes(m_tQualiteMoyenne);
-                fenetreDetailsRegle.SpecifierQualitesMax(m_tQualiteMax);
-                fenetreDetailsRegle.SpecifierQualitesMin(m_tQualiteMin);
-                fenetreDetailsRegle.ConstruireGraphe();
-                fenetreDetailsRegle.show();
-            }
+        //if the rule is not null and have enough support and confidence, copy it to rule
+        if (meilleureRegle != null) {
+            bRegleEstSolide = ((meilleureRegle.m_fSupport >= m_parametresReglesQuantitatives.m_fMinSupp)
+            &&(meilleureRegle.m_fConfiance >= m_parametresReglesQuantitatives.m_fMinConf)  );
+            if (bRegleEstSolide)
+                regle.CopierRegleAssociation(meilleureRegle);
+        }
+        else
+            bRegleEstSolide = false;
         
-        // Generates error; comment out for now
+        
+        if (m_bAfficherGrapheQualite) {
+            DialogGraphQuality fenetreDetailsRegle = null;
+            fenetreDetailsRegle = new DialogGraphQuality(super.m_contexteResolution.m_fenetreProprietaire, true, super.m_contexteResolution);
+            fenetreDetailsRegle.SpecifierQualitesMoyennes(m_tQualiteMoyenne);
+            fenetreDetailsRegle.SpecifierQualitesMax(m_tQualiteMax);
+            fenetreDetailsRegle.SpecifierQualitesMin(m_tQualiteMin);
+            fenetreDetailsRegle.ConstruireGraphe();
+            fenetreDetailsRegle.show();
+        }
+        
        /* if ( m_bSortirQualite){
             File outputFile = new File("E:\\temp\\rules\\rule"+Integer.toString(m_iRules++)+".txt");
             outputFile.delete();
@@ -174,22 +170,22 @@ public class OptimizerGeneticAlgo extends RuleOptimizer {
                 out.write("\n---------------------------------------------------------------\n");
                 out.write("\n");
                 out.write("generation,moy,max,min\n");
-                for (int j=0; j<m_tQualiteMoyenne.length; j++){
-                    out.write(Integer.toString(j));
+                for (int i=0; i<m_tQualiteMoyenne.length; i++){
+                    out.write(Integer.toString(i));
                     out.write(',');
-                    out.write(Float.toString(m_tQualiteMoyenne[j]));
+                    out.write(Float.toString(m_tQualiteMoyenne[i]));
                     out.write(',');
-                    out.write(Float.toString(m_tQualiteMax[j]));
+                    out.write(Float.toString(m_tQualiteMax[i]));
                     out.write(',');
-                    out.write(Float.toString(m_tQualiteMin[j]));
+                    out.write(Float.toString(m_tQualiteMin[i]));
                     out.write("\n");
                 }
                 out.close();
             } catch(java.io.IOException e){
                 e.printStackTrace();
             }
-        } */
-        
+        }
+        */
         
         
         return bRegleEstSolide;

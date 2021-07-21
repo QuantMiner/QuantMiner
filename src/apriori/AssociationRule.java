@@ -42,9 +42,8 @@ public class AssociationRule {
     public int m_iNombreDisjonctionsDroite = 0;
     public int m_iNombreDisjonctionsGaucheValides = 0;
     public int m_iNombreDisjonctionsDroiteValides = 0;    
-
-    public int m_iNombreAssociationRules = 1; // number of top rules per assocation
-    public int m_applyKMeans = 0; //  0 = keep applying just fitness; 1 = apply k-means algorithm; 2 = apply g-means algorithm
+    
+    
     
     public AssociationRule(int iNombreItemsGauche, int iNombreItemsDroite, int iNombreDisjonctionsGauche, int iNombreDisjonctionsDroite) {
         
@@ -91,7 +90,6 @@ public class AssociationRule {
     
     // Construct de copie :
     public void CopierRegleAssociation(AssociationRule regle) {
-
         int iIndiceItem = 0;
         Item item = null;
                 
@@ -132,10 +130,6 @@ public class AssociationRule {
             this.m_iNombreDisjonctionsDroite = regle.m_iNombreDisjonctionsDroite;
             this.m_iNombreDisjonctionsGaucheValides = regle.m_iNombreDisjonctionsGaucheValides;
             this.m_iNombreDisjonctionsDroiteValides = regle.m_iNombreDisjonctionsDroiteValides;
-
-            //Added parameters for k-means algorithm
-            this.m_iNombreAssociationRules = regle.m_iNombreAssociationRules;
-            this.m_applyKMeans = regle.m_applyKMeans;
         }
         else {
             
@@ -155,14 +149,12 @@ public class AssociationRule {
             this.m_iNombreDisjonctionsDroite = 0;    
             this.m_iNombreDisjonctionsGaucheValides = 0;
             this.m_iNombreDisjonctionsDroiteValides = 0;
-
-            this.m_iNombreAssociationRules = 1;
-            this.m_applyKMeans = 0;
         }
     }
  
+    
+    
     // Classe permettant la comparaison des r�gles selon la valeur de confiance :
-    // Class allowing comparison of rules according to confidence value
     public static abstract class ComparateurRegles implements Comparator {
         
         boolean m_bTriDecroissant = false;
@@ -192,7 +184,8 @@ public class AssociationRule {
             return (compare(this, obj) == 0);
         }
     }  
-
+    
+    
     
     /**comparing RULES on the value of Confidence
      */
@@ -333,18 +326,6 @@ public class AssociationRule {
     public void AssignerConfiance(float fConfiance) {
         m_fConfiance = fConfiance;
     }
-
-    //Assign m_iNombreAssociationRules, the number of top rules per association
-    public void AssignerNombreAssociationRules(int iNumAssociationRules) {
-        m_iNombreAssociationRules = iNumAssociationRules;
-    }
-
-    //Assign m_applyKMeans, metric of if clustering algorithm should be applied
-    //0 = no; 1 = yes (k-means); 2 yes (g-means)
-    public void AssignerApplyKMeans(int applyKMeans) {
-        m_applyKMeans = applyKMeans;
-    }
-    
     
     
     /**
@@ -755,6 +736,7 @@ public class AssociationRule {
         sRegle += " %";
         
         sRegle += "  :  ";
+            
         
         // left(qualitative, quantitative) --> right(qualitative, quantitative):
         for (iIndiceCoteRegle = 0; iIndiceCoteRegle < 2; iIndiceCoteRegle++) {
@@ -823,6 +805,7 @@ public class AssociationRule {
             }
         }
 
+        
         return sRegle;
     }
     
