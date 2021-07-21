@@ -60,6 +60,7 @@ public class RuleTester extends Thread { //test rules
     public boolean m_bFinTestRegles = false;
     public int m_iNombreReglesTestees = 0; // Compteur du nombre de regles deja testees par l'algorithme -- count the number of rules already tested by the algorithm 
     ArrayList m_listeRegles = null;
+    ArrayList m_listeCentroids = null; //for k-means
     private ArrayList m_listeAttributsQuant = null;
     private IndicateurCalculRegles m_indicateurCalcul = null;
     private boolean m_bIndiquerFinCalcul = false;
@@ -72,6 +73,7 @@ public class RuleTester extends Thread { //test rules
     int m_iNombreDisjonctionsGauche = 0;
     int m_iNombreDisjonctionsDroite = 0;
     
+    public int m_applyKMeans = 0; //0 - don't apply k means. 1 - apply k means.
 
     public RuleTester(ResolutionContext contexteResolution, IndicateurCalculRegles indicateurCalcul) {
         m_contexteResolution = contexteResolution;
@@ -97,6 +99,7 @@ public class RuleTester extends Thread { //test rules
                 m_iMaximumItemsQuantConsideres = 0;
                 m_iNombreDisjonctionsGauche = 1;  //Disjunctions 'OR'
                 m_iNombreDisjonctionsDroite = 1;   
+                m_applyKMeans = 0;
                 break;
                 
             case ResolutionContext.TECHNIQUE_ALGO_GENETIQUE :
@@ -106,6 +109,7 @@ public class RuleTester extends Thread { //test rules
                 m_iNombreDisjonctionsDroite = m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreDisjonctionsDroite;   
                 m_iMinimumItemsQuantConsideres = m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreMinAttributsQuant;
                 m_iMaximumItemsQuantConsideres = m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreMaxAttributsQuant;
+                m_applyKMeans = m_contexteResolution.m_parametresReglesQuantitatives.m_applyKMeans;
                 break;
                
             case ResolutionContext.TECHNIQUE_RECUIT_SIMULE :
@@ -115,6 +119,7 @@ public class RuleTester extends Thread { //test rules
                 m_iNombreDisjonctionsDroite = m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreDisjonctionsDroite;   
                 m_iMinimumItemsQuantConsideres = m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreMinAttributsQuant;
                 m_iMaximumItemsQuantConsideres = m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreMaxAttributsQuant;
+                m_applyKMeans = m_contexteResolution.m_parametresReglesQuantitatives.m_applyKMeans;
                break;
             
             default :
@@ -136,7 +141,10 @@ public class RuleTester extends Thread { //test rules
         m_apriori.ExecuterPretraitement(true);  //execute pre-process
     }
  
-    
+    //Getter method, used in PanelGenetic.java
+    public int getNumAssocationRules(){
+        return m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreAssociationRules;
+    }
     
     public void AutoriserIndicationFinCalcul(boolean bIndiquerFinCalcul) {
         m_bIndiquerFinCalcul = bIndiquerFinCalcul;
@@ -154,134 +162,143 @@ public class RuleTester extends Thread { //test rules
     
     //start to do optimization
     public void run() {
-        int iTypePriseEnCompte = 0;
-        int iIndiceAttributsQuant = 0;
-        int iNombreAttributsQuantBase = 0;
-        AttributQuantitative attributQuant = null;
-        boolean bFinInitApriori = false;
-        int iTailleFrequents = 0;
-        int iNombreReglesATester = 0;
-        
-        
-        m_iNombreReglesTestees = 0;
-        m_bResultatDisponible = false;
-        m_listeRegles = new ArrayList();
 
-        if (m_apriori == null)
-            return;
-        
+        //add while loop if running testRuleProximities() in KMeansClusterer, in order to test different values of n
+       // while(m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreAssociationRules <= 200){
+            int iTypePriseEnCompte = 0;
+            int iIndiceAttributsQuant = 0;
+            int iNombreAttributsQuantBase = 0;
+            AttributQuantitative attributQuant = null;
+            boolean bFinInitApriori = false;
+            int iTailleFrequents = 0;
+            int iNombreReglesATester = 0;
+            
+            m_iNombreReglesTestees = 0;
+            m_bResultatDisponible = false;
+            m_listeRegles = new ArrayList();
+            m_listeCentroids = new ArrayList();
 
-        m_bEnExecution = true;
-        bFinInitApriori = false;
-        iTailleFrequents = 2;
-        
-        if (m_indicateurCalcul != null)
-            m_indicateurCalcul.EnvoyerInfo("Pre-computation with the Apriori algorithm:\n");
-        
+            if (m_apriori == null)
+                return;
+            
 
-        try {
-        
-            while ( (m_bEnExecution) && (!bFinInitApriori) && ( iTailleFrequents <= 3)) {   // suppress later the third condition
+            m_bEnExecution = true;
+            bFinInitApriori = false;
+            iTailleFrequents = 2;
+            
+            if (m_indicateurCalcul != null)
+                m_indicateurCalcul.EnvoyerInfo("Pre-computation with the Apriori algorithm:\n");
+            
 
-                // On genere les listes de K-items frequency successively:     
-            	// We generate the list of the frequency of K-items successively:
-                if (m_indicateurCalcul != null)
-                    m_indicateurCalcul.EnvoyerInfo("  Computing the set of "+String.valueOf(iTailleFrequents)+" consecutive frequent modalities...");
-                
-                bFinInitApriori = !m_apriori.GenererNouvelleListeItemSets();
-                
-                if (m_indicateurCalcul != null) {
-                    if (bFinInitApriori)
-                        m_indicateurCalcul.EnvoyerInfo("FINISH!\n");
-                    else
-                        m_indicateurCalcul.EnvoyerInfo("OK\n");
-                }
-                iTailleFrequents++;
+            try {
+            
+                while ( (m_bEnExecution) && (!bFinInitApriori) && ( iTailleFrequents <= 3)) {   // suppress later the third condition
+
+                    // On genere les listes de K-items frequency successively:     
+                    // We generate the list of the frequency of K-items successively:
+                    if (m_indicateurCalcul != null)
+                        m_indicateurCalcul.EnvoyerInfo("  Computing the set of "+String.valueOf(iTailleFrequents)+" consecutive frequent modalities...");
+                    
+                    bFinInitApriori = !m_apriori.GenererNouvelleListeItemSets();
+                    
+                    if (m_indicateurCalcul != null) {
+                        if (bFinInitApriori)
+                            m_indicateurCalcul.EnvoyerInfo("FINISH!\n");
+                        else
+                            m_indicateurCalcul.EnvoyerInfo("OK\n");
+                    }
+                    iTailleFrequents++;
 
 
-                if (bFinInitApriori || ( iTailleFrequents > 3) ) { // suppress later the second condition
+                    if (bFinInitApriori || ( iTailleFrequents > 3) ) { // suppress later the second condition
 
-                    m_apriori.ElaguerItemsetsSelonFiltre();
+                        m_apriori.ElaguerItemsetsSelonFiltre();
 
-                    // On repertorie uniquement les attributs quantitatifs a prendre en compte :
-                    // we list only the quantitative attributes to consider: 
-                    m_listeAttributsQuant = new ArrayList();
-                    m_iNombreTotalAttributsQuant = 0;
+                        // On repertorie uniquement les attributs quantitatifs a prendre en compte :
+                        // we list only the quantitative attributes to consider: 
+                        m_listeAttributsQuant = new ArrayList();
+                        m_iNombreTotalAttributsQuant = 0;
 
-                    if (m_iMaximumItemsQuantConsideres > 0) {
+                        if (m_iMaximumItemsQuantConsideres > 0) {
 
-                        iNombreAttributsQuantBase = m_apriori.ObtenirNombreAttributsQuantitatifs();
-                        for (iIndiceAttributsQuant = 0; iIndiceAttributsQuant < iNombreAttributsQuantBase; iIndiceAttributsQuant++) {
-                            attributQuant = m_apriori.ObtenirAttributQuantitatif(iIndiceAttributsQuant);
-                            if (attributQuant != null) {
-                                iTypePriseEnCompte = m_contexteResolution.ObtenirTypePrisEnCompteAttribut(attributQuant.ObtenirNom());
+                            iNombreAttributsQuantBase = m_apriori.ObtenirNombreAttributsQuantitatifs();
+                            for (iIndiceAttributsQuant = 0; iIndiceAttributsQuant < iNombreAttributsQuantBase; iIndiceAttributsQuant++) {
+                                attributQuant = m_apriori.ObtenirAttributQuantitatif(iIndiceAttributsQuant);
+                                if (attributQuant != null) {
+                                    iTypePriseEnCompte = m_contexteResolution.ObtenirTypePrisEnCompteAttribut(attributQuant.ObtenirNom());
 
-                                if (iTypePriseEnCompte != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
-                                    m_listeAttributsQuant.add(attributQuant);
-                                    m_iNombreTotalAttributsQuant++;                        
-                               }
+                                    if (iTypePriseEnCompte != ResolutionContext.PRISE_EN_COMPTE_ITEM_NULLE_PART) {
+                                        m_listeAttributsQuant.add(attributQuant);
+                                        m_iNombreTotalAttributsQuant++;                        
+                                }
+                                }
                             }
+
+                            if (m_iMaximumItemsQuantConsideres > m_iNombreTotalAttributsQuant)
+                                m_iMaximumItemsQuantConsideres = m_iNombreTotalAttributsQuant;
                         }
 
-                        if (m_iMaximumItemsQuantConsideres > m_iNombreTotalAttributsQuant)
-                            m_iMaximumItemsQuantConsideres = m_iNombreTotalAttributsQuant;
+
+                        // Calculate the number of rules to test:
+                        if (m_indicateurCalcul != null)
+                            m_indicateurCalcul.EnvoyerInfo("\n\nComputing the number of rules to test...");
+
+                        //number of rules to test
+                        iNombreReglesATester = ComptabiliserNombreMaxReglesTestees();
+
+                        if (m_indicateurCalcul != null) {
+                            m_indicateurCalcul.IndiquerNombreReglesATester(iNombreReglesATester);
+                            m_indicateurCalcul.EnvoyerInfo(":  " + String.valueOf(iNombreReglesATester * m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreAssociationRules) + " rules.\n\n\n");
+                        }
                     }
+                }
 
 
-                    // Calculate the number of rules to test:
+                // Calculate the rules:
+                if (m_bEnExecution) {
+
+                    m_iNombreItemsQuantConsideres = m_iMinimumItemsQuantConsideres;
+                    m_iTailleFrequent = Math.max(2-m_iNombreItemsQuantConsideres, 0);          
+                    m_iIndiceFrequent = 0;
+                    m_iIndiceCombinaisonItemsQuant = 0;                
+                    m_iIndiceRepartitionItems = 0;
+                    m_bFinTestRegles = false;
+                    m_bModeSpecialComptabilisationRegles = false;
+        
                     if (m_indicateurCalcul != null)
-                        m_indicateurCalcul.EnvoyerInfo("\n\nComputing the number of rules to test...");
+                        //print the information of the context to the context text area
+                        m_indicateurCalcul.EnvoyerInfo( m_contexteResolution.ObtenirInfosContexte(false) );
 
-                    //number of rules to test
-                    iNombreReglesATester = ComptabiliserNombreMaxReglesTestees();
+                    while ( (m_bEnExecution) && (!m_bFinTestRegles) ) {
+                        //Calculate new rule
+                        CalculerNouvelleRegle();
 
-                    if (m_indicateurCalcul != null) {
-                        m_indicateurCalcul.IndiquerNombreReglesATester(iNombreReglesATester);
-                        m_indicateurCalcul.EnvoyerInfo(":  " + String.valueOf(iNombreReglesATester) + " rules.\n\n\n");
+                        try { sleep(1); }
+                        catch (InterruptedException e) {};
                     }
+
+                }
+            
+            }
+            catch (java.lang.OutOfMemoryError e) {
+                if (m_indicateurCalcul != null) {
+                    m_indicateurCalcul.EnvoyerInfo( "\n\n\nDEPASSEMENT DES CAPACITES MEMOIRE !" );
+                    m_indicateurCalcul.EnvoyerInfo( "\nPlease intensify filtering or reduce the minimum support...\n" );
                 }
             }
-
-
-            // Calculate the rules:
-            if (m_bEnExecution) {
-
-                m_iNombreItemsQuantConsideres = m_iMinimumItemsQuantConsideres;
-                m_iTailleFrequent = Math.max(2-m_iNombreItemsQuantConsideres, 0);          
-                m_iIndiceFrequent = 0;
-                m_iIndiceCombinaisonItemsQuant = 0;                
-                m_iIndiceRepartitionItems = 0;
-                m_bFinTestRegles = false;
-                m_bModeSpecialComptabilisationRegles = false;
-      
-                if (m_indicateurCalcul != null)
-                	//print the information of the context to the context text area
-                    m_indicateurCalcul.EnvoyerInfo( m_contexteResolution.ObtenirInfosContexte(false) );
-
-                while ( (m_bEnExecution) && (!m_bFinTestRegles) ) {
-                    //Calculate new rule
-                    CalculerNouvelleRegle();
-
-                    try { sleep(1); }
-                    catch (InterruptedException e) {};
-                }
-
-            }
-        
-        }
-        catch (java.lang.OutOfMemoryError e) {
-            if (m_indicateurCalcul != null) {
-                m_indicateurCalcul.EnvoyerInfo( "\n\n\nDEPASSEMENT DES CAPACITES MEMOIRE !" );
-                m_indicateurCalcul.EnvoyerInfo( "\nPlease intensify filtering or reduce the minimum support...\n" );
-            }
-        }
+            
+            
+            m_bResultatDisponible = true;
+            
+            //Calculation finishes
+            if ( (m_indicateurCalcul != null) && (m_bIndiquerFinCalcul) )
+                m_indicateurCalcul.IndiquerFinCalcul();
         
         
-        m_bResultatDisponible = true;
-        
-        //Calculation finishes
-        if ( (m_indicateurCalcul != null) && (m_bIndiquerFinCalcul) )
-            m_indicateurCalcul.IndiquerFinCalcul();
+            //increment m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreAssociationRules by 5
+            m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreAssociationRules += 5;
+
+       // }
     }
     //END OF RUN
 
@@ -435,6 +452,8 @@ public class RuleTester extends Thread { //test rules
             //create a new rule template
             regle = new AssociationRule(iNombreItemsGauche, iNombreItemsDroite, m_iNombreDisjonctionsGauche, m_iNombreDisjonctionsDroite);
 
+            regle.AssignerNombreAssociationRules(m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreAssociationRules);
+
             iIndiceAjoutGauche = 0;
             iIndiceAjoutDroite = 0;
 
@@ -494,14 +513,48 @@ public class RuleTester extends Thread { //test rules
                 
                 // Otherwise, optimise the rule:
                 else {
-                    if ( m_optimiseurCourant.OptimiseRegle(regle) )
-                        if ( m_listeRegles != null )
-                        { 
-                        	m_listeRegles.add(regle);
+                    for(int i=0; i<m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreAssociationRules; i++){
+                        if ( m_optimiseurCourant.OptimiseRegle(regle, i) ){
+                            if ( m_listeRegles != null )
+                            { 
+                                //We need to deep copy regle, or else the same regle shows up n times (since it's a shallow copy otherwise and everything would point to the same memory location / object)
+                                AssociationRule regleAdd = new AssociationRule(regle);
+                                
+                                m_listeRegles.add(regleAdd);
+                            }
+                    
+                        // On indique qu'on vient de tester une nouvelle forme de regle :
+                        // we indicate that we just tested a new form of rule:
                         }
-                
-                    // On indique qu'on vient de tester une nouvelle forme de regle :
-                    // we indicate that we just tested a new form of rule:
+                    }
+
+                    //if apply k means indicated
+                    if(m_contexteResolution.m_parametresReglesQuantitatives.m_applyKMeans >= 1){
+
+                        //the rules for that particular association (the last added)
+                        ArrayList rulesOfAssociation = new ArrayList(m_listeRegles.subList(m_listeRegles.size() - m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreAssociationRules, m_listeRegles.size()));
+
+                        if(m_listeCentroids != null){
+
+                            if(m_contexteResolution.m_parametresReglesQuantitatives.m_applyKMeans == 1){
+                                //Apply K-means
+                                KMeansClusterer kMeans = new KMeansClusterer(rulesOfAssociation, m_contexteResolution.m_parametresReglesQuantitatives);
+                                m_listeCentroids = kMeans.applyKMeansAlgo();
+                            }else if(m_contexteResolution.m_parametresReglesQuantitatives.m_applyKMeans == 2){
+                                //Apply G-means
+                                GMeansClusterer gMeans = new GMeansClusterer(rulesOfAssociation, m_contexteResolution.m_parametresReglesQuantitatives);
+                                m_listeCentroids = gMeans.applyGMeansAlgo();
+                            }
+
+                        }
+                        
+
+                        //Uncomment to test the rule proximities
+                        //double avg = kMeans.testRuleProximities();
+
+                    }
+                    
+
                     m_iNombreReglesTestees++;
                 }
                 
@@ -521,6 +574,7 @@ public class RuleTester extends Thread { //test rules
 
     
     public AssociationRule ObtenirRegleCalculee(int iIndiceRegle) {
+
         if (m_listeRegles != null)
         {
             try {
@@ -533,7 +587,30 @@ public class RuleTester extends Thread { //test rules
         else
             return null;
     }
+    
 
+    public Centroid ObtenirCentroidCalculee(int iIndiceRegle){
+        if (m_listeCentroids != null)
+        {
+            try {
+                return (Centroid)(m_listeCentroids.get(iIndiceRegle));
+            }
+            catch (IndexOutOfBoundsException e) {
+                return null;
+            }
+        }
+        else
+            return null;
+    }
+
+    public ArrayList ObtenirListOfCentroids(){
+        if (m_listeCentroids != null)
+        {
+            return m_listeCentroids;
+        }
+        else
+            return null;
+    }
     
     
     public ArrayList ObtenirListeReglesOptimales() {

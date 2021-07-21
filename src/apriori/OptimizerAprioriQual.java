@@ -45,7 +45,8 @@ public class OptimizerAprioriQual extends RuleOptimizer {
     
     
     // Outrepassement de la fonction d'optimisation :
-    public boolean OptimiseRegle(AssociationRule regle) {
+    //int i not used but needed in abstract class for OptimizerGeneticAlgorithm
+    public boolean OptimiseRegle(AssociationRule regle, int i) {
         int iNombreItemsQuantitatifs = 0;
        
         if (regle == null)

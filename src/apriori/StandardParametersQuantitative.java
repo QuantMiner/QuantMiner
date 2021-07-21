@@ -34,6 +34,8 @@ public class StandardParametersQuantitative {
     public int m_iNombreDisjonctionsGauche = 0;  //# of allowed OR in the rule on the right side
     public int m_iNombreDisjonctionsDroite = 0;  //# of allowed OR in the rule on the left side
     public float m_fMinSuppDisjonctions = 0.0f;  //support threshold for additional intervals 
+    public int m_iNombreAssociationRules = 1; //# of top association rules to show 
+    public int m_applyKMeans = 0; // 0 = no; 1 = yes to applying k-means (no = keep top fitness rules)
     
     
     public StandardParametersQuantitative() {
@@ -44,6 +46,8 @@ public class StandardParametersQuantitative {
         m_iNombreDisjonctionsGauche = 1;
         m_iNombreDisjonctionsDroite = 1;
         m_fMinSuppDisjonctions = DEFAUT_MINSUPP_DISJONCTIONS;
+        m_iNombreAssociationRules = 1;
+        m_applyKMeans = 0;
     }
         
     public String toString() {
@@ -57,6 +61,15 @@ public class StandardParametersQuantitative {
         sParametres += "Number of disjunctions allowed in the left-hand side: " + String.valueOf(m_iNombreDisjonctionsGauche) + "\n";
         sParametres += "Number of disjunctions allowed in the right-hand side: " + String.valueOf(m_iNombreDisjonctionsDroite) + "\n";
         sParametres += "Minimal support for the additional interval: " + String.valueOf(m_fMinSuppDisjonctions) + "\n";
+        sParametres += "Number of top rules per association: " + String.valueOf(m_iNombreAssociationRules) + "\n";
+        
+        if (m_applyKMeans == 1){
+            sParametres += "Apply clustering: Yes (k-means)\n";
+        }else if (m_applyKMeans == 2){
+            sParametres += "Apply clustering: Yes (g-means)\n";
+        }else{
+            sParametres += "Apply clustering: No (top fitness only)\n";
+        }
        
         return sParametres;
     }

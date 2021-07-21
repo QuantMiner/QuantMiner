@@ -59,6 +59,18 @@ public class PanelQuantitativeRuleParam extends PanelBaseParam {//step 3 rule pa
             jComboDisjonctionsDroite.setSelectedIndex(m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreDisjonctionsDroite - 1);
         else
             jComboDisjonctionsDroite.setSelectedIndex(0);
+
+        if (  (m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreAssociationRules>0)
+            &&(m_contexteResolution.m_parametresReglesQuantitatives.m_iNombreAssociationRules<=10) )
+            jComboNumAssociationRules.setSelectedIndex(0);
+        else
+            jComboNumAssociationRules.setSelectedIndex(0);
+            
+        if (  (m_contexteResolution.m_parametresReglesQuantitatives.m_applyKMeans>0)
+            &&(m_contexteResolution.m_parametresReglesQuantitatives.m_applyKMeans<=2) )
+            jComboApplyKMeans.setSelectedIndex(m_contexteResolution.m_parametresReglesQuantitatives.m_applyKMeans);
+        else
+            jComboApplyKMeans.setSelectedIndex(0);
         
         jTextSupportSupplementaire.setText( ResolutionContext.EcrirePourcentage(m_contexteResolution.m_parametresReglesQuantitatives.m_fMinSuppDisjonctions, 3, false) );
     }
@@ -78,6 +90,13 @@ public class PanelQuantitativeRuleParam extends PanelBaseParam {//step 3 rule pa
         jLabelDisjonctionsDroite = new javax.swing.JLabel();
         jComboDisjonctionsGauche = new javax.swing.JComboBox();
         jComboDisjonctionsDroite = new javax.swing.JComboBox();
+
+        //is it ok that this is in english and the rest is in french?
+        jLabelNumAssociationRules = new javax.swing.JLabel();
+        jLabelApplyKMeans = new javax.swing.JLabel();
+        jComboNumAssociationRules = new javax.swing.JComboBox();
+        jComboApplyKMeans = new javax.swing.JComboBox();
+
         jLabelMiniQuants = new javax.swing.JLabel();
         jTextMiniQuants = new javax.swing.JTextField();
         jLabelMaxiQuants = new javax.swing.JLabel();
@@ -91,7 +110,8 @@ public class PanelQuantitativeRuleParam extends PanelBaseParam {//step 3 rule pa
 
         setLayout(null);
 
-        setPreferredSize(new java.awt.Dimension(570, 237));
+        //added +30 * 2to 237 because of extra 30-height row for number of top association rules to show and apply k-means to show
+        setPreferredSize(new java.awt.Dimension(570, 297));
         jTextFieldSupport.setInputVerifier(new ToolsInterface.VerifieurTextFieldIntervalleFloat(0.0f, 100.0f));
         add(jTextFieldSupport);
         jTextFieldSupport.setBounds(190, 20, 100, 19);
@@ -146,6 +166,22 @@ public class PanelQuantitativeRuleParam extends PanelBaseParam {//step 3 rule pa
         add(jTextSupportSupplementaire);
         jTextSupportSupplementaire.setBounds(400, 200, 100, 19);
 
+        jLabelNumAssociationRules.setText("Number of top rules per association (fitness):");
+        add(jLabelNumAssociationRules);
+        jLabelNumAssociationRules.setBounds(20, 230, 380, 14);
+
+        jComboNumAssociationRules.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "1 (top cluster)", "2", "3", "4", "5", "6", "7", "8", "9", "10" }));
+        add(jComboNumAssociationRules);
+        jComboNumAssociationRules.setBounds(400, 230, 150, 20);
+
+        jLabelApplyKMeans.setText("Apply clustering algorithm:");
+        add(jLabelApplyKMeans);
+        jLabelApplyKMeans.setBounds(20, 260, 380, 14);
+
+        jComboApplyKMeans.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "No (top fitness only)", "Yes (k-means)", "Yes (g-means)"}));
+        add(jComboApplyKMeans);
+        jComboApplyKMeans.setBounds(400, 260, 150, 20);
+
         add(jSeparatorDisjonctions);
         jSeparatorDisjonctions.setBounds(20, 125, 530, 10);
 
@@ -195,11 +231,16 @@ public class PanelQuantitativeRuleParam extends PanelBaseParam {//step 3 rule pa
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    //Note: CASSANDRA MODIFIED - ADDED jLabelNumAssociationRules
     private javax.swing.JButton jButtonDefautConfiance;
     private javax.swing.JButton jButtonDefautSupport;
     private javax.swing.JButton jButtonDefautSupportDisjonctions;
     private javax.swing.JComboBox jComboDisjonctionsDroite;
     private javax.swing.JComboBox jComboDisjonctionsGauche;
+    private javax.swing.JComboBox jComboNumAssociationRules;
+    private javax.swing.JComboBox jComboApplyKMeans;
+    private javax.swing.JLabel jLabelNumAssociationRules;
+    private javax.swing.JLabel jLabelApplyKMeans;
     private javax.swing.JLabel jLabelConfiance;
     private javax.swing.JLabel jLabelDisjonctionsDroite;
     private javax.swing.JLabel jLabelDisjonctionsGauche;
@@ -227,7 +268,9 @@ public class PanelQuantitativeRuleParam extends PanelBaseParam {//step 3 rule pa
         int iNombreMinAttributsQuant = 0;
         int iNombreDisjonctionsGauche = 0;
         int iNombreDisjonctionsDroite = 0;
+        int iNombreAssociationRules = 0;
         float fMinSuppDisjonctions = 0.0f;
+        int applyKMeans = 0;
         
         
         parametresReglesQuantitatives = m_contexteResolution.m_parametresReglesQuantitatives;
@@ -277,7 +320,30 @@ public class PanelQuantitativeRuleParam extends PanelBaseParam {//step 3 rule pa
         if ( (iNombreDisjonctionsDroite<0) || (iNombreDisjonctionsDroite>=10) )
             iNombreDisjonctionsDroite = 0;
         parametresReglesQuantitatives.m_iNombreDisjonctionsDroite = iNombreDisjonctionsDroite + 1;
+
+            
+        applyKMeans = jComboApplyKMeans.getSelectedIndex();
+        if ( (applyKMeans<0) || (applyKMeans>=3) )
+            applyKMeans = 0;
+        parametresReglesQuantitatives.m_applyKMeans = applyKMeans;
+
+        // If we are using k means, we want to have 1000x more rules tested
+        // We want to test the values of k incremented by 5 - from 5 to 100
+        if(applyKMeans >= 1){
+            iNombreAssociationRules = (jComboNumAssociationRules.getSelectedIndex() + 1) * 9;
+            if ( (iNombreAssociationRules<0) || (iNombreAssociationRules>=91) )
+                 iNombreAssociationRules = 1;
+
+        }else{
+            iNombreAssociationRules = jComboNumAssociationRules.getSelectedIndex();
+            if ( (iNombreAssociationRules<0) || (iNombreAssociationRules>=10) )
+                iNombreAssociationRules = 1;
+
+            iNombreAssociationRules++;
+        }
         
+        parametresReglesQuantitatives.m_iNombreAssociationRules = iNombreAssociationRules;
+
         try {
             fMinSuppDisjonctions = (float) ( Double.parseDouble( jTextSupportSupplementaire.getText() ) / 100.0 );
             parametresReglesQuantitatives.m_fMinSuppDisjonctions = fMinSuppDisjonctions;

@@ -49,7 +49,6 @@ public class ResolutionContext {
     public static final int TECHNIQUE_RECUIT_SIMULE = 3;     //simulated annealing algorithm
     public static final int TECHNIQUE_CHARGEMENT = 4;        //load rule file
     
-    
     // Indicate the position of each item in the association rule:
     public static final int PRISE_EN_COMPTE_INDEFINI = 0;         //undefined
     public static final int PRISE_EN_COMPTE_ITEM_NULLE_PART = 1;  //no where
@@ -667,7 +666,8 @@ public class ResolutionContext {
                 fluxFichier.writeInt(m_parametresReglesQuantitatives.m_iNombreMinAttributsQuant);   //min # of numerical attri 
                 fluxFichier.writeInt(m_parametresReglesQuantitatives.m_iNombreMaxAttributsQuant);   //max # of numerical attri in the rule
                 fluxFichier.writeFloat(m_parametresReglesQuantitatives.m_fMinSuppDisjonctions);     //support threshold for additional interval
-                
+                fluxFichier.writeFloat(m_parametresReglesQuantitatives.m_iNombreAssociationRules);  // # of rules per association to use
+
                 // Technique Parameter about generic algorithm:
                 fluxFichier.writeInt(m_parametresTechAlgoGenetique.m_iTaillePopulation);
                 fluxFichier.writeInt(m_parametresTechAlgoGenetique.m_iNombreGenerations);
@@ -694,6 +694,7 @@ public class ResolutionContext {
                 fluxFichier.writeInt(m_parametresReglesQuantitatives.m_iNombreMinAttributsQuant);
                 fluxFichier.writeInt(m_parametresReglesQuantitatives.m_iNombreMaxAttributsQuant);
                 fluxFichier.writeFloat(m_parametresReglesQuantitatives.m_fMinSuppDisjonctions);
+                fluxFichier.writeFloat(m_parametresReglesQuantitatives.m_iNombreAssociationRules);  // # of rules per association to use
                 
                 // Parameters about that technique :
                 fluxFichier.writeInt(m_parametresTechRecuitSimule.m_iNombreIterations);
@@ -912,6 +913,7 @@ public class ResolutionContext {
                     m_parametresReglesQuantitatives.m_iNombreMinAttributsQuant = fluxFichier.readInt();
                     m_parametresReglesQuantitatives.m_iNombreMaxAttributsQuant = fluxFichier.readInt();
                     m_parametresReglesQuantitatives.m_fMinSuppDisjonctions = fluxFichier.readFloat();
+                    m_parametresReglesQuantitatives.m_iNombreAssociationRules = fluxFichier.readInt();  // # of rules per association to use
                     
                     // Param�tres concernant la technique :  parameters related to the technique
                     m_parametresTechAlgoGenetique.m_iTaillePopulation = fluxFichier.readInt();
@@ -935,6 +937,7 @@ public class ResolutionContext {
                     m_parametresReglesQuantitatives.m_iNombreMinAttributsQuant = fluxFichier.readInt();
                     m_parametresReglesQuantitatives.m_iNombreMaxAttributsQuant = fluxFichier.readInt();
                     m_parametresReglesQuantitatives.m_fMinSuppDisjonctions = fluxFichier.readFloat();
+                    m_parametresReglesQuantitatives.m_iNombreAssociationRules = fluxFichier.readInt();  // # of rules per association to use
                     
                     // Param�tres concernant la technique : parameters related to the technique
                     m_parametresTechRecuitSimule.m_iNombreIterations = fluxFichier.readInt();
@@ -1461,9 +1464,13 @@ public class ResolutionContext {
             }
 
             // Ajout de la r�gle si celle-ci est valide :
-            if (bRegleValide)
-                if (EstRegleValide(regle))
+            //Adding the rule to m_listeRegles (- change from top 1 to top 'n' added)
+            if (bRegleValide){
+                if (EstRegleValide(regle)){
                     m_listeRegles.add(regle);
+                }
+            }
+
         }
         
         try {

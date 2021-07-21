@@ -61,11 +61,9 @@ public abstract class EvaluationBaseAlgorithm {
         public int m_iSupportCond = 0;
         public int m_iNombreTotalIntervalles = 0;
         
-
-        
         public ReglePotentielle(int iDimension, int iNombreTotalIntervalles) {
             int iIndiceDimension = 0;
-           
+
             m_iDimension = iDimension;
             m_iNombreTotalIntervalles = iNombreTotalIntervalles;
                    
@@ -135,7 +133,7 @@ public abstract class EvaluationBaseAlgorithm {
     
     protected int m_iNombreReglesPotentielles = 0;
     protected ReglePotentielle [] m_tReglesPotentielles = null;        //potential rules
-    protected ReglePotentielle m_meilleureReglePotentielle = null;     //best potential rule (only one, maybe change it to an array)
+    protected ReglePotentielle [] m_meilleureReglePotentielle = null;   //array of the best potential rules (fitness) - added by Cassandra
     protected ReglePotentielle m_derniereReglePotentielleValide = null; //last valid potential rule
     protected DatabaseAdmin m_gestionBD = null;
 
@@ -157,8 +155,6 @@ public abstract class EvaluationBaseAlgorithm {
     protected boolean m_bPrendreEnCompteQuantitatifsDroite = false;
     protected int m_iSupportCumuleCond = 0;
     protected int m_iSupportCumuleRegle = 0;
-    
-    
     
     protected AssociationRule m_schemaRegleOptimale = null;    // R�gle que l'algorithme doit optimiser en trouvant les meilleures bornes pour chaque intervalle    
     
@@ -212,7 +208,7 @@ public abstract class EvaluationBaseAlgorithm {
         m_schemaRegleOptimale = null;
         
         m_tReglesPotentielles = new ReglePotentielle [m_iNombreReglesPotentielles];
-        m_meilleureReglePotentielle = null;
+
         m_derniereReglePotentielleValide = null;
         
         m_iNombreTotalIntervalles = 0;
@@ -307,8 +303,9 @@ public abstract class EvaluationBaseAlgorithm {
         DataColumn colonneDonnees = null;
        
         // Lors des passes suppl�mentaires, on conserve les intervalles d�j� trait�s de la meilleure r�gle :
+        // During the additional passes, the intervals already treated are kept as best as possible:
         if ( (!m_bPrendreEnCompteQuantitatifsGauche) || (!m_bPrendreEnCompteQuantitatifsDroite) )
-            reglePotentielle.Copier(m_meilleureReglePotentielle);
+            reglePotentielle.Copier(m_meilleureReglePotentielle[0]);
         
         
         for (iIndiceDimension=0;iIndiceDimension<m_iDimension;iIndiceDimension++) {
@@ -356,10 +353,9 @@ public abstract class EvaluationBaseAlgorithm {
 
     }    
     
-    
-    
-    
+    //these are the rules we will evolve
     public void GenererReglesPotentiellesInitiales() {
+
         int iIndiceReglePotentielle = 0;
         ReglePotentielle reglePotentielle = null;
        
@@ -375,21 +371,30 @@ public abstract class EvaluationBaseAlgorithm {
             m_tReglesPotentielles[iIndiceReglePotentielle] = reglePotentielle;
             m_tReglesPotentiellesAEvaluer[iIndiceReglePotentielle] = reglePotentielle;
         }
+
+        //creation the best top m_meilleureReglePotentielle.length rules
+        //I'm unsure about this logic.
+        //and also about ther support and confidence that show up for the top n rules.
+        for(int i=0; i<m_meilleureReglePotentielle.length; i++){
+            // Cr�ation de la r�gle potentielle repr�sentant celle qui a eu la meilleure qualit� trouv�e jusqu'alors :
+            // creation of the potential rule with the best quality so far
+            m_meilleureReglePotentielle[i] = new ReglePotentielle(m_iDimension, m_iNombreTotalIntervalles);
+            
+            // Cr�ation d'un r�gle potentielle destin�e � m�moriser la meilleure r�gle trouv�e jusqu'alors
+            // lors des multiples passes pour obtenir des r�gles disjonctives :
+            m_derniereReglePotentielleValide = new ReglePotentielle(m_iDimension, m_iNombreTotalIntervalles);
+            
+            m_iNombreReglesPotentiellesAEvaluer = m_iNombreReglesPotentielles;    
+            EvaluerReglesPotentielles();
+            
+            // On force la m�morisation de la meilleure r�gle initiale :
+            //we keep the best initial rule
+           // m_meilleureReglePotentielle[i].Copier(m_tReglesPotentielles[m_iNombreReglesPotentielles-1]);
+            m_meilleureReglePotentielle[i].Copier(m_tReglesPotentielles[m_iNombreReglesPotentielles - 1 - i]);
+
+        }
     
-        // Cr�ation de la r�gle potentielle repr�sentant celle qui a eu la meilleure qualit� trouv�e jusqu'alors :
-        // creation of the potential rule with the best quality so far
-        m_meilleureReglePotentielle = new ReglePotentielle(m_iDimension, m_iNombreTotalIntervalles);
-        
-        // Cr�ation d'un r�gle potentielle destin�e � m�moriser la meilleure r�gle trouv�e jusqu'alors
-        // lors des multiples passes pour obtenir des r�gles disjonctives :
-        m_derniereReglePotentielleValide = new ReglePotentielle(m_iDimension, m_iNombreTotalIntervalles);
-        
-        m_iNombreReglesPotentiellesAEvaluer = m_iNombreReglesPotentielles;    
-        EvaluerReglesPotentielles();
-        
-        // On force la m�morisation de la meilleure r�gle initiale :
-        //we keep the best initial rule
-        m_meilleureReglePotentielle.Copier(m_tReglesPotentielles[m_iNombreReglesPotentielles-1]);
+
     }
 
     
@@ -485,6 +490,8 @@ public abstract class EvaluationBaseAlgorithm {
         // M�morisation du sch�ma de la r�gle :
         m_schemaRegleOptimale = new AssociationRule(regle);
         
+        //System.out.println("m_schemaRegleOptimale.m_iNombreAssociationRules: " + m_schemaRegleOptimale.m_iNombreAssociationRules); 
+        m_meilleureReglePotentielle = new ReglePotentielle [m_schemaRegleOptimale.m_iNombreAssociationRules];
         
         // M�morisation d'informations sur le sch�ma de la r�gle :
         m_iDimension = m_iNombreItemsQuantCond + m_iNombreItemsQuantObj;
@@ -561,19 +568,14 @@ public abstract class EvaluationBaseAlgorithm {
             m_tLignesCouvertesGauche[iIndiceLigneDonnees] = false;
             m_tLignesCouvertesDroite[iIndiceLigneDonnees] = false;
         }
-
-/*
-        
-        m_tItemsQuantCond[iIndiceItem].m_colonneDonnees.m_tValeurReelle[iIndiceLigneDonnees]
-        
-        m_tIndicesLignesTrieesAttributQuant
-*/        
+       
     }
     
     
     
     
     // Prend en compte une nouvelle disjonction et relance l'algorithme :
+    // Take into account a new disjunction and relaunch the algorithm:
     public boolean InitierNouvellePasse() {
         boolean bProchainePassePrivilegieDroite = false;
         int [] tNouvellesLignesAPrendreEnCompte = null;
@@ -595,11 +597,12 @@ public abstract class EvaluationBaseAlgorithm {
         
         
         // Si aucune disjonction ne doit appara�tre dans la r�gle, on peut arr�ter l'algorithme :
+        // If no disjunction should appear in the rule, we can stop the algorithm:
         if (  (m_schemaRegleOptimale.m_iNombreDisjonctionsGauche == 1)
             &&(m_schemaRegleOptimale.m_iNombreDisjonctionsDroite == 1)  ) {
                 
-            m_iSupportCumuleCond = m_meilleureReglePotentielle.m_iSupportCond;
-            m_iSupportCumuleRegle = m_meilleureReglePotentielle.m_iSupportRegle;
+            m_iSupportCumuleCond = m_meilleureReglePotentielle[0].m_iSupportCond;
+            m_iSupportCumuleRegle = m_meilleureReglePotentielle[0].m_iSupportRegle;
             
             return false;
         }
@@ -610,8 +613,13 @@ public abstract class EvaluationBaseAlgorithm {
 
         
         // On v�rifie que la nouvelle passe a produit une r�gle de bonne qualit�, sinon on ne la prend pas en compte :
-        bNouvelleRegleEstSolide = (  ( ((float)m_meilleureReglePotentielle.m_iSupportRegle) >= m_fMinSupp*((float)m_iNombreTransactions) )
-                                   &&( ((float)m_meilleureReglePotentielle.m_iSupportRegle) >= m_fMinConf*((float)m_meilleureReglePotentielle.m_iSupportCond) )  );
+        // We check that the new pass has produced a rule of good quality, otherwise we do not take it into account:
+        /*
+        Question - just use first rule out of the top n? I think it's ok becuase the first rule and the other (n-1) are all pretty similar, so if we check the 
+        quality of the first rule of them, I think this is a pretty good determination of the quality of the rest of the rules.
+        */
+        bNouvelleRegleEstSolide = (  ( ((float)m_meilleureReglePotentielle[0].m_iSupportRegle) >= m_fMinSupp*((float)m_iNombreTransactions) )
+                                   &&( ((float)m_meilleureReglePotentielle[0].m_iSupportRegle) >= m_fMinConf*((float)m_meilleureReglePotentielle[0].m_iSupportCond) )  );
 
         if (bNouvelleRegleEstSolide) {
            
@@ -647,6 +655,7 @@ public abstract class EvaluationBaseAlgorithm {
                 bItemObjCouvertReglePotentielle = m_tLignesCouvertesDroite[iIndiceLigneDonnees];                
 
                 // Test des valeurs quantitatives dans la partie gauche de la r�gle :
+                //UNSURE ABOUT HARDCODING [0] HERE....
                 if (m_bPrendreEnCompteQuantitatifsGauche) {
 
                     bItemCondCouvertReglePotentielle = true;
@@ -654,8 +663,8 @@ public abstract class EvaluationBaseAlgorithm {
                     iIndiceIntervalle = m_iDisjonctionGaucheCourante;
                     while ( bItemCondCouvertReglePotentielle && (iIndiceDimension<m_iNombreItemsQuantCond) ) {
                         fValeurReelle = m_tItemsQuantCond[iIndiceDimension].m_colonneDonnees.m_tValeurReelle[iIndiceLigneDonnees];
-                        bItemCondCouvertReglePotentielle =    ( fValeurReelle >= m_meilleureReglePotentielle.m_tIntervalleMin[iIndiceIntervalle] )
-                                                           && ( fValeurReelle <= m_meilleureReglePotentielle.m_tIntervalleMax[iIndiceIntervalle] );
+                        bItemCondCouvertReglePotentielle =    ( fValeurReelle >= m_meilleureReglePotentielle[0].m_tIntervalleMin[iIndiceIntervalle] )
+                                                           && ( fValeurReelle <= m_meilleureReglePotentielle[0].m_tIntervalleMax[iIndiceIntervalle] );
                         iIndiceDimension++;
                         iIndiceIntervalle += m_schemaRegleOptimale.m_iNombreDisjonctionsGauche;
                     } 
@@ -679,8 +688,8 @@ public abstract class EvaluationBaseAlgorithm {
                     iIndiceIntervalle = m_iDebutIntervallesDroite + m_iDisjonctionDroiteCourante;
                     while ( bItemObjCouvertReglePotentielle && (iIndiceDimension<m_iDimension) ) {
                         fValeurReelle = m_tItemsQuantObj[iIndiceDimension-m_iNombreItemsQuantCond].m_colonneDonnees.m_tValeurReelle[iIndiceLigneDonnees];
-                        bItemObjCouvertReglePotentielle =    ( fValeurReelle >= m_meilleureReglePotentielle.m_tIntervalleMin[iIndiceIntervalle] )
-                                                            && ( fValeurReelle <= m_meilleureReglePotentielle.m_tIntervalleMax[iIndiceIntervalle] );
+                        bItemObjCouvertReglePotentielle =    ( fValeurReelle >= m_meilleureReglePotentielle[0].m_tIntervalleMin[iIndiceIntervalle] )
+                                                            && ( fValeurReelle <= m_meilleureReglePotentielle[0].m_tIntervalleMax[iIndiceIntervalle] );
                         iIndiceDimension++;
                         iIndiceIntervalle += m_schemaRegleOptimale.m_iNombreDisjonctionsDroite;
                     }
@@ -726,7 +735,7 @@ public abstract class EvaluationBaseAlgorithm {
                     m_iNombreDisjonctionsDroiteValides++;
                 
                 // On m�morise la meilleure r�gle trouv�e jusqu'ici :
-                m_derniereReglePotentielleValide.Copier(m_meilleureReglePotentielle);
+                m_derniereReglePotentielleValide.Copier(m_meilleureReglePotentielle[0]);
                 
             }
             // Sinon on ne tient pas compte de la nouvelle r�gle et on restaure l'�tat pr�c�dent :
@@ -754,11 +763,11 @@ public abstract class EvaluationBaseAlgorithm {
             // On restaure la derni�re r�gle valide (si celle-ci existe) :
             
             if (!bPremierePasse)
-                m_meilleureReglePotentielle.Copier(m_derniereReglePotentielleValide);
+                m_meilleureReglePotentielle[0].Copier(m_derniereReglePotentielleValide);
             else {
                 // Mise � jour n�cessaires si la premi�re r�gle trouv�e n'�tait pas valide :
-                m_iSupportCumuleCond = m_meilleureReglePotentielle.m_iSupportCond;
-                m_iSupportCumuleRegle = m_meilleureReglePotentielle.m_iSupportRegle;
+                m_iSupportCumuleCond = m_meilleureReglePotentielle[0].m_iSupportCond;
+                m_iSupportCumuleRegle = m_meilleureReglePotentielle[0].m_iSupportRegle;
             }
             
         }
@@ -816,7 +825,7 @@ public abstract class EvaluationBaseAlgorithm {
             m_iNombreReglesPotentiellesAEvaluer = m_iNombreReglesPotentielles;    
             EvaluerReglesPotentielles();
 
-            m_meilleureReglePotentielle.Copier(m_tReglesPotentielles[m_iNombreReglesPotentielles-1]);
+            m_meilleureReglePotentielle[0].Copier(m_tReglesPotentielles[m_iNombreReglesPotentielles-1]);
 
             return true;
         }
@@ -960,18 +969,19 @@ public abstract class EvaluationBaseAlgorithm {
         // Tous les indices de qualit� sont maintenant � jour :
         m_iNombreReglesPotentiellesAEvaluer = 0;
         
-        
         // Tri croissant par quality :        
         Arrays.sort(m_tReglesPotentielles);
         
         
         // M�morisation de la meilleure r�gle potentielle :
-        if (m_tReglesPotentielles[m_iNombreReglesPotentielles-1].m_fQualite >= m_meilleureReglePotentielle.m_fQualite)
-            m_meilleureReglePotentielle.Copier(m_tReglesPotentielles[m_iNombreReglesPotentielles-1]);
+        // Memorization of the best potential rule:
+        if (m_tReglesPotentielles[m_iNombreReglesPotentielles-1].m_fQualite >= m_meilleureReglePotentielle[0].m_fQualite)
+            m_meilleureReglePotentielle[0].Copier(m_tReglesPotentielles[m_iNombreReglesPotentielles-1]);
     }
 
-    
-    public AssociationRule ObtenirMeilleureRegle() {
+    //obtain the best rule
+    //adding index so we can get the best rule at the index - (index + 1)th best rule
+    public AssociationRule ObtenirMeilleureRegle(int index) {
         Item item = null;
         ItemQualitative itemQual = null;
         ItemQuantitative itemQuant = null;
@@ -985,17 +995,19 @@ public abstract class EvaluationBaseAlgorithm {
             return null;
 
         // Determination des bornes optimales dans la partie gauche de la r�gle :
+        // Determination of the optimal bounds in the left part of the rule:
         
         iIndiceIntervalleReglePotentielle = 0;
         iIndiceItemQuant = 0;
         for (iIndiceItem = 0; iIndiceItem < m_schemaRegleOptimale.m_iNombreItemsGauche; iIndiceItem++) {
             
             item = m_schemaRegleOptimale.ObtenirItemGauche(iIndiceItem);
+            
             if (item.m_iTypeItem == Item.ITEM_TYPE_QUANTITATIF) {
                 itemQuant = (ItemQuantitative)item;  
                 for (iIndiceDisjonction = 0; iIndiceDisjonction < m_iNombreDisjonctionsGaucheValides; iIndiceDisjonction++) {
-                    itemQuant.m_tBornes[iIndiceDisjonction*2] = m_meilleureReglePotentielle.m_tIntervalleMin[iIndiceIntervalleReglePotentielle];
-                    itemQuant.m_tBornes[iIndiceDisjonction*2+1] = m_meilleureReglePotentielle.m_tIntervalleMax[iIndiceIntervalleReglePotentielle];
+                    itemQuant.m_tBornes[iIndiceDisjonction*2] = m_meilleureReglePotentielle[index].m_tIntervalleMin[iIndiceIntervalleReglePotentielle];
+                    itemQuant.m_tBornes[iIndiceDisjonction*2+1] = m_meilleureReglePotentielle[index].m_tIntervalleMax[iIndiceIntervalleReglePotentielle];
                     iIndiceIntervalleReglePotentielle++;
                 }
                 iIndiceItemQuant++;
@@ -1006,17 +1018,19 @@ public abstract class EvaluationBaseAlgorithm {
             
         
         // Determination des bornes optimales dans la partie droite de la regle :
-        
+        // Determination of the optimal bounds in the right part of the rule:
+
         iIndiceIntervalleReglePotentielle = this.m_iDebutIntervallesDroite;
         iIndiceItemQuant = m_iNombreItemsQuantCond;
         for (iIndiceItem=0;iIndiceItem<m_schemaRegleOptimale.m_iNombreItemsDroite;iIndiceItem++) {
-            
+
             item = m_schemaRegleOptimale.ObtenirItemDroite(iIndiceItem);
+
             if (item.m_iTypeItem == Item.ITEM_TYPE_QUANTITATIF) {
                 itemQuant = (ItemQuantitative)item;  
                 for (iIndiceDisjonction=0; iIndiceDisjonction<m_iNombreDisjonctionsDroiteValides; iIndiceDisjonction++) {
-                    itemQuant.m_tBornes[iIndiceDisjonction*2] = m_meilleureReglePotentielle.m_tIntervalleMin[iIndiceIntervalleReglePotentielle];
-                    itemQuant.m_tBornes[iIndiceDisjonction*2+1] = m_meilleureReglePotentielle.m_tIntervalleMax[iIndiceIntervalleReglePotentielle];
+                    itemQuant.m_tBornes[iIndiceDisjonction*2] = m_meilleureReglePotentielle[index].m_tIntervalleMin[iIndiceIntervalleReglePotentielle];
+                    itemQuant.m_tBornes[iIndiceDisjonction*2+1] = m_meilleureReglePotentielle[index].m_tIntervalleMax[iIndiceIntervalleReglePotentielle];
                     iIndiceIntervalleReglePotentielle++;
                 }
                 iIndiceItemQuant++;
@@ -1028,22 +1042,23 @@ public abstract class EvaluationBaseAlgorithm {
         m_schemaRegleOptimale.m_iNombreDisjonctionsGaucheValides = this.m_iNombreDisjonctionsGaucheValides;
         m_schemaRegleOptimale.m_iNombreDisjonctionsDroiteValides = this.m_iNombreDisjonctionsDroiteValides;
         
-        m_meilleureReglePotentielle.m_iSupportCond = m_iSupportCumuleCond;
-        m_meilleureReglePotentielle.m_iSupportRegle = m_iSupportCumuleRegle;
+        m_meilleureReglePotentielle[index].m_iSupportCond = m_iSupportCumuleCond;
+        m_meilleureReglePotentielle[index].m_iSupportRegle = m_iSupportCumuleRegle;
         
-        m_schemaRegleOptimale.AssignerNombreOccurrences( m_meilleureReglePotentielle.m_iSupportRegle );
-        m_schemaRegleOptimale.AssignerSupport( ((float)m_meilleureReglePotentielle.m_iSupportRegle) / ((float)m_iNombreTransactions) );
+        //This is where the best rule's support and confidence are assigned
+
+        m_schemaRegleOptimale.AssignerNombreOccurrences( m_meilleureReglePotentielle[index].m_iSupportRegle );
+        m_schemaRegleOptimale.AssignerSupport( ((float)m_meilleureReglePotentielle[index].m_iSupportRegle) / ((float)m_iNombreTransactions) );
         
-        if (m_meilleureReglePotentielle.m_iSupportCond > 0)
-            fConfianceRegle = ((float)m_meilleureReglePotentielle.m_iSupportRegle) / ((float)m_meilleureReglePotentielle.m_iSupportCond);
+        if (m_meilleureReglePotentielle[index].m_iSupportCond > 0)
+            fConfianceRegle = ((float)m_meilleureReglePotentielle[index].m_iSupportRegle) / ((float)m_meilleureReglePotentielle[index].m_iSupportCond);
         else
             fConfianceRegle = 0.0f;
         m_schemaRegleOptimale.AssignerConfiance(fConfianceRegle);
-       
+
         return m_schemaRegleOptimale;
     }
-    
-     
+
     
     public int ObtenirMeilleurSupportCourant() {
         return m_tReglesPotentielles[m_iNombreReglesPotentielles-1].m_iSupportRegle;
